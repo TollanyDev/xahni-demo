@@ -1,0 +1,227 @@
+/* ═══════════════════════════════════════════════════════════════════════
+ * css/core/calendario.css · Pattern `.cal-*` para Calendario rediseño
+ * Source mockup: docs/superpowers/mockups/2026-06-02-calendario-rediseno.html
+ * Consumers: js/estudiante/hub-calendario.js + js/profesor/hub-calendario.js
+ *   (delegan en helpers `_cal*` de js/core/builders-core.js)
+ * Slice: 2026-06-02 calendario rediseño cross-rol
+ *
+ * Patrón de scope:
+ *   .cal-wrapper { /* base */ }
+ *   [data-gamer="on"]  .cal-* { /* overrides modo gamer */ }
+ *   [data-gamer="off"] .cal-* { /* overrides modo concentración */ }
+ *   [data-rol="profesor"] .cal-* { /* densidad bumpeada profesor */ }
+ *
+ * Cero `!important`. Cero tokens inventados (validados contra variables.css).
+ * ═══════════════════════════════════════════════════════════════════════ */
+
+.cal-wrapper {
+  display: flex; flex-direction: column; gap: 14px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Body 50/50: mini grid izquierda · agenda+legend stack derecha.
+   Permite que el calendario entre en viewport sin scroll en >720px.
+   En mobile colapsa a 1 columna. */
+.cal-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(20px, 2vw, 36px);
+  padding: 0 16px 14px;
+  align-items: start;
+}
+.cal-side {
+  display: flex; flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+@media (max-width: 720px) {
+  .cal-body { grid-template-columns: 1fr; }
+}
+
+.cal-header {
+  display: flex; align-items: center;
+  gap: 10px; padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--border);
+}
+.cal-header__nav { display: flex; gap: 4px; flex-shrink: 0; }
+.cal-header__nav-btn {
+  width: 30px; height: 30px; border-radius: var(--r-sm);
+  border: 1px solid var(--border); background: var(--surface-2);
+  color: var(--text-secondary); cursor: pointer;
+  font-size: 16px; line-height: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: var(--transition);
+}
+.cal-header__nav-btn:hover { background: var(--surface-3); color: var(--text-primary); }
+.cal-header__title {
+  font-family: var(--font-mono); font-size: var(--text-size-sm);
+  font-weight: 700; color: var(--text-primary);
+  letter-spacing: 0.04em; text-transform: uppercase;
+  flex: 1; text-align: center;
+}
+.cal-header__stats { display: flex; gap: 8px; flex-shrink: 0; }
+
+.cal-type-icon {
+  width: 18px; height: 18px; border-radius: var(--r-xs);
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.cal-type-icon--tarea   { background: var(--state-info-dim);   color: var(--state-info); }
+.cal-type-icon--examen  { background: var(--xahni-amber-dim);  color: var(--xahni-amber); }
+.cal-type-icon--clase   { background: var(--xahni-teal-dim);   color: var(--xahni-teal); }
+.cal-type-icon--vencida { background: var(--state-danger-dim); color: var(--state-danger); }
+.cal-type-icon--hito    { background: var(--xahni-purple-dim); color: var(--xahni-purple-light); }
+
+.cal-mini { padding: 0; }
+.cal-mini__dow-row {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 3px; margin-bottom: 4px;
+}
+.cal-mini__dow {
+  text-align: center; font-family: var(--font-mono);
+  font-size: var(--text-size-2xs); color: var(--text-muted);
+  padding: 3px 0; text-transform: uppercase; letter-spacing: 0.06em;
+}
+.cal-mini__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.cal-mini__cell {
+  aspect-ratio: 1/1;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 3px;
+  display: flex; flex-direction: column; align-items: flex-start;
+  position: relative; cursor: pointer; transition: var(--transition);
+  font-family: var(--font-mono); min-width: 0;
+}
+.cal-mini__cell:hover { background: var(--surface-3); border-color: var(--border-bright); }
+.cal-mini__cell--off  { opacity: 0.28; cursor: pointer; }
+.cal-mini__cell--today { border-color: var(--xahni-cyan); }
+.cal-mini__cell--selected { background: var(--state-info-dim); border-color: var(--xahni-cyan); }
+.cal-mini__cell--in-week { background: color-mix(in srgb, var(--xahni-blue) 8%, transparent); }
+.cal-mini__num { font-size: var(--text-size-xs); color: var(--text-primary); font-weight: 500; line-height: 1; }
+.cal-mini__cell--today .cal-mini__num { color: var(--accent-cyan-text); font-weight: 700; }
+.cal-mini__dots { display: flex; gap: 2px; margin-top: auto; flex-wrap: wrap; }
+.cal-mini__dot { width: 5px; height: 5px; border-radius: 50%; }
+.cal-mini__dot--tarea   { background: var(--state-info); }
+.cal-mini__dot--examen  { background: var(--xahni-amber); width: 7px; height: 7px; }
+.cal-mini__dot--clase   { background: var(--xahni-teal); }
+.cal-mini__dot--vencida { background: var(--state-danger); }
+.cal-mini__dot--hito    { background: var(--xahni-purple); }
+.cal-mini__count {
+  position: absolute; top: 1px; right: 3px;
+  font-size: var(--text-size-2xs); color: var(--accent-cyan-text);
+  font-weight: 700; font-family: var(--font-mono); line-height: 1;
+}
+
+.cal-agenda { padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.cal-agenda__week-label {
+  font-family: var(--font-mono); font-size: var(--text-size-2xs);
+  color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 4px 0 2px;
+}
+.cal-agenda__day {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 8px 10px; background: var(--surface-2);
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  transition: var(--transition);
+}
+.cal-agenda__day--today {
+  border-color: var(--xahni-cyan);
+  background: color-mix(in srgb, var(--xahni-cyan) 5%, var(--surface-2));
+}
+.cal-agenda__day-label { flex-shrink: 0; width: 44px; display: flex; flex-direction: column; align-items: center; gap: 1px; }
+.cal-agenda__day-dow { font-family: var(--font-mono); font-size: var(--text-size-2xs); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.cal-agenda__day-num { font-family: var(--font-mono); font-size: 16px; font-weight: 600; color: var(--text-primary); line-height: 1; }
+.cal-agenda__day--today .cal-agenda__day-num { color: var(--accent-cyan-text); }
+.cal-agenda__events { flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.cal-agenda__empty { color: var(--text-muted); font-size: var(--text-size-xs); align-self: center; }
+
+.cal-event {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 6px 10px 6px 8px;
+  border-radius: var(--r-sm); border-left: 3px solid;
+  cursor: pointer; transition: var(--transition); min-width: 0;
+}
+.cal-event--tarea   { background: var(--state-info-dim);   border-left-color: var(--state-info); }
+.cal-event--examen  { background: var(--xahni-amber-dim);  border-left-color: var(--xahni-amber); }
+.cal-event--clase   { background: var(--xahni-teal-dim);   border-left-color: var(--xahni-teal); }
+.cal-event--vencida { background: var(--state-danger-dim); border-left-color: var(--state-danger); }
+.cal-event--hito    { background: var(--xahni-purple-dim); border-left-color: var(--xahni-purple); cursor: default; }
+.cal-event:hover { filter: brightness(1.08); transform: translateX(2px); }
+.cal-event--hito:hover { transform: none; filter: none; }
+
+.cal-event__body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.cal-event__title { font-size: var(--text-size-sm); color: var(--text-primary); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cal-event__meta { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.cal-event__mat { font-size: var(--text-size-2xs); color: var(--text-muted); font-family: var(--font-mono); white-space: nowrap; }
+.cal-event__time { font-size: var(--text-size-2xs); color: var(--text-secondary); font-family: var(--font-mono); }
+.cal-event__badge {
+  font-family: var(--font-mono); font-size: var(--text-size-2xs);
+  font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 1px 5px; border-radius: var(--r-xs); flex-shrink: 0;
+}
+.cal-event__badge--examen  { background: var(--xahni-amber-dim);  color: var(--xahni-amber); }
+.cal-event__badge--vencida { background: var(--state-danger-dim); color: var(--state-danger); }
+.cal-event__badge--hito    { background: var(--xahni-purple-dim); color: var(--xahni-purple-light); }
+
+.cal-legend {
+  display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+  padding: 10px 0 0; border-top: 1px solid var(--border);
+  font-size: var(--text-size-2xs); color: var(--text-muted);
+}
+.cal-legend__item { display: inline-flex; align-items: center; gap: 5px; }
+.cal-legend__dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+/* ── Gamer-ON overrides ───────────────────────────────────── */
+[data-gamer="on"] .cal-wrapper {
+  border-color: color-mix(in srgb, var(--xahni-cyan) 20%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--xahni-cyan) 8%, transparent),
+              inset 0 0 32px color-mix(in srgb, var(--xahni-blue) 5%, transparent);
+}
+[data-gamer="on"] .cal-header__title {
+  background: var(--brand-gradient-h);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+[data-gamer="on"] .cal-mini__dot { box-shadow: 0 0 4px currentColor; }
+[data-gamer="on"] .cal-mini__cell--today {
+  animation: calTodayPulse 2.4s ease-in-out infinite;
+  border-color: var(--xahni-cyan);
+}
+@keyframes calTodayPulse {
+  0%, 100% { box-shadow: 0 0 0 1px var(--xahni-cyan); }
+  50%       { box-shadow: 0 0 0 2px var(--xahni-cyan), 0 0 10px color-mix(in srgb, var(--xahni-cyan) 40%, transparent); }
+}
+[data-gamer="on"] .cal-mini__cell--selected { background: color-mix(in srgb, var(--xahni-cyan) 14%, transparent); }
+[data-gamer="on"] .cal-event--tarea   { background: linear-gradient(90deg, var(--state-info-dim), transparent 85%); }
+[data-gamer="on"] .cal-event--examen  { background: linear-gradient(90deg, var(--xahni-amber-dim), transparent 85%); box-shadow: 0 0 0 1px color-mix(in srgb, var(--xahni-amber) 20%, transparent); }
+[data-gamer="on"] .cal-event--clase   { background: linear-gradient(90deg, var(--xahni-teal-dim), transparent 85%); }
+[data-gamer="on"] .cal-event--vencida { background: linear-gradient(90deg, var(--state-danger-dim), transparent 85%); }
+[data-gamer="on"] .cal-event--hito    { background: linear-gradient(90deg, var(--xahni-purple-dim), transparent 85%); }
+[data-gamer="on"] .cal-header__nav-btn:hover { border-color: var(--xahni-cyan); color: var(--accent-cyan-text); background: var(--xahni-cyan-dim); }
+[data-gamer="on"] .cal-agenda__day--today .cal-agenda__day-num { text-shadow: 0 0 8px color-mix(in srgb, var(--xahni-cyan) 50%, transparent); }
+[data-gamer="on"] .cal-header { background: color-mix(in srgb, var(--xahni-blue) 4%, var(--surface-1)); }
+
+/* ── Gamer-OFF overrides (modo concentración) ─────────────── */
+[data-gamer="off"] .cal-wrapper { border-color: var(--border); box-shadow: none; }
+[data-gamer="off"] .cal-header__title { background: none; -webkit-text-fill-color: unset; color: var(--text-primary); }
+[data-gamer="off"] .cal-mini__dot { box-shadow: none; }
+[data-gamer="off"] .cal-mini__cell--today { animation: none; border-color: var(--xahni-cyan); background: color-mix(in srgb, var(--xahni-cyan) 6%, var(--surface-2)); }
+[data-gamer="off"] .cal-event--tarea   { background: var(--state-info-dim); }
+[data-gamer="off"] .cal-event--examen  { background: var(--xahni-amber-dim); box-shadow: none; }
+[data-gamer="off"] .cal-event--clase   { background: var(--xahni-teal-dim); }
+[data-gamer="off"] .cal-event--vencida { background: var(--state-danger-dim); }
+[data-gamer="off"] .cal-event--hito    { background: var(--xahni-purple-dim); }
+[data-gamer="off"] .cal-header { background: var(--surface-1); }
+[data-gamer="off"] .cal-agenda__day--today .cal-agenda__day-num { text-shadow: none; }
+
+/* ── Profesor dense overrides ─────────────────────────────── */
+[data-rol="profesor"] .cal-mini__cell { padding: 2px; }
+[data-rol="profesor"] .cal-mini__num { font-size: var(--text-size-2xs); }
+[data-rol="profesor"] .cal-agenda__day { padding: 5px 8px; gap: 6px; }
+[data-rol="profesor"] .cal-event { padding: 4px 8px 4px 6px; gap: 6px; }
+[data-rol="profesor"] .cal-event__title { font-size: var(--text-size-xs); }

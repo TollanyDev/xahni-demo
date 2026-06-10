@@ -1,0 +1,159 @@
+/* ═══════════════════════════════════════════════════════════
+   GESTIÓN DE HORARIOS — Admin
+═══════════════════════════════════════════════════════════ */
+
+/* ── Calendario semanal ──────────────────────────────────── */
+.calendario-header {
+    display: grid;
+    grid-template-columns: 60px repeat(6, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    overflow: hidden;
+}
+
+.calendario-hora-col {
+    background: var(--surface-2);
+}
+
+.calendario-dia-header {
+    background: var(--surface-2);
+    padding: 12px 8px;
+    text-align: center;
+    font-size: var(--text-size-xs);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.calendario-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 var(--r-lg) var(--r-lg);
+    overflow: hidden;
+}
+
+.calendario-fila {
+    display: grid;
+    grid-template-columns: 60px repeat(6, 1fr);
+    gap: 1px;
+    background: var(--border);
+    animation: fade-in 0.3s ease-out var(--delay, 0s) both;
+}
+
+.calendario-hora-label {
+    background: var(--surface-2);
+    padding: 8px 6px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: var(--text-size-2xs);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendario-celda {
+    background: var(--surface-1);
+    min-height: 50px;
+    position: relative;
+    padding: 2px;
+}
+
+.calendario-clase {
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    top: 2px;
+    height: calc(var(--duracion, 1) * 50px - 4px);
+    border-radius: var(--r-sm);
+    padding: 6px 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    overflow: hidden;
+    z-index: 1;
+    /* Base opaca: evita que las líneas separadoras (gap 1px) se transparenten
+       a través del card cuando desborda visualmente a la fila siguiente. */
+    background-color: var(--surface-1);
+}
+
+.calendario-clase:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 2;
+}
+
+.calendario-clase.conflicto {
+    border: 2px solid var(--xahni-red) !important;
+    background: rgba(232,64,64,0.15) !important;
+}
+
+.calendario-clase-nombre {
+    font-size: var(--text-size-xs);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.calendario-clase-info {
+    font-size: var(--text-size-2xs);
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.calendario-clase-alerta {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: var(--text-size-xs);
+}
+
+/* ── Tabla de horarios ───────────────────────────────────── */
+.fila-conflicto {
+    background: rgba(232,64,64,0.05) !important;
+}
+
+.fila-conflicto:hover {
+    background: rgba(232,64,64,0.1) !important;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .calendario-header,
+    .calendario-fila {
+        grid-template-columns: 50px repeat(6, 1fr);
+    }
+    
+    .calendario-dia-header {
+        font-size: var(--text-size-2xs);
+        padding: 10px 4px;
+    }
+    
+    .calendario-clase-nombre {
+        font-size: var(--text-size-2xs);
+    }
+}
+
+@media (max-width: 600px) {
+    .calendario-header,
+    .calendario-fila {
+        grid-template-columns: 40px repeat(3, 1fr);
+    }
+    
+    .calendario-dia-header:nth-child(n+5) {
+        display: none;
+    }
+    
+    .calendario-celda:nth-child(n+5) {
+        display: none;
+    }
+}

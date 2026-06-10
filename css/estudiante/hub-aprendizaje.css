@@ -1,0 +1,1043 @@
+/* ══════════════════════════════════════════════════════════
+   HUB DE APRENDIZAJE — Tabs · Detalle · Progreso · Tareas · Recursos · Grupo
+══════════════════════════════════════════════════════════ */
+
+/* ── Topbar del detalle ─────────────────────────────────── */
+.hub-det-topbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+.hub-det-materia-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: 5px 14px 5px 8px;
+}
+.hub-det-materia-color {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+#hub-det-nombre {
+    font-size: var(--text-size-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* ── Barra de tabs ──────────────────────────────────────── */
+.hub-tabs-bar {
+    display: flex;
+    gap: 2px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 4px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.hub-tabs-bar::-webkit-scrollbar { display: none; }
+
+.hub-tab {
+    flex: 1;
+    min-width: 110px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    font-size: var(--text-size-sm);
+    font-weight: 600;
+    padding: 9px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    position: relative;
+}
+.hub-tab:hover:not(.active) {
+    color: var(--text-secondary);
+    background: var(--surface-3);
+}
+.hub-tab.active {
+    background: var(--brand-gradient);
+    color: white;
+    box-shadow: 0 2px 10px rgba(27,79,228,.4);
+}
+.hub-tab-badge {
+    background: var(--xahni-red);
+    color: white;
+    font-size: var(--text-size-2xs);
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 99px;
+    min-width: 16px;
+    text-align: center;
+}
+
+/* ── Panel de tab ───────────────────────────────────────── */
+.hub-tab-panel { animation: perfil-fade .25s ease-out; }
+
+.hub-tab-filtros {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+
+/* ── TAB PROGRESO ───────────────────────────────────────── */
+.hub-progreso-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.hub-prog-metricas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+@media (max-width: 700px) { .hub-prog-metricas { grid-template-columns: repeat(2, 1fr); } }
+
+.hub-prog-metrica {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+.hub-prog-metrica-num {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-xl);
+    font-weight: 700;
+    line-height: 1;
+}
+.hub-prog-metrica-label {
+    font-size: var(--text-size-2xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+
+.hub-prog-bar-section {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 16px 20px;
+}
+
+/* Parciales */
+.hub-prog-parciales {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 16px 20px;
+}
+.hub-parciales-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.hub-parcial-chip {
+    flex: 1;
+    min-width: 80px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 12px;
+    text-align: center;
+}
+.hub-parcial-num {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 4px;
+}
+.hub-parcial-label {
+    font-size: var(--text-size-2xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+/* Info de la materia */
+.hub-prog-info {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 16px 20px;
+}
+.hub-info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: var(--text-size-sm);
+}
+.hub-info-row:last-child { border-bottom: none; }
+.hub-info-row span { color: var(--text-muted); }
+.hub-info-row strong { color: var(--text-primary); }
+
+/* ── TAB TAREAS ─────────────────────────────────────────── */
+.hub-tarea-card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 14px 16px;
+    transition: var(--transition);
+}
+.hub-tarea-card:hover {
+    border-color: var(--border-bright);
+    transform: translateX(3px);
+}
+.hub-tarea-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+.hub-tarea-titulo {
+    font-size: var(--text-size-md);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.hub-tarea-tipo {
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+.hub-tarea-desc {
+    font-size: var(--text-size-xs);
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* ── TAB RECURSOS ───────────────────────────────────────── */
+.hub-recurso-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.hub-recurso-card:last-child { margin-bottom: 0; }
+.hub-recurso-card:hover {
+    border-color: var(--border-bright);
+    background: var(--surface-2);
+    transform: translateX(3px);
+}
+.hub-recurso-icono {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+.hub-recurso-info { flex: 1; min-width: 0; }
+.hub-recurso-nombre {
+    font-size: var(--text-size-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.hub-recurso-meta {
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+    margin-top: 2px;
+    font-family: var(--font-mono);
+}
+
+/* ── Materia cards hover mejorado ───────────────────────── */
+.materias-grid-v2 .materia-card-v2 {
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.materias-grid-v2 .materia-card-v2:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 12px 32px rgba(0,0,0,.4);
+}
+
+/* ── Header actions ─────────────────────────────────────── */
+.hub-header-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Migrado desde tareas.css (prioridad vista-estudiante 82d16c1)
+   ══════════════════════════════════════════════════════════ */
+
+.tarea-card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    display: flex;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.tarea-card:hover {
+    border-color: var(--border-bright);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.tarea-card.urgente {
+    border-color: #e8404030;
+    background: linear-gradient(135deg, var(--surface-1) 0%, #e8404008 100%);
+}
+
+.tarea-card.vencida {
+    opacity: 0.72;
+    border-style: dashed;
+}
+
+.tarea-card-stripe {
+    width: 4px;
+    flex-shrink: 0;
+}
+
+.tarea-card-body {
+    flex: 1;
+    padding: 16px 20px;
+}
+
+.tarea-card-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.tarea-titulo {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+    margin-top: 6px;
+}
+
+.tarea-materia {
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.tarea-desc {
+    font-size: var(--text-size-xs);
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.tarea-cal {
+    text-align: center;
+    min-width: 60px;
+    padding: 10px 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+}
+
+/* Accesos rápidos del dashboard */
+.dash-accesos {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.dash-acceso-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: var(--text-size-xs);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.dash-acceso-btn:hover {
+    background: var(--surface-3);
+    border-color: var(--xahni-blue);
+    color: var(--text-primary);
+}
+
+.dash-acceso-badge {
+    background: var(--brand-gradient);
+    color: white;
+    font-size: var(--text-size-2xs);
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 99px;
+    font-family: var(--font-mono);
+}
+
+/* ── Historial de archivos del alumno ────────────────────── */
+
+/* ── Tabs internos de la vista Tareas ─────────────────── */
+.tareas-tabs-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.tareas-inner-tabs {
+    display: flex;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 3px;
+    gap: 2px;
+}
+
+.tareas-inner-tab {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 18px;
+    font-family: var(--font-sans);
+    font-size: var(--text-size-sm);
+    font-weight: 500;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.tareas-inner-tab:hover {
+    color: var(--text-primary);
+    background: var(--surface-3);
+}
+
+.tareas-inner-tab.active {
+    background: var(--brand-gradient);
+    color: white;
+    box-shadow: 0 2px 10px #1b4fe435;
+}
+
+/* Slice pre-c10 9.5.A.5: gamer-off aplana el tab activo (Mis Tareas / Mis Archivos). */
+body.gamer-off .tareas-inner-tab.active {
+    background: var(--surface-3);
+    color: var(--text-primary);
+    box-shadow: none;
+}
+
+.tareas-inner-badge {
+    background: rgba(255,255,255,0.25);
+    color: white;
+    font-size: var(--text-size-2xs);
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 99px;
+    font-family: var(--font-mono);
+}
+
+.tareas-inner-tab:not(.active) .tareas-inner-badge {
+    background: var(--xahni-blue-dim);
+    color: var(--xahni-blue-light);
+}
+
+/* ── Toolbar del historial ───────────────────────────── */
+.historial-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+/* ── Filtros por tipo de archivo (subtab "Mis Archivos") ───────────────
+   Estas reglas vivían originalmente en css/estudiante/calificaciones.css
+   pero fueron retiradas en el rework C7 (la vista de calificaciones nueva
+   ya no las usa). Las reintroducimos aquí porque el markup del panel
+   "Mis Archivos" del hub-materia (views/estudiante/aprendizaje.html ~309)
+   las sigue usando para los chips de filtro de tipo (Todos / PDF / ZIP /
+   Imágenes). Migrarlas a `.x-tabs` queda como deuda separada. */
+.cal-filtros-group {
+    display: flex;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 3px;
+    gap: 2px;
+}
+
+.cal-filtro-btn {
+    padding: 7px 14px;
+    font-family: var(--font-sans);
+    font-size: var(--text-size-xs);
+    font-weight: 500;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.cal-filtro-btn:hover {
+    color: var(--text-primary);
+    background: var(--surface-3);
+}
+
+.cal-filtro-btn.active {
+    background: var(--brand-gradient);
+    color: white;
+    box-shadow: 0 2px 8px #1b4fe440;
+}
+
+/* Slice pre-c10 9.5.A.5: gamer-off aplana el filtro Todos/PDF/ZIP/IMG del subtab "Mis Archivos". */
+body.gamer-off .cal-filtro-btn.active {
+    background: var(--surface-3);
+    color: var(--text-primary);
+    box-shadow: none;
+}
+
+/* ── Alertas de periodo ──────────────────────────────── */
+.historial-alerta {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    border-radius: var(--r-lg);
+    margin-bottom: 16px;
+    border: 1px solid;
+    animation: fadeUp 0.3s ease;
+}
+
+.alerta-aviso {
+    background: var(--xahni-amber-dim);
+    border-color: var(--xahni-amber);
+    color: var(--xahni-amber);
+}
+
+.alerta-urgente {
+    background: #e8404010;
+    border-color: var(--xahni-red);
+    color: var(--xahni-red);
+}
+
+.alerta-peligro {
+    background: #e8404018;
+    border-color: var(--xahni-red);
+    color: var(--xahni-red);
+    animation: pulseAlert 2s ease-in-out infinite;
+}
+
+@keyframes pulseAlert {
+    0%, 100% { box-shadow: 0 0 0 0 #e8404020; }
+    50%       { box-shadow: 0 0 0 6px #e8404008; }
+}
+
+.historial-alerta-icono {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.historial-alerta-cuerpo { flex: 1; }
+
+.historial-alerta-titulo {
+    font-size: var(--text-size-sm);
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.historial-alerta-desc {
+    font-size: var(--text-size-xs);
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* ── Info del periodo ────────────────────────────────── */
+.historial-info-periodo {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 18px 20px;
+    margin-bottom: 20px;
+}
+
+.historial-periodo-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.historial-periodo-nombre {
+    font-size: var(--text-size-md);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+}
+
+.historial-periodo-fechas {
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+.historial-periodo-stats {
+    display: flex;
+    gap: 24px;
+    flex-shrink: 0;
+}
+
+.historial-periodo-stat {
+    text-align: right;
+}
+
+.historial-periodo-stat-val {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.historial-periodo-stat-label {
+    font-size: var(--text-size-2xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 3px;
+    display: block;
+}
+
+/* ── Filas del historial ─────────────────────────────── */
+.historial-fila {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 12px 16px;
+    transition: var(--transition);
+}
+
+.historial-fila:hover {
+    border-color: var(--border-bright);
+    background: var(--surface-2);
+}
+
+.historial-fila-icono {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--r-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-size-lg);
+    flex-shrink: 0;
+}
+
+.historial-fila-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.historial-fila-nombre {
+    font-size: var(--text-size-sm);
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+}
+
+.historial-fila-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.historial-fila-fecha {
+    text-align: right;
+    flex-shrink: 0;
+    margin-right: 4px;
+}
+
+.historial-fila-acciones {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.historial-btn-descargar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: var(--xahni-blue-dim);
+    border: 1px solid var(--xahni-blue);
+    border-radius: var(--r-sm);
+    color: var(--xahni-blue-light);
+    font-family: var(--font-sans);
+    font-size: var(--text-size-xs);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.historial-btn-descargar:hover {
+    background: var(--xahni-blue);
+    color: white;
+}
+
+/* Botón urgente cuando el periodo está por cerrar */
+.historial-btn-descargar.urgente {
+    background: var(--brand-gradient);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 2px 10px #1b4fe440;
+    animation: pulseBtn 1.8s ease-in-out infinite;
+}
+
+@keyframes pulseBtn {
+    0%, 100% { box-shadow: 0 2px 10px #1b4fe440; }
+    50%       { box-shadow: 0 4px 18px #1b4fe470; }
+}
+
+.historial-btn-eliminar {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: var(--text-size-sm);
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.historial-btn-eliminar:hover {
+    background: var(--xahni-red-dim);
+    border-color: var(--xahni-red);
+    color: var(--xahni-red);
+}
+
+/* ── Responsive (tareas) ─────────────────────────────── */
+@media (max-width: 768px) {
+    .tareas-tabs-wrap        { flex-direction: column; align-items: flex-start; }
+    .historial-toolbar       { flex-direction: column; align-items: flex-start; }
+    .historial-periodo-stats { display: none; }
+    .historial-fila-fecha    { display: none; }
+    .historial-alerta        { flex-direction: column; }
+    .historial-alerta > .x-btn--primary { align-self: flex-start; }
+}
+
+/* ── Modal de entrega ────────────────────────────────── */
+#entregar-confirmar-btn:not([disabled]) {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#entregar-confirmar-btn[disabled] {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: auto; /* para que el cursor se vea */
+}
+
+/* ══════════════════════════════════════════════════════════
+   Migrado desde recursos.css (prioridad vista-estudiante 82d16c1)
+   ══════════════════════════════════════════════════════════ */
+
+.rec-filtros {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.rec-tipo-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    font-size: var(--text-size-xs);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.rec-tipo-btn:hover {
+    background: var(--surface-3);
+    color: var(--text-primary);
+    border-color: var(--border-bright);
+}
+
+.rec-tipo-btn.active {
+    background: var(--brand-gradient);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 2px 10px #1b4fe435;
+}
+
+/* Slice pre-c10 9.5.A.5: gamer-off aplana el filtro tipo (PDF/Videos/etc) del tab Recursos. */
+body.gamer-off .rec-tipo-btn.active {
+    background: var(--surface-3);
+    color: var(--text-primary);
+    border-color: var(--border-bright);
+    box-shadow: none;
+}
+
+.rec-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 8px;
+    border-radius: var(--r-md);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.rec-row:hover {
+    background: var(--surface-2);
+}
+
+.rec-icono {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--r-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+/* ── Recursos: panel de periodo escolar y alertas ─────── */
+
+/* ── Botón de descarga en filas de recurso ─────────────── */
+.rec-download-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: var(--xahni-blue-dim);
+    border: 1px solid var(--xahni-blue);
+    border-radius: var(--r-sm);
+    color: var(--xahni-blue-light);
+    font-family: var(--font-sans);
+    font-size: var(--text-size-xs);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.rec-download-btn:hover {
+    background: var(--xahni-blue);
+    color: white;
+}
+
+/* Urgente: quedan 5 días o menos */
+.rec-download-btn.urgente {
+    background: var(--brand-gradient);
+    border-color: transparent;
+    color: white;
+    animation: recPulseBtn 1.8s ease-in-out infinite;
+}
+
+/* Peligro: periodo ya cerrado */
+.rec-download-btn.peligro {
+    background: var(--xahni-red-dim);
+    border-color: var(--xahni-red);
+    color: var(--xahni-red);
+    font-weight: 700;
+    animation: recPulsePeligro 1.2s ease-in-out infinite;
+}
+
+.rec-download-btn.peligro:hover {
+    background: var(--xahni-red);
+    color: white;
+}
+
+@keyframes recPulseBtn {
+    0%, 100% { box-shadow: 0 2px 10px #1b4fe440; }
+    50%       { box-shadow: 0 4px 18px #1b4fe470; }
+}
+
+@keyframes recPulsePeligro {
+    0%, 100% { box-shadow: 0 0 0 0   #e8404020; }
+    50%       { box-shadow: 0 0 0 5px #e8404010; }
+}
+
+/* ── Panel de información del periodo ──────────────────── */
+.rec-periodo-info {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 18px 20px;
+    margin-bottom: 16px;
+}
+
+.rec-periodo-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.rec-periodo-nombre {
+    font-size: var(--text-size-md);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+}
+
+.rec-periodo-fechas {
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+.rec-periodo-stats {
+    display: flex;
+    gap: 24px;
+    flex-shrink: 0;
+}
+
+.rec-periodo-stat {
+    text-align: right;
+}
+
+.rec-periodo-stat-val {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.rec-periodo-stat-label {
+    font-size: var(--text-size-2xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 3px;
+    display: block;
+}
+
+/* ── Alertas de periodo (recursos) ─────────────────────── */
+/* Reutiliza .alerta-aviso / .alerta-urgente / .alerta-peligro definidas arriba */
+
+.rec-alerta {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    border-radius: var(--r-lg);
+    margin-bottom: 16px;
+    border: 1px solid;
+    animation: fadeUp 0.3s ease;
+}
+
+/* Hereda colores de las clases compartidas con tareas */
+.rec-alerta.alerta-aviso {
+    background: var(--xahni-amber-dim);
+    border-color: var(--xahni-amber);
+    color: var(--xahni-amber);
+}
+
+.rec-alerta.alerta-urgente {
+    background: #e8404010;
+    border-color: var(--xahni-red);
+    color: var(--xahni-red);
+}
+
+.rec-alerta.alerta-peligro {
+    background: #e8404018;
+    border-color: var(--xahni-red);
+    color: var(--xahni-red);
+    animation: recAlertaPulse 2s ease-in-out infinite;
+}
+
+@keyframes recAlertaPulse {
+    0%, 100% { box-shadow: 0 0 0 0   #e8404020; }
+    50%       { box-shadow: 0 0 0 6px #e8404008; }
+}
+
+.rec-alerta-icono {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.rec-alerta-cuerpo { flex: 1; }
+
+.rec-alerta-titulo {
+    font-size: var(--text-size-sm);
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.rec-alerta-desc {
+    font-size: var(--text-size-xs);
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* ── Responsive (recursos) ─────────────────────────────── */
+@media (max-width: 768px) {
+    .rec-periodo-stats  { display: none; }
+    .rec-alerta         { flex-direction: column; }
+    .rec-alerta > .x-btn--primary { align-self: flex-start; }
+    .rec-download-btn   { padding: 5px 8px; font-size: var(--text-size-xs); }
+}

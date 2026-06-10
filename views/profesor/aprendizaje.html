@@ -1,0 +1,636 @@
+          <!-- ── PANEL: HUB-GRUPO PROFESOR (raíz del hub profesor C9) ── -->
+          <div id="prof-hub-lista-panel">
+            <!-- Header con título + selector de grupo -->
+            <div class="x-page-head">
+              <div>
+                <div class="x-page-head__title" id="prof-hub-grupo-titulo">Mi <em>grupo</em></div>
+                <div class="x-page-head__subtitle" id="prof-hub-grupo-subtitulo">Tu contexto de trabajo este periodo</div>
+              </div>
+            </div>
+
+            <!-- Tabs del hub-grupo profesor -->
+            <div class="hub-tabs-bar" id="prof-hub-grupo-tabs-bar">
+              <button class="hub-tab active" data-tab="mi-grupo" onclick="profHubGrupoSwitchTab('mi-grupo', this)">
+                <svg class="x-icon"><use href="#x-icon-grupo"></use></svg> Mi grupo
+              </button>
+              <button class="hub-tab" data-tab="materias" onclick="profHubGrupoSwitchTab('materias', this)">
+                <svg class="x-icon"><use href="#x-icon-materias"></use></svg> Materias
+              </button>
+              <button class="hub-tab" data-tab="calendario" onclick="profHubGrupoSwitchTab('calendario', this)">
+                <svg class="x-icon"><use href="#x-icon-calendar"></use></svg> Calendario
+              </button>
+              <button class="hub-tab" data-tab="competencias" onclick="profHubGrupoSwitchTab('competencias', this)">
+                <svg class="x-icon"><use href="#x-icon-trophy"></use></svg> Competencias
+              </button>
+            </div>
+
+            <!-- Tab: MI GRUPO — render por js/profesor/hub-grupo.js -->
+            <div class="hub-tab-panel" id="prof-hub-grupo-tab-mi-grupo"></div>
+
+            <!-- Tab: MATERIAS — render por hub-aprendizaje.js (cards via _buildMatCardProf) -->
+            <div class="hub-tab-panel" id="prof-hub-grupo-tab-materias" style="display:none"></div>
+
+            <!-- Tab: CALENDARIO — render por js/profesor/hub-calendario.js (.cal-wrapper) -->
+            <div class="hub-tab-panel" id="prof-hub-grupo-tab-calendario" style="display:none">
+              <div id="prof-hub-calendario-root"></div>
+            </div>
+
+            <!-- Tab: COMPETENCIAS — stub D1 con identidad versus invertido (slice pre-c10 #10) -->
+            <div class="hub-tab-panel" id="prof-hub-grupo-tab-competencias" style="display:none">
+              <div class="x-page-head">
+                <div>
+                  <div class="x-page-head__title">Competencias <em>del grupo</em></div>
+                  <div class="x-page-head__subtitle">Duelos cross-grupo con mecánica de versus invertido</div>
+                </div>
+                <div class="x-page-head__actions" style="display:flex;align-items:center;gap:10px">
+                  <span class="x-chip x-chip--info" style="display:inline-flex;align-items:center;gap:6px">
+                    <svg viewBox="0 0 18 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M2 4c3-2 6-2 8 1"/><path d="M8 5l2 0l0 -2"/>
+                      <path d="M16 12c-3 2-6 2-8-1"/><path d="M10 11l-2 0l0 2"/>
+                    </svg>
+                    Cross-grupo · Versus invertido
+                  </span>
+                  <button class="x-btn x-btn--primary" disabled title="Disponible post-Supabase" style="opacity:0.55;cursor:not-allowed">＋ Nueva competencia</button>
+                </div>
+              </div>
+
+              <!-- Identidad: explicación del versus invertido -->
+              <div class="x-card x-card--info" style="margin-bottom:18px;padding:18px 20px">
+                <div style="display:flex;align-items:flex-start;gap:14px">
+                  <div style="flex-shrink:0;width:36px;height:36px;border-radius:var(--r-md);background:var(--xahni-purple-dim);display:flex;align-items:center;justify-content:center;color:var(--xahni-purple-light)">
+                    <svg viewBox="0 0 18 16" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M2 4c3-2 6-2 8 1"/><path d="M8 5l2 0l0 -2"/>
+                      <path d="M16 12c-3 2-6 2-8-1"/><path d="M10 11l-2 0l0 2"/>
+                    </svg>
+                  </div>
+                  <div style="flex:1">
+                    <div style="font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--text-primary);margin-bottom:4px">El versus invertido</div>
+                    <div style="font-size:13px;color:var(--text-secondary);line-height:1.55">
+                      Cada grupo <strong style="color:var(--text-primary)">crea los juegos que el grupo rival debe jugar</strong>.
+                      Compiten diseñando preguntas para el otro lado y obteniendo mejor nota en las del rival.
+                      Gana el grupo con mayor puntaje agregado al cerrar el umbral.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Competencias activas -->
+              <div class="x-card" style="margin-bottom:14px">
+                <header style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+                  <span style="font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--text-primary)">Competencias activas</span>
+                  <span class="x-mono-sm" style="color:var(--text-muted)">2 en curso</span>
+                </header>
+
+                <!-- Duelo 1: GRU-401 vs GRU-402 -->
+                <div class="comps-stub-duel" style="padding:4px 0 14px">
+                  <div class="comps-stub-duel__side">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                      <span class="x-mono-sm" style="font-size:14px;font-weight:700;color:var(--text-primary)">GRU-401</span>
+                      <span class="x-chip x-chip--ok" style="font-size:10px">Liderando</span>
+                    </div>
+                    <div class="x-progress" style="height:10px"><div class="x-progress__fill" style="width:68%;background:linear-gradient(90deg,var(--xahni-cyan),var(--xahni-blue))"></div></div>
+                    <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--text-muted)">
+                      <span class="x-mono-sm" style="color:var(--accent-cyan-text)">68 pts</span>
+                      <span>creó 12 juegos</span>
+                    </div>
+                  </div>
+                  <div class="comps-stub-duel__center">
+                    <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:4px">VS</div>
+                    <svg viewBox="0 0 18 16" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--xahni-purple)">
+                      <path d="M2 4c3-2 6-2 8 1"/><path d="M8 5l2 0l0 -2"/>
+                      <path d="M16 12c-3 2-6 2-8-1"/><path d="M10 11l-2 0l0 2"/>
+                    </svg>
+                  </div>
+                  <div class="comps-stub-duel__side comps-stub-duel__side--right">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;justify-content:flex-end">
+                      <span class="x-chip x-chip--muted" style="font-size:10px">En recuperación</span>
+                      <span class="x-mono-sm" style="font-size:14px;font-weight:700;color:var(--text-primary)">GRU-402</span>
+                    </div>
+                    <div class="x-progress" style="height:10px;transform:scaleX(-1)"><div class="x-progress__fill" style="width:54%;background:linear-gradient(90deg,var(--xahni-amber),var(--xahni-purple))"></div></div>
+                    <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--text-muted);flex-direction:row-reverse">
+                      <span class="x-mono-sm" style="color:var(--xahni-amber)">54 pts</span>
+                      <span>creó 9 juegos</span>
+                    </div>
+                  </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0 14px;font-size:12px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px">
+                  <div style="display:flex;align-items:center;gap:10px;color:var(--text-secondary)">
+                    <span class="x-chip x-chip--info" style="font-size:11px">Programación Avanzada</span>
+                    <span>·</span>
+                    <span style="color:var(--text-muted)">Algoritmos de grafos</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;color:var(--text-muted)">
+                    <span>Umbral: <strong class="x-mono-sm" style="color:var(--text-primary)">100 pts</strong></span>
+                    <span>·</span>
+                    <span><strong class="x-mono-sm" style="color:var(--state-warn)">4 días</strong> restantes</span>
+                  </div>
+                </div>
+                <!-- Acciones profesor por duelo (slice #10 brainstorming B5) -->
+                <div class="comps-stub-duel-actions" style="display:flex;justify-content:flex-end;gap:8px;padding:10px 0 4px">
+                  <button class="x-btn x-btn--ghost" disabled title="Disponible post-Supabase" style="opacity:0.55;cursor:not-allowed;font-size:12px">⏸ Pausar</button>
+                  <button class="x-btn x-btn--ghost" disabled title="Disponible post-Supabase" style="opacity:0.55;cursor:not-allowed;font-size:12px">✓ Cerrar ahora</button>
+                  <button class="x-btn x-btn--ghost" disabled title="Disponible post-Supabase" style="opacity:0.55;cursor:not-allowed;font-size:12px">👁 Ver juegos creados</button>
+                </div>
+
+                <!-- Duelo 2: GRU-501 vs GRU-503 -->
+                <div class="comps-stub-duel" style="padding:18px 0 14px;border-top:1px solid var(--border);margin-top:14px">
+                  <div class="comps-stub-duel__side">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                      <span class="x-mono-sm" style="font-size:14px;font-weight:700;color:var(--text-primary)">GRU-501</span>
+                      <span class="x-chip x-chip--warn" style="font-size:10px">Debajo del rival</span>
+                    </div>
+                    <div class="x-progress" style="height:10px"><div class="x-progress__fill" style="width:41%;background:linear-gradient(90deg,var(--xahni-cyan),var(--xahni-blue))"></div></div>
+                    <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--text-muted)">
+                      <span class="x-mono-sm" style="color:var(--accent-cyan-text)">41 pts</span>
+                      <span>creó 7 juegos</span>
+                    </div>
+                  </div>
+                  <div class="comps-stub-duel__center">
+                    <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:0.1em;margin-bottom:4px">VS</div>
+                    <svg viewBox="0 0 18 16" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--xahni-purple)">
+                      <path d="M2 4c3-2 6-2 8 1"/><path d="M8 5l2 0l0 -2"/>
+                      <path d="M16 12c-3 2-6 2-8-1"/><path d="M10 11l-2 0l0 2"/>
+                    </svg>
+                  </div>
+                  <div class="comps-stub-duel__side comps-stub-duel__side--right">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;justify-content:flex-end">
+                      <span class="x-chip x-chip--ok" style="font-size:10px">Liderando</span>
+                      <span class="x-mono-sm" style="font-size:14px;font-weight:700;color:var(--text-primary)">GRU-503</span>
+                    </div>
+                    <div class="x-progress" style="height:10px;transform:scaleX(-1)"><div class="x-progress__fill" style="width:52%;background:linear-gradient(90deg,var(--xahni-amber),var(--xahni-purple))"></div></div>
+                    <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--text-muted);flex-direction:row-reverse">
+                      <span class="x-mono-sm" style="color:var(--xahni-amber)">52 pts</span>
+                      <span>creó 8 juegos</span>
+                    </div>
+                  </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0 4px;font-size:12px;flex-wrap:wrap;gap:10px">
+                  <div style="display:flex;align-items:center;gap:10px;color:var(--text-secondary)">
+                    <span class="x-chip x-chip--info" style="font-size:11px">Termodinámica</span>
+                    <span>·</span>
+                    <span style="color:var(--text-muted)">Ciclos termodinámicos</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;color:var(--text-muted)">
+                    <span>Umbral: <strong class="x-mono-sm" style="color:var(--text-primary)">100 pts</strong></span>
+                    <span>·</span>
+                    <span><strong class="x-mono-sm" style="color:var(--text-secondary)">9 días</strong> restantes</span>
+                  </div>
+                </div>
+                <div class="comps-stub-duel-actions" style="display:flex;justify-content:flex-end;gap:8px;padding:10px 0 4px">
+                  <button class="x-btn x-btn--ghost" disabled title="Disponible post-Supabase" style="opacity:0.55;cursor:not-allowed;font-size:12px">⏸ Pausar</button>
+                  <button class="x-btn x-btn--ghost" disabled title="Disponible post-Supabase" style="opacity:0.55;cursor:not-allowed;font-size:12px">✓ Cerrar ahora</button>
+                  <button class="x-btn x-btn--ghost" disabled title="Disponible post-Supabase" style="opacity:0.55;cursor:not-allowed;font-size:12px">👁 Ver juegos creados</button>
+                </div>
+              </div>
+
+              <!-- Histórico -->
+              <div class="x-card" style="margin-bottom:14px">
+                <header style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+                  <span style="font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--text-primary)">Histórico</span>
+                  <span class="x-mono-sm" style="color:var(--text-muted)">3 competencias cerradas</span>
+                </header>
+
+                <div class="comps-stub-history__row">
+                  <div><span class="x-mono-sm" style="font-size:10px;color:var(--text-muted);letter-spacing:0.05em;text-transform:uppercase">12 mar</span></div>
+                  <div>
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                      <span class="comps-stub-history__crown" title="Ganador">
+                        <svg viewBox="0 0 16 14" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+                          <path d="M2 11l1.5-6 3 3 1.5-5 1.5 5 3-3 1.5 6z"/><path d="M2 11h12"/>
+                        </svg>
+                      </span>
+                      <span class="x-mono-sm" style="font-weight:700;color:var(--text-primary)">GRU-301</span>
+                      <span style="color:var(--text-muted);font-size:11px">vs</span>
+                      <span class="x-mono-sm" style="color:var(--text-muted)">GRU-302</span>
+                    </div>
+                    <div style="font-size:11px;color:var(--text-muted);margin-top:3px">Química Orgánica · Estereoquímica</div>
+                  </div>
+                  <div class="comps-stub-history__score">
+                    <span class="x-mono-sm" style="color:var(--state-ok);font-weight:700">87</span>
+                    <span style="color:var(--text-muted);font-size:11px">→</span>
+                    <span class="x-mono-sm" style="color:var(--text-muted)">62</span>
+                  </div>
+                </div>
+
+                <div class="comps-stub-history__row">
+                  <div><span class="x-mono-sm" style="font-size:10px;color:var(--text-muted);letter-spacing:0.05em;text-transform:uppercase">28 feb</span></div>
+                  <div>
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                      <span class="x-mono-sm" style="color:var(--text-muted)">GRU-401</span>
+                      <span style="color:var(--text-muted);font-size:11px">vs</span>
+                      <span class="comps-stub-history__crown" title="Ganador">
+                        <svg viewBox="0 0 16 14" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+                          <path d="M2 11l1.5-6 3 3 1.5-5 1.5 5 3-3 1.5 6z"/><path d="M2 11h12"/>
+                        </svg>
+                      </span>
+                      <span class="x-mono-sm" style="font-weight:700;color:var(--text-primary)">GRU-403</span>
+                    </div>
+                    <div style="font-size:11px;color:var(--text-muted);margin-top:3px">Cálculo Vectorial · Teorema de Stokes</div>
+                  </div>
+                  <div class="comps-stub-history__score">
+                    <span class="x-mono-sm" style="color:var(--text-muted)">81</span>
+                    <span style="color:var(--text-muted);font-size:11px">→</span>
+                    <span class="x-mono-sm" style="color:var(--state-ok);font-weight:700">94</span>
+                  </div>
+                </div>
+
+                <div class="comps-stub-history__row" style="border-bottom:none">
+                  <div><span class="x-mono-sm" style="font-size:10px;color:var(--text-muted);letter-spacing:0.05em;text-transform:uppercase">15 feb</span></div>
+                  <div>
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                      <span class="x-mono-sm" style="color:var(--text-muted)">GRU-501</span>
+                      <span style="color:var(--text-muted);font-size:11px">vs</span>
+                      <span class="comps-stub-history__crown" title="Ganador">
+                        <svg viewBox="0 0 16 14" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+                          <path d="M2 11l1.5-6 3 3 1.5-5 1.5 5 3-3 1.5 6z"/><path d="M2 11h12"/>
+                        </svg>
+                      </span>
+                      <span class="x-mono-sm" style="font-weight:700;color:var(--text-primary)">GRU-502</span>
+                    </div>
+                    <div style="font-size:11px;color:var(--text-muted);margin-top:3px">Mecánica Clásica · Lagrangiana</div>
+                  </div>
+                  <div class="comps-stub-history__score">
+                    <span class="x-mono-sm" style="color:var(--text-muted)">71</span>
+                    <span style="color:var(--text-muted);font-size:11px">→</span>
+                    <span class="x-mono-sm" style="color:var(--state-ok);font-weight:700">76</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bottom legend -->
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--surface-1);border:1px dashed var(--border);border-radius:var(--r-md);font-size:12px;color:var(--text-muted);flex-wrap:wrap;gap:14px">
+                <div style="flex:1;min-width:280px">Las competencias premian <strong style="color:var(--text-secondary)">creatividad colectiva</strong>: cada grupo se mide por la calidad de los juegos que diseña + la nota que obtiene en los del rival.</div>
+                <span class="x-chip x-chip--info" style="flex-shrink:0">Sistema completo post-Supabase</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── PANEL: HUB-MATERIA PROFESOR (overlay sobre hub-grupo) ── -->
+          <div id="prof-hub-detalle-panel" style="display:none">
+            <!-- Back + encabezado de la materia -->
+            <div class="hub-det-topbar">
+              <button class="x-btn x-btn--ghost" style="font-size:12px;padding:7px 14px" onclick="profHubCerrarDetalle()">
+                ← Mi grupo
+              </button>
+              <!-- Breadcrumb explícito {grupo} › {materia} (slice pre-c10 6a 2026-05-26).
+                   Antes: chip "· {grupo}" después del badge — jerarquía implícita.
+                   Ahora: crumb del grupo ANTES del badge materia, separador `›`. -->
+              <span id="prof-hub-det-grupo-crumb" class="hub-det-crumb" style="font-size:12px;color:var(--text-secondary);font-weight:500"></span>
+              <span class="hub-det-sep" aria-hidden="true" style="font-size:12px;color:var(--text-muted)">›</span>
+              <div class="hub-det-materia-badge" id="prof-hub-det-badge">
+                <div class="hub-det-materia-color" id="prof-hub-det-color"></div>
+                <span id="prof-hub-det-nombre">Materia</span>
+              </div>
+              <!-- Deprecación silenciosa: prof-hub-det-grupo queda vacío para no romper
+                   consumers JS antiguos que lo referencian. -->
+              <span id="prof-hub-det-grupo" style="display:none"></span>
+              <!-- Tabs P1/P2/Final elevados al header (Pieza D, Task 9).
+                   2026-05-23: trasplante del visual `.escala-tab` (chunky
+                   cards) desde el contexto viejo de calificaciones — feedback
+                   `feedback_preguntar_antes_remover_y_reutilizar_disenos`. -->
+              <div id="prof-mat-parcial-tabs" class="escala-parcial-tabs" style="margin-left:auto;margin-bottom:0"></div>
+              <!-- Slot "Cerrar parcial" elevado al header del hub-materia
+                   (slice cerrar-parcial-integracion 2026-05-24). Antes vivía
+                   en gestion.html y solo era visible en el tab Gestión. -->
+              <div id="prof-mat-cerrar-parcial-slot" style="margin-left:8px"></div>
+            </div>
+
+            <!-- Tabs internos del hub-materia profesor (6 tabs · orden Calificaciones | Gestión | Asistencia | Tareas | Recursos | Juegos) -->
+            <div class="hub-tabs-bar">
+              <button class="hub-tab active" data-tab="calificaciones" onclick="profHubMatSwitchTab('calificaciones', this)">
+                <svg class="x-icon"><use href="#x-icon-calificaciones"></use></svg> Calificaciones
+              </button>
+              <button class="hub-tab" data-tab="gestion" onclick="profHubMatSwitchTab('gestion', this)">
+                <svg class="x-icon"><use href="#x-icon-gear"></use></svg> Gestión
+              </button>
+              <button class="hub-tab" data-tab="asistencia" onclick="profHubMatSwitchTab('asistencia', this)">
+                <svg class="x-icon"><use href="#x-icon-check-circle"></use></svg> Asistencia
+              </button>
+              <button class="hub-tab" data-tab="tareas" onclick="profHubMatSwitchTab('tareas', this)">
+                <svg class="x-icon"><use href="#x-icon-tareas"></use></svg> Tareas
+              </button>
+              <button class="hub-tab" data-tab="examenes" onclick="profHubMatSwitchTab('examenes', this)">
+                <svg class="x-icon"><use href="#x-icon-examenes"></use></svg> Examenes
+              </button>
+              <button class="hub-tab" data-tab="recursos" onclick="profHubMatSwitchTab('recursos', this)">
+                <svg class="x-icon"><use href="#x-icon-recursos"></use></svg> Recursos
+              </button>
+              <button class="hub-tab" data-tab="juegos" onclick="profHubMatSwitchTab('juegos', this)">
+                <svg class="x-icon"><use href="#x-icon-juegos"></use></svg> Juegos
+              </button>
+              <button class="hub-tab" data-tab="temario" onclick="profHubMatSwitchTab('temario', this)">
+                <svg class="x-icon"><use href="#x-icon-temario"></use></svg> Temario
+              </button>
+              <button class="hub-tab" data-tab="maestria" onclick="profHubMatSwitchTab('maestria', this)">
+                <svg class="x-icon x-icon--md" aria-hidden="true"><use href="#x-icon-crown"/></svg>
+                Maestría
+              </button>
+            </div>
+
+            <!-- Tab: CALIFICACIONES — render por escala.js (trasplante D1) -->
+            <div class="hub-tab-panel" id="prof-hub-mat-panel-calificaciones"></div>
+
+            <!-- Tab: GESTIÓN — render por gestion.js (trasplante D2) -->
+            <div class="hub-tab-panel" id="prof-hub-mat-panel-gestion" style="display:none"></div>
+
+            <!-- Tab: ASISTENCIA — render por asistencia.js (slice 2026-05-24) -->
+            <div class="hub-tab-panel" id="prof-hub-mat-panel-asistencia" style="display:none"></div>
+
+            <!-- Tab: TAREAS — render por tareas.js profesor (trasplante D3) -->
+            <div class="hub-tab-panel" id="prof-hub-mat-panel-tareas" style="display:none"></div>
+
+            <!-- Tab: EXAMENES — stub D4 con identidad de los 3 tipos pregunta (slice pre-c10 #11) -->
+            <div class="hub-tab-panel" id="prof-hub-mat-panel-examenes" style="display:none">
+              <div class="x-page-head">
+                <div>
+                  <div class="x-page-head__title">Mis <em>exámenes</em></div>
+                  <div class="x-page-head__subtitle">Evaluaciones formales que alimentan tu maestría por materia</div>
+                </div>
+                <div class="x-page-head__actions" style="display:flex;align-items:center;gap:10px">
+                  <span class="x-chip x-chip--info" style="display:inline-flex;align-items:center;gap:6px">
+                    <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M3 2h7l3 3v9H3z"/><path d="M10 2v3h3"/><path d="M5.5 8h5M5.5 11h3"/>
+                    </svg>
+                    Solo profesor + admin crean
+                  </span>
+                  <button class="x-btn x-btn--primary" disabled title="Disponible post-Supabase" style="opacity:0.55;cursor:not-allowed">＋ Crear examen</button>
+                </div>
+              </div>
+
+              <!-- Identidad: 3 tipos de pregunta -->
+              <div class="x-card" style="margin-bottom:18px;padding:20px;position:relative;overflow:hidden">
+                <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(135deg,var(--xahni-blue-dim) 0%,transparent 40%,transparent 60%,var(--xahni-teal-dim) 100%);opacity:0.35;pointer-events:none"></div>
+                <header style="position:relative;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+                  <span style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--text-primary)">3 tipos de pregunta · combinables en un mismo examen</span>
+                </header>
+                <div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px">
+
+                  <div class="examenes-stub-tipo">
+                    <div class="examenes-stub-tipo__icon" style="color:var(--accent-cyan-text)">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="6" cy="7" r="2.5"/>
+                        <circle cx="6" cy="14" r="2.5" fill="currentColor" stroke="none"/>
+                        <circle cx="6" cy="21" r="2.5"/>
+                        <line x1="11" y1="7" x2="20" y2="7"/>
+                        <line x1="11" y1="14" x2="20" y2="14"/>
+                        <line x1="11" y1="21" x2="20" y2="21"/>
+                      </svg>
+                    </div>
+                    <div class="examenes-stub-tipo__title">Opción múltiple</div>
+                    <div class="examenes-stub-tipo__desc">Una respuesta correcta entre varias. Auto-calificable. El alumno marca y el sistema corrige.</div>
+                  </div>
+
+                  <div class="examenes-stub-tipo">
+                    <div class="examenes-stub-tipo__icon" style="color:var(--xahni-amber)">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 6h11"/>
+                        <path d="M4 11h16"/>
+                        <path d="M4 16h12"/>
+                        <path d="M19 19v3M17.5 20.5h3"/>
+                      </svg>
+                    </div>
+                    <div class="examenes-stub-tipo__title">Respuesta abierta</div>
+                    <div class="examenes-stub-tipo__desc">El alumno escribe. Va a tu bandeja de calificación asíncrona — tú decides la nota.</div>
+                  </div>
+
+                  <div class="examenes-stub-tipo">
+                    <div class="examenes-stub-tipo__icon" style="color:var(--xahni-teal)">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="5" width="6" height="3" rx="0.5"/>
+                        <rect x="3" y="11" width="6" height="3" rx="0.5"/>
+                        <rect x="3" y="17" width="6" height="3" rx="0.5"/>
+                        <rect x="15" y="5" width="6" height="3" rx="0.5"/>
+                        <rect x="15" y="11" width="6" height="3" rx="0.5"/>
+                        <rect x="15" y="17" width="6" height="3" rx="0.5"/>
+                        <path d="M9 6.5C11 6.5 13 18.5 15 18.5" opacity="0.7"/>
+                        <path d="M9 12.5C12 12.5 12 6.5 15 6.5" opacity="0.7"/>
+                        <path d="M9 18.5C12 18.5 12 12.5 15 12.5" opacity="0.7"/>
+                      </svg>
+                    </div>
+                    <div class="examenes-stub-tipo__title">Concepto ↔ Definición</div>
+                    <div class="examenes-stub-tipo__desc">El alumno empareja conceptos con sus definiciones. Auto-calificable por par correcto.</div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Lista vacía con prompt creativo -->
+              <div class="x-card" style="margin-bottom:14px;padding:36px 24px">
+                <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;max-width:480px;margin:0 auto">
+                  <div style="width:56px;height:56px;border-radius:var(--r-lg);background:var(--surface-2);display:flex;align-items:center;justify-content:center;color:var(--xahni-purple)">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 3h11l4 4v14H5z"/>
+                      <path d="M16 3v4h4"/>
+                      <path d="M8 11h8M8 14h8M8 17h5"/>
+                    </svg>
+                  </div>
+                  <div style="font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--text-primary)">Aún no tienes exámenes en esta materia</div>
+                  <div style="font-size:13px;color:var(--text-secondary);line-height:1.55">
+                    Los exámenes formales alimentan los <strong style="color:var(--xahni-purple)">mastery points</strong> de tus alumnos
+                    por materia. A diferencia de los juegos, son evaluaciones serias con timer, auto-save y bandeja de grading.
+                  </div>
+                  <div style="font-size:12px;color:var(--text-muted)">Cuando crees tu primer examen, lo verás aquí.</div>
+                </div>
+              </div>
+
+              <!-- Bottom legend -->
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--surface-1);border:1px dashed var(--border);border-radius:var(--r-md);font-size:12px;color:var(--text-muted);flex-wrap:wrap;gap:14px">
+                <div style="flex:1;min-width:280px">El sistema de exámenes incluirá <strong style="color:var(--text-secondary)">auto-save, timer, navegación entre preguntas, bandeja de grading y estadísticas por pregunta</strong>.</div>
+                <span class="x-chip x-chip--info" style="flex-shrink:0">Sistema completo post-Supabase</span>
+              </div>
+            </div>
+
+            <!-- Tab: RECURSOS — render por recursos.js profesor (trasplante D4) -->
+            <div class="hub-tab-panel" id="prof-hub-mat-panel-recursos" style="display:none"></div>
+
+            <!-- Tab: JUEGOS — stub D1 con identidad creator-economy (slice pre-c10 #10) -->
+            <div class="hub-tab-panel" id="prof-hub-mat-panel-juegos" style="display:none">
+              <div class="x-page-head">
+                <div>
+                  <div class="x-page-head__title">Mis <em>juegos</em></div>
+                  <div class="x-page-head__subtitle">Diseñados por ti · jugados por tus alumnos</div>
+                </div>
+                <div class="x-page-head__actions" style="display:flex;align-items:center;gap:10px">
+                  <span class="x-chip x-chip--ok" style="display:inline-flex;align-items:center;gap:6px">
+                    <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M8 14c2.5 0 4-1.6 4-3.6 0-1.4-1-2.4-1.5-3.4-.7 1-1.5 1.5-2 1-1-1-.5-3 1-5-3 1.5-5.5 4-5.5 7C4 12.4 5.5 14 8 14z"/>
+                    </svg>
+                    Cuota: ilimitada por tema
+                  </span>
+                  <button class="x-btn x-btn--primary" disabled title="Disponible post-Supabase" style="opacity:0.55;cursor:not-allowed">＋ Crear juego</button>
+                </div>
+              </div>
+
+              <!-- Creator stats hero -->
+              <div class="x-card" style="margin-bottom:18px;padding:22px;position:relative;overflow:hidden">
+                <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(135deg,var(--xahni-cyan-dim) 0%,transparent 35%,transparent 65%,var(--xahni-purple-dim) 100%);opacity:0.4;pointer-events:none"></div>
+                <div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px">
+                  <div class="juegos-stub-stat">
+                    <div class="juegos-stub-stat__icon" style="color:var(--accent-cyan-text)">
+                      <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 6h6M5 9h6M5 12h4"/></svg>
+                    </div>
+                    <div class="x-stat__label">Juegos creados</div>
+                    <div class="x-stat__num" style="color:var(--text-primary)">12</div>
+                    <div style="font-size:11px;color:var(--text-muted)">en 4 temas</div>
+                  </div>
+                  <div class="juegos-stub-stat">
+                    <div class="juegos-stub-stat__icon" style="color:var(--xahni-teal)">
+                      <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3l9 5-9 5V3z"/></svg>
+                    </div>
+                    <div class="x-stat__label">Jugadas recibidas</div>
+                    <div class="x-stat__num" style="color:var(--text-primary)">322</div>
+                    <div style="font-size:11px;color:var(--state-ok)">+48 esta semana</div>
+                  </div>
+                  <div class="juegos-stub-stat">
+                    <div class="juegos-stub-stat__icon" style="color:var(--xahni-amber)">
+                      <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4"><ellipse cx="8" cy="8" rx="6" ry="2.5" transform="rotate(-20 8 8)"/><circle cx="8" cy="8" r="1.5" fill="currentColor"/></svg>
+                    </div>
+                    <div class="x-stat__label">XP pasiva</div>
+                    <div class="x-stat__num" style="background:linear-gradient(90deg,var(--xahni-amber),var(--xahni-purple));-webkit-background-clip:text;background-clip:text;color:transparent">1,950</div>
+                    <div style="font-size:11px;color:var(--text-muted)">ganada por aciertos ajenos</div>
+                  </div>
+                  <div class="juegos-stub-stat">
+                    <div class="juegos-stub-stat__icon" style="color:var(--xahni-purple)">
+                      <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h8v3c0 2-1.5 3.5-4 3.5S4 7 4 5V2z"/><path d="M6 9h4M5 14h6M7 11v3M9 11v3"/></svg>
+                    </div>
+                    <div class="x-stat__label">Top juego</div>
+                    <div style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--text-primary);line-height:1.2;margin:2px 0">Campos vectoriales</div>
+                    <div style="font-size:11px;color:var(--text-muted)">promedio <span class="x-mono-sm" style="color:var(--state-ok);font-weight:700">8.9</span> en 67 jugadas</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Identidad: hint creator economy -->
+              <div class="x-card x-card--info" style="margin-bottom:18px;padding:14px 18px">
+                <div style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--text-secondary);line-height:1.55">
+                  <svg viewBox="0 0 16 16" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--xahni-amber);flex-shrink:0">
+                    <path d="M8 14c2.5 0 4-1.6 4-3.6 0-1.4-1-2.4-1.5-3.4-.7 1-1.5 1.5-2 1-1-1-.5-3 1-5-3 1.5-5.5 4-5.5 7C4 12.4 5.5 14 8 14z"/>
+                  </svg>
+                  <span>
+                    Tú <strong style="color:var(--text-primary)">no ganas XP jugando tus propios juegos</strong>.
+                    Ganas <strong style="color:var(--xahni-amber)">XP pasiva</strong> cuando un alumno los juega bien:
+                    a mejor calidad del juego, más ingreso pasivo. Un buen juego rinde durante todo el periodo.
+                  </span>
+                </div>
+              </div>
+
+              <!-- Filtros + orden (slice #10 brainstorming B6) -->
+              <div class="juegos-stub-filters" style="display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px;flex-wrap:wrap">
+                <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                  <span style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-right:4px">Filtrar tema</span>
+                  <button class="x-chip x-chip--info" disabled title="Disponible post-Supabase" style="opacity:0.55;cursor:not-allowed;border:none;font-family:var(--font-sans)">Todos</button>
+                  <button class="x-chip" disabled title="Disponible post-Supabase" style="opacity:0.55;cursor:not-allowed;border:1px solid var(--border);background:var(--surface-2);color:var(--text-muted);font-family:var(--font-sans);padding:3px 10px;border-radius:99px;font-size:11px">Operadores</button>
+                  <button class="x-chip" disabled title="Disponible post-Supabase" style="opacity:0.55;cursor:not-allowed;border:1px solid var(--border);background:var(--surface-2);color:var(--text-muted);font-family:var(--font-sans);padding:3px 10px;border-radius:99px;font-size:11px">Curvas</button>
+                  <button class="x-chip" disabled title="Disponible post-Supabase" style="opacity:0.55;cursor:not-allowed;border:1px solid var(--border);background:var(--surface-2);color:var(--text-muted);font-family:var(--font-sans);padding:3px 10px;border-radius:99px;font-size:11px">Campos</button>
+                  <button class="x-chip" disabled title="Disponible post-Supabase" style="opacity:0.55;cursor:not-allowed;border:1px solid var(--border);background:var(--surface-2);color:var(--text-muted);font-family:var(--font-sans);padding:3px 10px;border-radius:99px;font-size:11px">Integrales</button>
+                </div>
+                <select disabled title="Disponible post-Supabase" style="background:var(--surface-1);border:1px solid var(--border);border-radius:var(--r-md);padding:6px 10px;font-family:var(--font-sans);font-size:12px;color:var(--text-muted);opacity:0.55;cursor:not-allowed;min-width:180px">
+                  <option>Ordenar: Popularidad ↓</option>
+                </select>
+              </div>
+
+              <!-- Mis juegos creados grid -->
+              <header style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding:0 2px">
+                <span style="font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--text-primary)">Mis juegos creados</span>
+                <span class="x-mono-sm" style="color:var(--text-muted)">4 de 12</span>
+              </header>
+
+              <div class="juegos-stub-grid" style="margin-bottom:18px">
+
+                <article class="x-card juegos-stub-card juegos-stub-card--strong" title="Ver detalle del juego (disponible post-Supabase)">
+                  <header class="juegos-stub-card__head">
+                    <div>
+                      <div class="juegos-stub-card__title">Operadores diferenciales</div>
+                      <div style="margin-top:6px"><span class="x-chip x-chip--info" style="font-size:10px">Gradiente · Divergencia · Rotacional</span></div>
+                    </div>
+                    <span class="x-chip x-chip--ok" style="font-size:10px;flex-shrink:0">Top 3</span>
+                  </header>
+                  <div class="juegos-stub-card__metrics">
+                    <div><div class="x-stat__label" style="font-size:9px">Jugadas</div><div class="x-mono-sm" style="font-size:15px;color:var(--text-primary);font-weight:700">142</div></div>
+                    <div><div class="x-stat__label" style="font-size:9px">Promedio</div><div class="x-mono-sm" style="font-size:15px;color:var(--state-ok);font-weight:700">8.3</div></div>
+                    <div><div class="x-stat__label" style="font-size:9px">XP pasiva</div><div class="x-mono-sm" style="font-size:15px;color:var(--xahni-amber);font-weight:700">+840</div></div>
+                  </div>
+                  <div class="juegos-stub-card__bar">
+                    <div class="juegos-stub-card__bar-label">popularidad</div>
+                    <div class="x-progress" style="flex:1"><div class="x-progress__fill" style="width:88%;background:linear-gradient(90deg,var(--xahni-cyan),var(--xahni-blue))"></div></div>
+                  </div>
+                  <div class="juegos-stub-card__cta">Ver detalle →</div>
+                </article>
+
+                <article class="x-card juegos-stub-card" title="Ver detalle del juego (disponible post-Supabase)">
+                  <header class="juegos-stub-card__head">
+                    <div>
+                      <div class="juegos-stub-card__title">Trayectorias paramétricas</div>
+                      <div style="margin-top:6px"><span class="x-chip x-chip--info" style="font-size:10px">Curvas en el espacio</span></div>
+                    </div>
+                    <span class="x-chip x-chip--muted" style="font-size:10px;flex-shrink:0">Estable</span>
+                  </header>
+                  <div class="juegos-stub-card__metrics">
+                    <div><div class="x-stat__label" style="font-size:9px">Jugadas</div><div class="x-mono-sm" style="font-size:15px;color:var(--text-primary);font-weight:700">89</div></div>
+                    <div><div class="x-stat__label" style="font-size:9px">Promedio</div><div class="x-mono-sm" style="font-size:15px;color:var(--state-info);font-weight:700">7.6</div></div>
+                    <div><div class="x-stat__label" style="font-size:9px">XP pasiva</div><div class="x-mono-sm" style="font-size:15px;color:var(--xahni-amber);font-weight:700">+480</div></div>
+                  </div>
+                  <div class="juegos-stub-card__bar">
+                    <div class="juegos-stub-card__bar-label">popularidad</div>
+                    <div class="x-progress" style="flex:1"><div class="x-progress__fill" style="width:55%;background:linear-gradient(90deg,var(--state-info),var(--xahni-blue))"></div></div>
+                  </div>
+                  <div class="juegos-stub-card__cta">Ver detalle →</div>
+                </article>
+
+                <article class="x-card juegos-stub-card juegos-stub-card--strong" title="Ver detalle del juego (disponible post-Supabase)">
+                  <header class="juegos-stub-card__head">
+                    <div>
+                      <div class="juegos-stub-card__title">Campos vectoriales</div>
+                      <div style="margin-top:6px"><span class="x-chip x-chip--info" style="font-size:10px">Campos conservativos</span></div>
+                    </div>
+                    <span class="x-chip x-chip--ok" style="font-size:10px;flex-shrink:0">Top juego</span>
+                  </header>
+                  <div class="juegos-stub-card__metrics">
+                    <div><div class="x-stat__label" style="font-size:9px">Jugadas</div><div class="x-mono-sm" style="font-size:15px;color:var(--text-primary);font-weight:700">67</div></div>
+                    <div><div class="x-stat__label" style="font-size:9px">Promedio</div><div class="x-mono-sm" style="font-size:15px;color:var(--state-ok);font-weight:700">8.9</div></div>
+                    <div><div class="x-stat__label" style="font-size:9px">XP pasiva</div><div class="x-mono-sm" style="font-size:15px;color:var(--xahni-amber);font-weight:700">+520</div></div>
+                  </div>
+                  <div class="juegos-stub-card__bar">
+                    <div class="juegos-stub-card__bar-label">popularidad</div>
+                    <div class="x-progress" style="flex:1"><div class="x-progress__fill" style="width:72%;background:linear-gradient(90deg,var(--xahni-cyan),var(--xahni-purple))"></div></div>
+                  </div>
+                  <div class="juegos-stub-card__cta">Ver detalle →</div>
+                </article>
+
+                <article class="x-card juegos-stub-card" title="Ver detalle del juego (disponible post-Supabase)">
+                  <header class="juegos-stub-card__head">
+                    <div>
+                      <div class="juegos-stub-card__title">Teorema de Stokes</div>
+                      <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">
+                        <span class="x-chip x-chip--info" style="font-size:10px">Integrales de superficie</span>
+                        <span class="x-chip x-chip--warn" style="font-size:10px">Nuevo</span>
+                      </div>
+                    </div>
+                    <span class="x-chip x-chip--muted" style="font-size:10px;flex-shrink:0">En rodaje</span>
+                  </header>
+                  <div class="juegos-stub-card__metrics">
+                    <div><div class="x-stat__label" style="font-size:9px">Jugadas</div><div class="x-mono-sm" style="font-size:15px;color:var(--text-primary);font-weight:700">24</div></div>
+                    <div><div class="x-stat__label" style="font-size:9px">Promedio</div><div class="x-mono-sm" style="font-size:15px;color:var(--state-warn);font-weight:700">6.4</div></div>
+                    <div><div class="x-stat__label" style="font-size:9px">XP pasiva</div><div class="x-mono-sm" style="font-size:15px;color:var(--text-secondary);font-weight:700">+110</div></div>
+                  </div>
+                  <div class="juegos-stub-card__bar">
+                    <div class="juegos-stub-card__bar-label">popularidad</div>
+                    <div class="x-progress" style="flex:1"><div class="x-progress__fill" style="width:22%;background:var(--state-warn)"></div></div>
+                  </div>
+                  <div class="juegos-stub-card__cta">Ver detalle →</div>
+                </article>
+
+              </div>
+
+              <!-- Bottom legend -->
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--surface-1);border:1px dashed var(--border);border-radius:var(--r-md);font-size:12px;color:var(--text-muted);flex-wrap:wrap;gap:14px">
+                <div style="flex:1;min-width:280px">El sistema mide qué tan bien diseñas: a mejor calidad, mayor <strong style="color:var(--text-secondary)">ingreso pasivo</strong> y mayor reconocimiento. La cuota es ilimitada para que experimentes.</div>
+                <span class="x-chip x-chip--info" style="flex-shrink:0">Sistema completo post-Supabase</span>
+              </div>
+            </div>
+            <!-- Tab: TEMARIO (Sweep 2026-06-09 Temario+IA) -->
+            <div class="hub-tab-panel" id="prof-hub-mat-panel-temario" style="display:none"
+                 data-temario-panel="profesor" data-current-matid=""></div>
+            <div class="hub-tab-panel" id="prof-hub-mat-panel-maestria" style="display:none"></div>
+</body>
+          </div>

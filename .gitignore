@@ -1,0 +1,21 @@
+# xahni-demo · repo público generado desde xahni-sprint
+# Protección defensiva contra accidental commits de secretos.
+
+# Build / temporales
+_site/
+node_modules/
+.playwright-mcp/
+tmp/
+
+# SECRETOS — nunca commit
+firebase-admin-key.json
+*-admin-key.json
+*-service-account.json
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

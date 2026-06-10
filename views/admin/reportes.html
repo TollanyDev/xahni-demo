@@ -1,0 +1,36 @@
+          <div class="x-page-head">
+            <div>
+              <div class="x-page-head__title">Reportes <em>globales</em></div>
+              <div class="x-page-head__subtitle">Métricas agregadas cross-institución</div>
+            </div>
+            <div class="x-page-head__actions">
+              <span class="x-chip x-chip--info">Datos disponibles post-Supabase</span>
+            </div>
+          </div>
+
+          <!-- Filtros (placeholder · habilitados al cablear backend) -->
+          <div class="x-card" style="margin-bottom:18px">
+            <header style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+              <span style="font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--text-primary)">🔎 Filtros</span>
+              <span class="x-mono-sm" style="color:var(--text-muted)">3 dimensiones</span>
+            </header>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <select disabled
+                      style="background:var(--surface-1);border:1px solid var(--border);border-radius:var(--r-md);padding:8px 12px;font-family:var(--font-sans);font-size:13px;color:var(--text-muted);min-width:170px;opacity:0.65;cursor:not-allowed">
+                <option>Todos los períodos</option>
+              </select>
+              <select disabled
+                      style="background:var(--surface-1);border:1px solid var(--border);border-radius:var(--r-md);padding:8px 12px;font-family:var(--font-sans);font-size:13px;color:var(--text-muted);min-width:170px;opacity:0.65;cursor:not-allowed">
+                <option>Todos los roles</option>
+              </select>
+              <select disabled
+                      style="background:var(--surface-1);border:1px solid var(--border);border-radius:var(--r-md);padding:8px 12px;font-family:var(--font-sans);font-size:13px;color:var(--text-muted);min-width:200px;opacity:0.65;cursor:not-allowed">
+                <option>Todas las instituciones</option>
+              </select>
+              <button class="x-btn x-btn--ghost" disabled
+                      style="opacity:0.55;cursor:not-allowed">Aplicar</button>
+            </div>
+          </div>
+
+          <!-- Grid 2×2 de gráficos placeholder -->
+          <div class="x-grid--2" id="admin-reportes-grid"></div>

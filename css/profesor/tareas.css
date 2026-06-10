@@ -1,0 +1,584 @@
+/* ══════════════════════════════════════════════════════════
+   PROFESOR — Tareas (Mission Control redesign)
+══════════════════════════════════════════════════════════ */
+
+/* ── Animations ───────────────────────────────────────── */
+@keyframes tp-card-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes tp-live-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55); }
+  50%       { box-shadow: 0 0 0 4px rgba(34, 197, 94, 0); }
+}
+
+/* ── Metrics strip ────────────────────────────────────── */
+.tp-metrics-strip {
+  display: flex;
+  align-items: stretch;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  width: 100%;
+}
+
+.tp-metric-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 10px;
+  gap: 4px;
+  transition: background 0.15s;
+  cursor: default;
+}
+
+.tp-metric-item:hover {
+  background: var(--surface-2);
+}
+
+.tp-metric-num {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+.tp-metric-lbl {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.tp-metric-sep {
+  width: 1px;
+  background: var(--border);
+  align-self: stretch;
+  flex-shrink: 0;
+}
+
+/* ── Filter row ───────────────────────────────────────── */
+.tp-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.tp-filter-tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.tp-filter-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: calc(var(--r-md) - 3px);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-size-xs);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.tp-filter-tab:hover:not(.active) {
+  color: var(--text-secondary);
+  background: var(--surface-3);
+}
+
+.tp-filter-tab.active {
+  background: var(--surface-4);
+  color: var(--text-primary);
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+.tp-tab-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tp-tab-dot-live    { background: var(--xahni-green); animation: tp-live-pulse 2.2s infinite; }
+.tp-tab-dot-closed  { background: var(--xahni-purple-light); }
+.tp-tab-dot-draft   { background: var(--xahni-amber); }
+
+.tp-filter-select {
+  padding: 7px 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: var(--text-size-xs);
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.tp-filter-select:hover,
+.tp-filter-select:focus-visible {
+  border-color: var(--border-bright);
+  color: var(--text-primary);
+}
+
+.tp-filter-select:focus-visible {
+  outline: 2px solid var(--x-focus-ring-color);
+  outline-offset: 2px;
+}
+
+/* ── Task Card ────────────────────────────────────────── */
+.tp-card {
+  display: flex;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  margin-bottom: 8px;
+  animation: tp-card-in 0.3s ease both;
+}
+
+.tp-card:hover {
+  border-color: var(--border-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Left accent block: tipo abbrev + points in display font */
+.tp-card-left {
+  width: 72px;
+  flex-shrink: 0;
+  border-left: 3px solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px 8px;
+}
+
+.tp-card-tipo-abrev {
+  font-family: var(--font-mono);
+  font-size: var(--text-size-2xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.tp-card-pts-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.tp-pts-big {
+  font-family: var(--font-display);
+  font-size: var(--text-size-xl);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.tp-pts-unit {
+  font-size: 8.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  margin-top: 2px;
+}
+
+/* Card body */
+.tp-card-body {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-left: 1px solid var(--border);
+}
+
+.tp-card-row-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tp-card-title {
+  font-size: var(--text-size-md);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.tp-card-row-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tp-mat-badge {
+  font-size: var(--text-size-2xs);
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+.tp-tipo-badge {
+  font-size: var(--text-size-2xs);
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: var(--surface-3);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.tp-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--text-size-2xs);
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 99px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tp-status-activa {
+  background: var(--xahni-green-dim);
+  color: var(--xahni-green);
+  border: 1px solid rgba(34, 197, 94, 0.27);
+}
+
+.tp-status-cerrada {
+  background: var(--xahni-purple-dim);
+  color: var(--xahni-purple-light);
+  border: 1px solid rgba(168, 85, 247, 0.27);
+}
+
+.tp-status-borrador {
+  background: var(--xahni-amber-dim);
+  color: var(--xahni-amber);
+  border: 1px solid rgba(245, 166, 35, 0.27);
+}
+
+/* Card bottom row */
+.tp-card-row-bottom {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tp-card-fecha {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.tp-card-fecha-urgente {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--xahni-amber);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tp-card-no-pub {
+  font-size: var(--text-size-xs);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.tp-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: 1;
+  min-width: 0;
+}
+
+.tp-progress-text {
+  font-size: var(--text-size-xs);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.tp-progress-cal {
+  font-size: var(--text-size-2xs);
+  color: var(--xahni-purple-light);
+  white-space: nowrap;
+}
+
+.tp-card-actions {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ── Badges ───────────────────────────────────────────── */
+.tp-badge {
+  font-size: var(--text-size-2xs);
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+.tp-badge-green {
+  background: var(--xahni-green-dim);
+  color: var(--xahni-green);
+  border: 1px solid rgba(34, 197, 94, 0.27);
+}
+
+.tp-badge-red {
+  background: var(--xahni-red-dim);
+  color: var(--xahni-red);
+  border: 1px solid rgba(232, 64, 64, 0.27);
+}
+
+.tp-badge-amber {
+  background: var(--xahni-amber-dim);
+  color: var(--xahni-amber);
+  border: 1px solid rgba(245, 166, 35, 0.27);
+}
+
+.tp-badge-purple {
+  background: var(--xahni-purple-dim);
+  color: var(--xahni-purple-light);
+  border: 1px solid rgba(168, 85, 247, 0.27);
+}
+
+/* ── Form ─────────────────────────────────────────────── */
+.tp-form-group { margin-bottom: 12px; }
+
+.tp-form-label {
+  display: block;
+  font-size: var(--text-size-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tp-form-input {
+  width: 100%;
+  padding: 9px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-size-sm);
+  transition: var(--transition);
+}
+
+.tp-form-input:focus-visible {
+  outline: 2px solid var(--x-focus-ring-color);
+  outline-offset: 2px;
+}
+
+textarea.tp-form-input { resize: vertical; min-height: 60px; }
+select.tp-form-input   { cursor: pointer; }
+
+/* ── Detail Panel ─────────────────────────────────────── */
+.tp-det-header { margin-bottom: 16px; }
+
+.tp-det-info {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.tp-det-instrucciones {
+  font-size: var(--text-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  background: var(--surface-2);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  border-left: 3px solid var(--xahni-blue-light);
+}
+
+.tp-det-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.tp-det-stat {
+  text-align: center;
+  background: var(--surface-2);
+  border-radius: var(--r-sm);
+  padding: 10px 6px;
+  border: 1px solid var(--border);
+}
+
+.tp-det-stat-val {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.tp-det-stat-lbl {
+  font-size: var(--text-size-2xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 4px;
+}
+
+.tp-det-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tp-det-tab {
+  padding: 8px 14px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-size-xs);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.tp-det-tab:hover { color: var(--text-primary); }
+
+.tp-det-tab.active {
+  color: var(--accent-cyan-text);
+  border-bottom-color: var(--xahni-cyan);
+}
+
+/* Alumno row */
+.tp-alumno-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  gap: 10px;
+  transition: var(--transition);
+}
+
+.tp-alumno-row:last-child { border-bottom: none; }
+.tp-alumno-row:hover      { background: var(--surface-2); }
+
+/* Inline calificación */
+.tp-cal-inline { display: flex; align-items: center; gap: 4px; }
+
+.tp-cal-input {
+  width: 60px;
+  padding: 4px 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--text-size-sm);
+  text-align: center;
+  outline: none;
+  transition: var(--transition);
+}
+
+.tp-cal-input:focus-visible {
+  outline: 2px solid var(--x-focus-ring-color);
+  outline-offset: 2px;
+}
+
+.tp-cal-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--xahni-green-dim);
+  border: 1px solid var(--xahni-green);
+  border-radius: var(--r-sm);
+  color: var(--xahni-green);
+  font-size: var(--text-size-md);
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.tp-cal-btn:hover { background: var(--xahni-green); color: #fff; }
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 600px) {
+  .tp-metrics-strip { flex-wrap: wrap; }
+  .tp-metric-item   { flex: 1 0 40%; }
+  .tp-metric-sep    { display: none; }
+  .tp-card-left     { width: 58px; }
+  .tp-pts-big       { font-size: 22px; }
+  .tp-card-row-bottom { flex-direction: column; align-items: flex-start; }
+  .tp-card-actions  { margin-left: 0; }
+  .tp-det-stats     { grid-template-columns: repeat(2, 1fr); }
+  .tp-alumno-row    { flex-direction: column; align-items: flex-start; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   Slice pre-c10 9.5.B (2026-05-27): gamer-off pass
+   - A1/P1: desactiva animaciones (tp-live-pulse + tp-card-in entrance).
+   - P2: bump densidad ~15% sobre lista de cards de tarea (items≥5 típicos).
+══════════════════════════════════════════════════════════ */
+body.gamer-off .tp-tab-dot-live { animation: none; }
+body.gamer-off .tp-card-grid > * { animation: none; }
+body.gamer-off .tp-card,
+body.gamer-off .tarea-card-prof {
+    padding-block: 12px;
+}

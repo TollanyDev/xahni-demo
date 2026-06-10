@@ -1,0 +1,1296 @@
+/* ════════════════════════════════════════════════════════════
+ * css/core/maestria-card.css — Capa local Maestría sobre .x-materia-card
+ *
+ * Componente `.b1-ma-card` que COMPONE con `.x-materia-card` canónico.
+ * El article emite ambas clases: `class="x-materia-card b1-ma-card"`.
+ * El base .x-materia-card aporta hover/border/transition; .b1-ma-card
+ * overlay el banner ilustrado + emblema con tier ring + score + meta
+ * + tokens + cosmetics chips.
+ *
+ * Theme suavizado `[data-gamer="off"]` queda fuera de este slice
+ * (Slice E del Spec B.1 cubrirá el cross-rol gamer-off).
+ *
+ * Spec: docs/superpowers/specs/2026-05-30-spec-b1-rediseno-mi-grupo-maestria.md §5.5 + §5.7
+ * Mockup: docs/superpowers/mockups/2026-05-30-maestria-rediseno.html
+ * ════════════════════════════════════════════════════════════ */
+
+/* ──────────────────────────────────────────────────────────
+ * §1 WRAPPER + variantes por disciplina (tinte semántico)
+ * ────────────────────────────────────────────────────────── */
+
+.b1-ma-card {
+  --b1-ma-tint-a: var(--xahni-cyan);
+  --b1-ma-tint-b: var(--xahni-blue);
+  --b1-ma-tint-grad: linear-gradient(135deg, var(--xahni-cyan) 0%, var(--xahni-blue) 100%);
+  overflow: hidden;
+}
+.b1-ma-card[data-disciplina="poo"] {
+  --b1-ma-tint-a: var(--xahni-purple-light);
+  --b1-ma-tint-b: var(--xahni-purple);
+  --b1-ma-tint-grad: linear-gradient(135deg, var(--xahni-purple-light) 0%, var(--xahni-purple) 100%);
+}
+.b1-ma-card[data-disciplina="ed"] {
+  --b1-ma-tint-a: var(--xahni-teal);
+  --b1-ma-tint-b: var(--xahni-blue);
+  --b1-ma-tint-grad: linear-gradient(135deg, var(--xahni-teal) 0%, var(--xahni-blue) 100%);
+}
+.b1-ma-card[data-disciplina="humanidades"] {
+  --b1-ma-tint-a: var(--xahni-amber);
+  --b1-ma-tint-b: var(--xahni-purple);
+  --b1-ma-tint-grad: linear-gradient(135deg, var(--xahni-amber) 0%, var(--xahni-purple) 100%);
+}
+.b1-ma-card[data-disciplina="idiomas"] {
+  --b1-ma-tint-a: var(--xahni-cyan);
+  --b1-ma-tint-b: var(--xahni-purple-light);
+  --b1-ma-tint-grad: linear-gradient(135deg, var(--xahni-cyan) 0%, var(--xahni-purple-light) 100%);
+}
+.b1-ma-card[data-disciplina="ciencias-exactas"] {
+  --b1-ma-tint-a: var(--xahni-blue-light);
+  --b1-ma-tint-b: var(--xahni-purple);
+  --b1-ma-tint-grad: linear-gradient(135deg, var(--xahni-blue-light) 0%, var(--xahni-purple) 100%);
+}
+.b1-ma-card[data-disciplina="negocios"] {
+  --b1-ma-tint-a: var(--xahni-teal);
+  --b1-ma-tint-b: var(--xahni-amber);
+  --b1-ma-tint-grad: linear-gradient(135deg, var(--xahni-teal) 0%, var(--xahni-amber) 100%);
+}
+.b1-ma-card[data-disciplina="artes"] {
+  --b1-ma-tint-a: var(--xahni-purple);
+  --b1-ma-tint-b: var(--xahni-cyan);
+  --b1-ma-tint-grad: linear-gradient(135deg, var(--xahni-purple) 0%, var(--xahni-cyan) 100%);
+}
+.b1-ma-card[data-disciplina="salud"] {
+  --b1-ma-tint-a: var(--xahni-amber);
+  --b1-ma-tint-b: var(--xahni-cyan);
+  --b1-ma-tint-grad: linear-gradient(135deg, var(--xahni-amber) 0%, var(--xahni-cyan) 100%);
+}
+
+.b1-ma-card:hover {
+  border-color: color-mix(in srgb, var(--b1-ma-tint-a) 50%, var(--border));
+}
+
+/* ──────────────────────────────────────────────────────────
+ * §2 BANNER ILUSTRADO (SVG art + veil + meta)
+ * ────────────────────────────────────────────────────────── */
+
+.b1-ma-banner {
+  position: relative;
+  height: 124px;
+  width: 100%;
+  overflow: hidden;
+  background: var(--b1-ma-tint-grad);
+}
+.b1-ma-banner__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.b1-ma-banner__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 100%, color-mix(in srgb, var(--surface-1) 80%, transparent) 0%, transparent 70%),
+    linear-gradient(180deg, transparent 40%, color-mix(in srgb, var(--surface-1) 35%, transparent) 100%);
+  pointer-events: none;
+}
+.b1-ma-banner__meta {
+  position: absolute;
+  top: 10px; left: 14px; right: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--text-size-2xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.45);
+}
+.b1-ma-banner__code {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 99px;
+  background: rgba(0,0,0,0.32);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.b1-ma-banner__teacher { opacity: 0.85; }
+
+/* ──────────────────────────────────────────────────────────
+ * §3 EMBLEM circular con tier ring + glifo + tier badge
+ * ────────────────────────────────────────────────────────── */
+
+.b1-ma-emblem {
+  position: relative;
+  width: 116px;
+  height: 116px;
+  margin: -58px auto 8px;
+  z-index: 2;
+}
+.b1-ma-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.b1-ma-ring__track,
+.b1-ma-ring__seg { fill: none; stroke-linecap: round; }
+.b1-ma-ring__track {
+  stroke: color-mix(in srgb, var(--text-muted) 30%, transparent);
+  stroke-width: 3;
+}
+.b1-ma-ring__seg {
+  stroke-width: 4;
+  transition: stroke 0.3s ease;
+}
+.b1-ma-ring__seg--filled { stroke: color-mix(in srgb, var(--b1-ma-tint-a) 75%, transparent); }
+.b1-ma-ring__seg--current { stroke: var(--xahni-amber); }
+.b1-ma-ring__seg--locked  {
+  stroke: color-mix(in srgb, var(--text-muted) 22%, transparent);
+  stroke-dasharray: 2 4;
+}
+
+.b1-ma-card .b1-ma-ring__seg--current {
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--xahni-amber) 60%, transparent));
+  animation: b1-ma-tier-glow 2.6s ease-in-out infinite;
+}
+@keyframes b1-ma-tier-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+.b1-ma-emblem__disc {
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  background: var(--b1-ma-tint-grad);
+  box-shadow:
+    inset 0 0 0 3px color-mix(in srgb, #fff 22%, transparent),
+    inset 0 -10px 20px rgba(0,0,0,0.35),
+    0 6px 20px color-mix(in srgb, var(--b1-ma-tint-a) 40%, transparent);
+  display: grid;
+  place-items: center;
+}
+.b1-ma-emblem__glyph {
+  font-size: 36px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
+}
+.b1-ma-emblem__tier-badge {
+  position: absolute;
+  bottom: 0;
+  right: 4px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--xahni-amber);
+  color: var(--surface-0);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: var(--text-size-sm);
+  border: 3px solid var(--surface-1);
+  z-index: 3;
+}
+
+/* ──────────────────────────────────────────────────────────
+ * §4 BODY · score (puntuación + nivel) + meta (este cuatri)
+ * ────────────────────────────────────────────────────────── */
+
+.b1-ma-body {
+  padding: 0 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.b1-ma-score {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.b1-ma-score__label,
+.b1-ma-meta__label,
+.b1-ma-tokens__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-size-2xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.b1-ma-score__num {
+  font-family: var(--font-mono);
+  font-size: var(--text-size-xl);
+  font-weight: 700;
+  line-height: 1.05;
+  font-feature-settings: "tnum";
+  background: var(--brand-gradient-h);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.b1-ma-score__level {
+  font-size: var(--text-size-md);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+.b1-ma-score__level em {
+  font-style: normal;
+  color: var(--xahni-amber);
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.b1-ma-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+  margin: 2px 0;
+  border: 0;
+}
+
+.b1-ma-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.b1-ma-meta__line {
+  font-size: var(--text-size-sm);
+  color: var(--text-primary);
+  margin: 0;
+}
+.b1-ma-meta__line strong {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.b1-ma-meta__sep {
+  color: var(--text-muted);
+  margin: 0 5px;
+}
+.b1-ma-meta__pending {
+  color: var(--xahni-amber);
+  font-weight: 600;
+}
+
+/* ──────────────────────────────────────────────────────────
+ * §5 TOKENS hacia nivel siguiente + COSMETICS desbloqueados
+ * ────────────────────────────────────────────────────────── */
+
+.b1-ma-tokens__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.b1-ma-tokens__count {
+  font-family: var(--font-mono);
+  font-size: var(--text-size-sm);
+  font-weight: 700;
+  color: var(--xahni-amber);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.b1-ma-tokens__count .x-icon { color: var(--xahni-amber); }
+.b1-ma-tokens__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: var(--text-size-2xs);
+  color: var(--text-secondary);
+}
+.b1-ma-tokens__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--xahni-amber) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--xahni-amber) 28%, transparent);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+.b1-ma-cosmetics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 10px;
+  border-top: 1px dashed color-mix(in srgb, var(--border-bright) 80%, transparent);
+}
+.b1-ma-cosmetics__legend {
+  flex-basis: 100%;
+  font-family: var(--font-mono);
+  font-size: var(--text-size-2xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+.b1-ma-cosmetics .x-chip {
+  font-size: var(--text-size-2xs);
+  padding: 3px 9px;
+}
+
+/* Sección horario shared (reusa .x-materia-card__section): separador tintado */
+.b1-ma-card .x-materia-card__section {
+  padding-top: 12px;
+  border-top: 1px dashed color-mix(in srgb, var(--b1-ma-tint-a) 35%, transparent);
+}
+
+/* ──────────────────────────────────────────────────────────
+ * §4b NOMBRE DE LA MATERIA — título central debajo del divider
+ * Hierarquía: score (xl mono gradient) > name (lg display) > meta (sm body)
+ * ────────────────────────────────────────────────────────── */
+
+.b1-ma-name {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: var(--text-size-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   §6 · Slice G · Tab Maestría dentro de hub-materia
+   Prefijo local: .b1-ma-tab-*
+   Reusa: .b1-ma-emblem + .b1-ma-ring de §1-§3 de este archivo.
+   ═══════════════════════════════════════════════════════════ */
+
+.b1-ma-tab {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* (A) Header compacto con emblem 140px + score grande + progreso + hint */
+.b1-ma-tab-header {
+    position: relative;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 24px;
+    align-items: center;
+    padding: 20px 24px;
+    border-radius: var(--r-lg);
+    background:
+        radial-gradient(ellipse 70% 100% at 0% 50%,
+            color-mix(in srgb, var(--xahni-cyan) 14%, transparent) 0%,
+            transparent 60%),
+        linear-gradient(180deg, var(--surface-2), var(--surface-1));
+    border: 1px solid color-mix(in srgb, var(--xahni-cyan) 22%, var(--border));
+    overflow: hidden;
+}
+.b1-ma-tab-header::after {
+    content: attr(data-watermark);
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%) rotate(180deg);
+    writing-mode: vertical-rl;
+    font-family: var(--font-mono);
+    font-size: var(--text-size-2xs);
+    letter-spacing: 0.35em;
+    color: color-mix(in srgb, var(--xahni-cyan) 50%, var(--text-muted));
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+/* Disciplina tinting cuando data-disciplina está set en el wrapper */
+.b1-ma-tab[data-disciplina="poo"] .b1-ma-tab-header {
+    background:
+        radial-gradient(ellipse 70% 100% at 0% 50%,
+            color-mix(in srgb, var(--xahni-purple, #8b2be2) 14%, transparent) 0%,
+            transparent 60%),
+        linear-gradient(180deg, var(--surface-2), var(--surface-1));
+    border-color: color-mix(in srgb, var(--xahni-purple, #8b2be2) 22%, var(--border));
+}
+.b1-ma-tab[data-disciplina="ed"] .b1-ma-tab-header {
+    background:
+        radial-gradient(ellipse 70% 100% at 0% 50%,
+            color-mix(in srgb, var(--xahni-green) 14%, transparent) 0%,
+            transparent 60%),
+        linear-gradient(180deg, var(--surface-2), var(--surface-1));
+    border-color: color-mix(in srgb, var(--xahni-green) 22%, var(--border));
+}
+
+.b1-ma-tab-header .b1-ma-emblem {
+    width: 140px;
+    height: 140px;
+    margin: 0;
+}
+.b1-ma-tab-header .b1-ma-emblem__glyph { font-size: 44px; }
+.b1-ma-tab-header .b1-ma-emblem__tier-badge {
+    width: 34px; height: 34px;
+    font-size: var(--text-size-base);
+}
+
+.b1-ma-tab-header__text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    z-index: 1;
+}
+.b1-ma-tab-header__overline {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-2xs);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+.b1-ma-tab-header__title {
+    margin: 0;
+    font-size: var(--text-size-xl);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+}
+.b1-ma-tab-header__title em {
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    background: var(--brand-gradient-h);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    padding-left: 4px;
+}
+.b1-ma-tab-header__score {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-top: 4px;
+}
+.b1-ma-tab-header__score-num {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-2xl);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-primary);
+    font-feature-settings: "tnum";
+}
+.b1-ma-tab-header__score-unit {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-muted);
+}
+.b1-ma-tab-header__progress {
+    margin-top: 8px;
+    max-width: 420px;
+}
+.b1-ma-tab-header__hint {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-2xs);
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin: 0;
+}
+.b1-ma-tab-header__hint strong {
+    color: var(--xahni-amber);
+    font-weight: 700;
+}
+
+/* (B) Tokens grid · 4 columnas con earned/locked variants */
+.b1-ma-tab-tokens-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+.b1-ma-tab-token {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px;
+    border-radius: var(--r-md);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    min-height: 132px;
+}
+.b1-ma-tab-token--earned {
+    background:
+        radial-gradient(ellipse 90% 80% at 50% 0%,
+            color-mix(in srgb, var(--xahni-green) 12%, transparent) 0%,
+            transparent 70%),
+        var(--surface-2);
+    border-color: color-mix(in srgb, var(--xahni-green) 35%, var(--border));
+}
+.b1-ma-tab-token--locked { opacity: 0.62; }
+[data-gamer="on"] .b1-ma-tab-token--earned:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--xahni-green) 55%, var(--border));
+}
+.b1-ma-tab-token__glyph {
+    font-size: 28px;
+    line-height: 1;
+    filter: drop-shadow(0 1px 2px color-mix(in srgb, var(--xahni-cyan) 30%, transparent));
+}
+.b1-ma-tab-token--locked .b1-ma-tab-token__glyph {
+    filter: grayscale(1);
+    opacity: 0.75;
+}
+.b1-ma-tab-token__name {
+    font-size: var(--text-size-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+.b1-ma-tab-token__meta {
+    margin-top: auto;
+    font-family: var(--font-mono);
+    font-size: var(--text-size-2xs);
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+}
+.b1-ma-tab-token .x-chip { align-self: flex-start; }
+
+.b1-ma-tab-tokens-foot {
+    margin: 16px 0 0;
+    padding: 12px 16px;
+    border-radius: var(--r-md);
+    background: color-mix(in srgb, var(--xahni-amber) 8%, var(--surface-2));
+    border-left: 3px solid var(--xahni-amber);
+    font-size: var(--text-size-sm);
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+.b1-ma-tab-tokens-foot strong {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+/* (C) Timeline histórico · línea vertical + dots por tipo */
+.b1-ma-tab-timeline {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.b1-ma-tab-timeline::before {
+    content: "";
+    position: absolute;
+    left: 15px;
+    top: 14px;
+    bottom: 14px;
+    width: 2px;
+    background: linear-gradient(180deg,
+        color-mix(in srgb, var(--xahni-cyan) 35%, var(--border)) 0%,
+        var(--border) 100%);
+    border-radius: 2px;
+}
+.b1-ma-tab-timeline__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    gap: 12px;
+    align-items: center;
+}
+.b1-ma-tab-timeline__dot {
+    position: relative;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--surface-2);
+    border: 2px solid var(--border);
+    color: var(--text-secondary);
+}
+.b1-ma-tab-timeline__dot--ok {
+    background: color-mix(in srgb, var(--xahni-green) 18%, var(--surface-2));
+    border-color: color-mix(in srgb, var(--xahni-green) 55%, var(--border));
+    color: var(--xahni-green);
+}
+.b1-ma-tab-timeline__dot--cyan {
+    background: color-mix(in srgb, var(--xahni-cyan) 18%, var(--surface-2));
+    border-color: color-mix(in srgb, var(--xahni-cyan) 55%, var(--border));
+    color: var(--xahni-cyan);
+}
+.b1-ma-tab-timeline__dot--amber {
+    background: color-mix(in srgb, var(--xahni-amber) 18%, var(--surface-2));
+    border-color: color-mix(in srgb, var(--xahni-amber) 55%, var(--border));
+    color: var(--xahni-amber);
+}
+.b1-ma-tab-timeline__dot--muted {
+    background: var(--surface-2);
+    border-color: var(--border);
+    color: var(--text-muted);
+}
+.b1-ma-tab-timeline__text {
+    font-size: var(--text-size-sm);
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+.b1-ma-tab-timeline__text em {
+    font-style: normal;
+    color: var(--xahni-cyan);
+    font-weight: 600;
+}
+.b1-ma-tab-timeline__when {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-2xs);
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* (D) Unlocks roadmap · preview chips/frames/glyphs con border dashed */
+.b1-ma-tab-unlocks {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+.b1-ma-tab-unlock {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 12px 16px;
+    border-radius: var(--r-md);
+    background:
+        radial-gradient(ellipse 80% 60% at 50% 0%,
+            color-mix(in srgb, var(--xahni-amber) 10%, transparent) 0%,
+            transparent 70%),
+        var(--surface-2);
+    border: 1px dashed color-mix(in srgb, var(--xahni-amber) 35%, var(--border));
+    text-align: center;
+}
+.b1-ma-tab-unlock__preview {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg,
+        color-mix(in srgb, var(--xahni-amber) 85%, transparent) 0%,
+        color-mix(in srgb, var(--xahni-amber) 50%, transparent) 100%);
+    box-shadow:
+        inset 0 0 0 3px color-mix(in srgb, #fff 22%, transparent),
+        inset 0 -8px 16px color-mix(in srgb, var(--xahni-amber) 40%, transparent),
+        0 4px 14px color-mix(in srgb, var(--xahni-amber) 30%, transparent);
+    color: var(--surface-0);
+    font-size: 32px;
+    line-height: 1;
+    opacity: 0.55;
+    position: relative;
+}
+.b1-ma-tab-unlock__preview--chip {
+    width: auto;
+    height: auto;
+    aspect-ratio: auto;
+    padding: 8px 16px;
+    border-radius: 99px;
+    background: linear-gradient(135deg,
+        color-mix(in srgb, var(--xahni-amber) 30%, var(--surface-3)) 0%,
+        color-mix(in srgb, var(--xahni-amber) 50%, var(--surface-3)) 100%);
+    box-shadow: none;
+    font-family: var(--font-mono);
+    font-size: var(--text-size-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--surface-0);
+    margin-top: 12px;
+}
+.b1-ma-tab-unlock__preview--frame {
+    background: transparent;
+    box-shadow: none;
+    position: relative;
+}
+.b1-ma-tab-unlock__preview--frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    padding: 3px;
+    background: conic-gradient(from 0deg,
+        var(--xahni-amber),
+        color-mix(in srgb, var(--xahni-amber) 60%, transparent),
+        var(--xahni-amber),
+        color-mix(in srgb, var(--xahni-amber) 60%, transparent),
+        var(--xahni-amber));
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+}
+.b1-ma-tab-unlock__preview--frame .b1-ma-tab-unlock__face {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: var(--surface-3);
+    display: grid;
+    place-items: center;
+    font-size: 26px;
+}
+.b1-ma-tab-unlock__label {
+    font-size: var(--text-size-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+.b1-ma-tab-unlock__sub {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-2xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.b1-ma-tab-unlocks-foot {
+    margin-top: 20px;
+    padding: 16px 20px;
+    border-radius: var(--r-md);
+    background:
+        linear-gradient(135deg,
+            color-mix(in srgb, var(--xahni-cyan) 8%, var(--surface-2)),
+            color-mix(in srgb, var(--xahni-amber) 8%, var(--surface-2)));
+    border: 1px solid var(--border);
+}
+.b1-ma-tab-unlocks-foot__text {
+    margin: 0 0 12px;
+    font-size: var(--text-size-sm);
+    color: var(--text-secondary);
+    line-height: 1.55;
+}
+.b1-ma-tab-unlocks-foot__text strong {
+    color: var(--xahni-amber);
+    font-weight: 700;
+    font-family: var(--font-mono);
+}
+.b1-ma-tab-unlocks-foot__bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.b1-ma-tab-unlocks-foot__bar .x-progress { flex: 1; }
+.b1-ma-tab-unlocks-foot__bar-meta {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+    font-feature-settings: "tnum";
+    white-space: nowrap;
+}
+
+/* Responsive ≤760px */
+@media (max-width: 760px) {
+    .b1-ma-tab-header { grid-template-columns: 1fr; text-align: center; }
+    .b1-ma-tab-header .b1-ma-emblem { margin: 0 auto; }
+    .b1-ma-tab-tokens-grid { grid-template-columns: repeat(2, 1fr); }
+    .b1-ma-tab-unlocks { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   §7 · Slice H1 · Widget "Maestrías destacadas" (Mi perfil)
+   Prefijo local: .b1-ma-widget-*
+   Reusa: .b1-ma-emblem + .b1-ma-ring de §1-§3.
+   ═══════════════════════════════════════════════════════════ */
+
+.b1-ma-widget__head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.b1-ma-widget__head-meta {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: var(--text-size-2xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.b1-ma-widget__score-strip {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 0;
+    margin-bottom: 12px;
+    border-bottom: 1px dashed var(--border);
+}
+.b1-ma-widget__score-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-2xs);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+.b1-ma-widget__score-num {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-lg);
+    font-weight: 700;
+    color: var(--text-primary);
+    font-feature-settings: "tnum";
+}
+[data-gamer="on"] .b1-ma-widget__score-num {
+    background: var(--brand-gradient-h);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.b1-ma-widget-slots {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+.b1-ma-widget-slot {
+    appearance: none;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 16px 8px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    text-align: center;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.b1-ma-widget-slot:hover {
+    border-color: color-mix(in srgb, var(--b1-ma-tint-a, var(--xahni-cyan)) 50%, var(--border));
+    background:
+        radial-gradient(ellipse 80% 70% at 50% 0%,
+            color-mix(in srgb, var(--b1-ma-tint-a, var(--xahni-cyan)) 14%, transparent) 0%,
+            transparent 70%),
+        var(--surface-2);
+}
+[data-gamer="on"] .b1-ma-widget-slot:hover { transform: translateY(-2px); }
+.b1-ma-widget-slot:focus-visible {
+    outline: 2px solid var(--b1-ma-tint-a, var(--xahni-cyan));
+    outline-offset: 2px;
+}
+
+.b1-ma-widget-slot .b1-ma-emblem {
+    width: 72px;
+    height: 72px;
+    margin: 0;
+}
+.b1-ma-widget-slot .b1-ma-emblem__glyph { font-size: 22px; }
+.b1-ma-widget-slot .b1-ma-emblem__tier-badge {
+    width: 22px;
+    height: 22px;
+    font-size: var(--text-size-2xs);
+    border-width: 2px;
+    bottom: -2px;
+    right: -2px;
+}
+
+.b1-ma-widget-slot__name {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-2xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    line-height: 1.2;
+    min-height: 2.4em;
+    display: flex;
+    align-items: center;
+}
+.b1-ma-widget-slot__meta {
+    font-size: var(--text-size-xs);
+    color: var(--text-primary);
+    font-weight: 600;
+    line-height: 1.2;
+}
+.b1-ma-widget-slot__meta span {
+    color: var(--text-muted);
+    font-weight: 400;
+    font-family: var(--font-mono);
+    font-feature-settings: "tnum";
+}
+
+.b1-ma-widget__foot {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Tinting por disciplina del slot · usa custom props locales */
+.b1-ma-widget-slot[data-disciplina="bd"] {
+    --b1-ma-tint-a: var(--xahni-cyan);
+    --b1-ma-tint-b: var(--xahni-blue);
+}
+.b1-ma-widget-slot[data-disciplina="poo"] {
+    --b1-ma-tint-a: var(--xahni-purple-light);
+    --b1-ma-tint-b: var(--xahni-purple);
+}
+.b1-ma-widget-slot[data-disciplina="ed"] {
+    --b1-ma-tint-a: var(--xahni-teal);
+    --b1-ma-tint-b: var(--xahni-blue);
+}
+
+/* Estado vacío (alumno sin DEMO_MAESTRIA entries con points > 0) */
+.b1-ma-widget__empty {
+    padding: 24px 16px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: var(--text-size-sm);
+    line-height: 1.55;
+}
+.b1-ma-widget__empty strong {
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-weight: 700;
+}
+
+@media (max-width: 520px) {
+    .b1-ma-widget-slots { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   §8 · Slice H2a · Modal selector Top 3 Maestrías
+   Prefijo local: .b1-ma-selector-*
+   Reusa: .b1-ma-emblem + .b1-ma-ring de §1-§3.
+   ═══════════════════════════════════════════════════════════ */
+
+.b1-ma-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 12px 0;
+}
+
+.b1-ma-selector-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 10px 12px;
+    border-radius: var(--r-md);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    font: inherit;
+    color: inherit;
+    text-align: center;
+    appearance: none;
+}
+.b1-ma-selector-card:hover {
+    border-color: color-mix(in srgb, var(--b1-ma-tint-a, var(--xahni-cyan)) 50%, var(--border));
+    transform: translateY(-1px);
+}
+.b1-ma-selector-card[data-selected="true"] {
+    background:
+        radial-gradient(ellipse 80% 70% at 50% 0%,
+            color-mix(in srgb, var(--b1-ma-tint-a, var(--xahni-cyan)) 14%, transparent) 0%,
+            transparent 70%),
+        var(--surface-2);
+    border-color: color-mix(in srgb, var(--b1-ma-tint-a, var(--xahni-cyan)) 55%, var(--border));
+}
+
+.b1-ma-selector-card .b1-ma-emblem {
+    width: 48px;
+    height: 48px;
+    margin: 0;
+}
+.b1-ma-selector-card .b1-ma-emblem__glyph { font-size: 16px; }
+.b1-ma-selector-card .b1-ma-emblem__tier-badge {
+    width: 16px; height: 16px;
+    font-size: 9px;
+    border-width: 1.5px;
+    bottom: -1px; right: -1px;
+}
+
+.b1-ma-selector-card__name {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-2xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    line-height: 1.2;
+    min-height: 2.4em;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.b1-ma-selector-card__meta {
+    font-size: var(--text-size-xs);
+    color: var(--text-primary);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.b1-ma-selector-card__position {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-mono);
+    font-size: var(--text-size-2xs);
+    font-weight: 700;
+    color: var(--surface-0);
+    background: var(--brand-gradient-h);
+    box-shadow: 0 2px 6px color-mix(in srgb, var(--xahni-cyan) 30%, transparent);
+}
+.b1-ma-selector-card[data-selected="false"] .b1-ma-selector-card__position {
+    display: none;
+}
+
+/* Disciplina tinting reusa el patrón de Slice H1 */
+.b1-ma-selector-card[data-disciplina="bd"]  { --b1-ma-tint-a: var(--xahni-cyan); }
+.b1-ma-selector-card[data-disciplina="poo"] { --b1-ma-tint-a: var(--xahni-purple-light); }
+.b1-ma-selector-card[data-disciplina="ed"]  { --b1-ma-tint-a: var(--xahni-teal); }
+
+.b1-ma-selector-hint {
+    padding: 12px 16px;
+    margin: 0 0 12px;
+    border-radius: var(--r-md);
+    background: color-mix(in srgb, var(--xahni-cyan) 6%, var(--surface-2));
+    border-left: 3px solid var(--xahni-cyan);
+    font-size: var(--text-size-sm);
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+.b1-ma-selector-hint strong {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.b1-ma-selector-empty {
+    padding: 24px 16px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: var(--text-size-sm);
+    line-height: 1.55;
+}
+.b1-ma-selector-empty strong {
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-weight: 700;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   §9 · Slice H2b · Chip mini-emblema disciplina para selectors
+   Aplica en .titulo-item[data-source="maestria"] y
+   .avatar-marco-item[data-source="maestria"].
+   ═══════════════════════════════════════════════════════════ */
+
+.maestria-cosmetic-chip {
+    display: inline-grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    border: 1.5px solid var(--b1-ma-tint-a, var(--xahni-cyan));
+    font-size: 11px;
+    line-height: 1;
+    box-shadow: 0 0 6px color-mix(in srgb, var(--b1-ma-tint-a, var(--xahni-cyan)) 35%, transparent);
+    flex-shrink: 0;
+}
+.maestria-cosmetic-chip[data-disciplina="bd"]  { --b1-ma-tint-a: var(--xahni-cyan); }
+.maestria-cosmetic-chip[data-disciplina="poo"] { --b1-ma-tint-a: var(--xahni-purple-light); }
+.maestria-cosmetic-chip[data-disciplina="ed"]  { --b1-ma-tint-a: var(--xahni-teal); }
+.maestria-cosmetic-chip[data-disciplina="mat"] { --b1-ma-tint-a: var(--xahni-teal); }
+
+/* ═══════════════════════════════════════════════════════════
+   Slice E · Suavizado gamer-off Maestría cross-rol
+   ═══════════════════════════════════════════════════════════
+   Patrón cementado #9.5. Cubre los 4 contextos del emblema
+   (.b1-ma-card, .b1-ma-tab, .b1-ma-widget-slot, .b1-ma-selector-card)
+   + tier ring animation OFF + glow/halo planos.
+   El componente sigue siendo el mismo .b1-ma-emblem reusable —
+   solo cambian las decoraciones brand y las animaciones. */
+
+/* ─── Animaciones tier ring OFF (cross-context) ─── */
+body.gamer-off .b1-ma-tab .b1-ma-ring__seg--current,
+body.gamer-off .b1-ma-widget-slot .b1-ma-ring__seg--current,
+body.gamer-off .perfil-pub-emblemas-top3__slot .b1-ma-ring__seg--current {
+    animation: none;
+    filter: none;
+}
+
+/* ─── Card materia (.b1-ma-card) · patrón compacto canónico
+   Source-of-truth: docs/superpowers/mockups/2026-05-30-maestria-rediseno.html
+   bloque .b1-ma-card[data-gamer="off"] (líneas 235-246). El gamer-off de la
+   card NO es full grayscale: mantiene tint brand sutil (tint-a 16-28%) sobre
+   surface-2 para conservar identidad de disciplina; reduce tamaño del banner
+   (64px) y emblem (64px sin ring), oculta cosmetics y art SVG. */
+body.gamer-off .b1-ma-card {
+    border-color: var(--border);
+}
+body.gamer-off .b1-ma-card:hover {
+    transform: none;
+    box-shadow: var(--elev-1);
+}
+body.gamer-off .b1-ma-card .b1-ma-banner {
+    height: 64px;
+    background: color-mix(in srgb, var(--b1-ma-tint-a) 16%, var(--surface-2));
+    filter: none;
+}
+body.gamer-off .b1-ma-card .b1-ma-banner__art,
+body.gamer-off .b1-ma-card .b1-ma-banner__veil {
+    display: none;
+}
+body.gamer-off .b1-ma-card .b1-ma-emblem {
+    width: 64px;
+    height: 64px;
+    margin: -32px auto 6px;
+}
+body.gamer-off .b1-ma-card .b1-ma-ring {
+    display: none;
+}
+body.gamer-off .b1-ma-card .b1-ma-emblem__disc {
+    inset: 0;
+    background: color-mix(in srgb, var(--b1-ma-tint-a) 28%, var(--surface-2));
+    background-image: none;
+    box-shadow: inset 0 0 0 1px var(--border-bright);
+}
+body.gamer-off .b1-ma-card .b1-ma-emblem__glyph {
+    font-size: 24px;
+    filter: none;
+}
+body.gamer-off .b1-ma-card .b1-ma-emblem__tier-badge {
+    width: 22px;
+    height: 22px;
+    font-size: var(--text-size-2xs);
+    bottom: -4px;
+}
+body.gamer-off .b1-ma-card .b1-ma-score__num {
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: var(--text-primary);
+    color: var(--text-primary);
+    font-size: var(--text-size-lg);
+}
+body.gamer-off .b1-ma-card .b1-ma-tokens__chip,
+body.gamer-off .b1-ma-card .b1-ma-tokens__count {
+    color: var(--text-secondary);
+    background: var(--surface-2);
+    border-color: var(--border);
+}
+body.gamer-off .b1-ma-card .b1-ma-tokens__count .x-icon {
+    color: var(--text-secondary);
+}
+body.gamer-off .b1-ma-card .b1-ma-cosmetics {
+    display: none;
+}
+body.gamer-off .b1-ma-card .x-materia-card__section {
+    border-top-color: var(--border);
+}
+
+/* ─── Tab Maestría hub-materia (.b1-ma-tab) ─── */
+body.gamer-off .b1-ma-tab-header {
+    background: var(--surface-1);
+    border-color: var(--border);
+}
+body.gamer-off .b1-ma-tab-header::after {
+    display: none;
+}
+body.gamer-off .b1-ma-tab-header__title em {
+    background: none;
+    -webkit-text-fill-color: var(--text-primary);
+    color: var(--text-primary);
+}
+body.gamer-off .b1-ma-tab-token__glyph {
+    filter: none;
+}
+body.gamer-off .b1-ma-tab-token--earned {
+    background: var(--surface-3);
+    border-color: var(--border);
+}
+body.gamer-off .b1-ma-tab-token--earned:hover {
+    transform: none;
+}
+body.gamer-off .b1-ma-tab-unlock__preview {
+    box-shadow: none;
+}
+body.gamer-off .b1-ma-tab-unlocks-foot {
+    background: var(--surface-2);
+}
+
+body.gamer-off .b1-ma-widget__score-num {
+    background: none;
+    -webkit-text-fill-color: var(--text-primary);
+    color: var(--text-primary);
+}
+
+/* ─── Widget Mi perfil (.b1-ma-widget-slot) ─── */
+body.gamer-off .b1-ma-widget-slot:hover {
+    transform: none;
+    background: var(--surface-2);
+    border-color: var(--border);
+}
+
+/* ─── Selector cards (.b1-ma-selector-card) ─── */
+body.gamer-off .b1-ma-selector-card:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border-bright, var(--border));
+}
+body.gamer-off .b1-ma-selector-card.activo {
+    border-color: var(--text-secondary);
+    background: var(--surface-3);
+}
+
+/* ─── Chip mini-emblema cosmetic Maestría (H2b) ─── */
+body.gamer-off .maestria-cosmetic-chip {
+    background: var(--surface-3);
+    border-color: var(--border);
+}
+
+/* ─── Ring filled stroke en contextos no-card (tab/widget/perfil) ───
+   La card oculta el ring entero (patrón compacto canónico), pero los demás
+   contextos del .b1-ma-emblem reusable lo mantienen visible. Neutralizamos
+   el tinte brand para que en gamer-off no muestre el cyan/purple/teal del
+   --b1-ma-tint-a default. */
+body.gamer-off .b1-ma-tab .b1-ma-ring__seg--filled,
+body.gamer-off .b1-ma-widget-slot .b1-ma-ring__seg--filled,
+body.gamer-off .perfil-pub-emblemas-top3__slot .b1-ma-ring__seg--filled {
+    stroke: color-mix(in srgb, var(--text-muted) 60%, transparent);
+}
+body.gamer-off .b1-ma-tab .b1-ma-ring__seg--current,
+body.gamer-off .b1-ma-widget-slot .b1-ma-ring__seg--current,
+body.gamer-off .perfil-pub-emblemas-top3__slot .b1-ma-ring__seg--current {
+    stroke: var(--text-secondary);
+}
+
+/* Tab-tokens-foot + tab-unlocks-foot strong: stripping de tinte amber del
+   tab Maestría interno (hub-materia). No afecta tabs cards. */
+body.gamer-off .b1-ma-tab-tokens-foot {
+    background: var(--surface-2);
+    border-left-color: var(--border);
+}
+body.gamer-off .b1-ma-tab-unlocks-foot__text strong {
+    color: var(--text-secondary);
+}

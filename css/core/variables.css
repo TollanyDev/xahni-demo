@@ -1,0 +1,300 @@
+/* ══════════════════════════════════════════════════════════
+   VARIABLES & RESET — Paleta inspirada en el logo XAHNI
+   Gradiente identitario: cian #00d4ff → azul #1b4fe4 → morado #8b2be2
+══════════════════════════════════════════════════════════ */
+:root {
+    /* ── Breakpoints responsive (TASK D · 2026-06-07) ────────
+       IMPORTANTE: CSS NO permite var(--bp-X) dentro de @media,
+       así que estos tokens son SOLO documentación/referencia. Los
+       @media en css/core/responsive.css usan los valores literales
+       a continuación; este bloque sirve para que la migración a
+       TS+Next+Tailwind (post-9 jun) tenga el mapa cementado.
+
+       Convención:
+       - --bp-mobile-sm  ≤560px · phone vertical / modal compactos
+                         (R4 modal grids 2→1col, R6 stats hero
+                         comp 2col, TASK C escala criterio mobile)
+       - --bp-tablet-sm ≤720px · phone landscape / tablet vertical
+                         (auth stack, hub-shell topbar/tabs scroll-x,
+                         cards 1col, modales width 100%, jq modal
+                         compacto)
+       - --bp-tablet    ≤759px · tablet vertical / phablet
+                         (R5 hero perfil stack, R5 hub-inicio hero
+                         stack, .perfil-action-btns centrado)
+       - --bp-tablet-lg ≤767px · tablet pequeña
+                         (R2 admin sidebar drawer, R3 tablas admin
+                         card-mode)
+       - --bp-laptop-sm ≤1023px · laptop pequeña
+                         (jq-card-grid 2col, x-grid 2col)
+       - --bp-desktop   ≤1366px · desktop estándar
+                         (x-grid--4 → 3col)
+
+       NOTA: hay solape histórico 720/759/767/768 que la migración
+       debería consolidar. Decisión cementada: 759 cubre el hero
+       stack (tab Perfil/Inicio) vs 720 el resto del shell, y 767
+       el sidebar admin específico. Razón: cada slice atacó un
+       problema independiente con su propio threshold visual.
+    */
+    --bp-mobile-sm:  560px;
+    --bp-tablet-sm:  720px;
+    --bp-tablet:     759px;
+    --bp-tablet-lg:  767px;
+    --bp-laptop-sm:  1023px;
+    --bp-desktop:    1366px;
+
+    /* ── Gradiente de marca ─────────────────────────────── */
+    --grad-start:  #00d4ff;
+    --grad-mid:    #1b4fe4;
+    --grad-end:    #8b2be2;
+    --brand-gradient:   linear-gradient(135deg, #00d4ff 0%, #1b4fe4 50%, #8b2be2 100%);
+    --brand-gradient-h: linear-gradient(90deg,  #00d4ff 0%, #1b4fe4 55%, #8b2be2 100%);
+    --brand-gradient-r: linear-gradient(135deg, #8b2be2 0%, #1b4fe4 50%, #00d4ff 100%);
+
+    /* ── Colores de acento ──────────────────────────────── */
+    --xahni-cyan:         #00d4ff;
+    --xahni-cyan-dim:     #00d4ff18;
+    --xahni-blue:         #1b4fe4;
+    --xahni-blue-light:   #3d6ef5;
+    --xahni-blue-dim:     #1b4fe420;
+    --xahni-purple:       #8b2be2;
+    --xahni-purple-light: #a855f7;
+    --xahni-purple-dim:   #8b2be218;
+    --xahni-magenta:      #c026d3;
+
+    /* ── Colores funcionales ────────────────────────────── */
+    --xahni-teal:        #00c6a7;
+    --xahni-teal-dim:    #00c6a715;
+    --xahni-amber:       #f5a623;
+    --xahni-amber-dim:   #f5a62318;
+    --xahni-red:         #e84040;
+    --xahni-red-dim:     #e8404015;
+    --xahni-green:       #22c55e;
+    --xahni-green-dim:   #22c55e15;
+
+    /* ── Metales (rankings, posiciones, gamification) ───── */
+    --xahni-silver:      #c0c0c0;
+    --xahni-bronze:      #cd7f32;
+
+    /* ── Superficies ────────────────────────────────────── */
+    --surface-0: #040a14;
+    --surface-1: #070f1d;
+    --surface-2: #0c1829;
+    --surface-3: #111f35;
+    --surface-4: #182840;
+
+    /* ── Texto ──────────────────────────────────────────── */
+    /* CONSERVADO Epic A.1.3 (2026-05-28): --text-muted dark recalibrado de
+       #3d5a7a → #607fa3. Razón: #3d5a7a sobre --surface-1 (#070f1d) daba
+       contraste WCAG 2.68:1 → FAIL AA y FAIL AA-large. Nuevo valor da 4.61:1
+       (AA normal compliant). Feedback origen: profesores reales reportan
+       textos perdidos. text-secondary (#7a9bc4 = 6.59:1) y text-primary
+       (~16:1) sin cambio. */
+    --text-primary:   #e8f0ff;
+    --text-secondary: #7a9bc4;
+    --text-muted:     #607fa3;
+
+    /* ── Bordes ─────────────────────────────────────────── */
+    --border:        #0f2040;
+    --border-bright: #1a3560;
+
+    /* ── Tipografía ─────────────────────────────────────── */
+    --font-sans:    "DM Sans", sans-serif;
+    --font-mono:    "Space Mono", monospace;
+    --font-display: "Fraunces", serif;
+
+    /* ── Escala tipográfica canónica (Epic A.1 · 2026-05-28) ──
+       Razón sistémica: histograma cross-source identificó 11px (274 occ),
+       12px (179), 13px (168), 10px (140), 14px (55), 17-18px (44), 28-32px
+       (~25) como pivotes. Bump +1px en rango bajo responde a feedback de
+       profesores reales ("textos chicos / ilegibles"). 6 escalones con
+       jerarquía preservada en chrome denso (2xs=11) vs general (xs=12).
+       9px en css/shared/perfil.css preservado bespoke por densidad
+       gamification intencional (CONSERVADO comments en sus llamados). */
+    --text-size-2xs: 11px;  /* chips densos, mini-labels gamification chrome */
+    --text-size-xs:  12px;  /* sublabels uppercase, metadata, chip labels */
+    --text-size-sm:  13px;  /* body secundario */
+    --text-size-md:  14px;  /* body primario */
+    --text-size-lg:  17px;  /* títulos card, page-head subtitle, .x-mat-card-title */
+    --text-size-xl:  28px;  /* números stat hero, .x-stat__num */
+
+    /* ── Misc ───────────────────────────────────────────── */
+    --r-xs: 6px;
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 16px;
+    --r-xl: 24px;
+    --sidebar-w: 248px;
+
+    /* ── Spacing canónico sistémico (Slice Juegos beta E0 · 2026-06-05) ──
+       Razón sistémica: catálogo crece con componentes ricos (.x-stat-row,
+       .x-juego-card, wizards, modales jugar) que requieren spacing consistente.
+       4 escalones derivados de los hardcoded más frecuentes en components.css
+       (4/8/16/24 dominan). Migración incremental: HTML/CSS nuevo USA estos
+       tokens; legacy preservado donde el `CONSERVADO:` lo justifica. */
+    --sp-xs:  4px;
+    --sp-sm:  8px;
+    --sp-md: 16px;
+    --sp-lg: 24px;
+    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* ── Estados semánticos (mismo mapeo en estudiante/profesor/admin) ── */
+    --state-ok:         var(--xahni-green);
+    --state-ok-dim:     var(--xahni-green-dim);
+    --state-ok-border: #22c55e30;
+    --state-warn:       var(--xahni-amber);
+    --state-warn-dim:   var(--xahni-amber-dim);
+    --state-warn-border: #f5a62330;
+    --state-danger:     var(--xahni-red);
+    --state-danger-dim: var(--xahni-red-dim);
+    --state-danger-border: #e8404030;
+    --state-info:       var(--xahni-cyan);
+    --state-info-dim:   var(--xahni-cyan-dim);
+    --state-info-border: #00d4ff30;
+
+    /* ── Slice H2b · color dinámico del título activo ──
+       Setter: JS aplicarTitulo / _renderAvatarFromState via
+       element.style.setProperty("--title-color", color).
+       Default fallback: purple-light (color del tag heredado). */
+    --title-color: var(--xahni-purple-light);
+
+    /* ── Elevación (sombras de hover de tarjeta) ── */
+    --elev-1: 0 2px 12px rgba(0,0,0,0.18);  /* reservado: sombra de tarjeta en reposo (vistas densas) */
+    --elev-2: 0 8px 24px rgba(0,0,0,0.32);
+
+    /* ── Radios canónicos: tarjetas = --r-lg (normal) / --r-md (densas) · modales = --r-xl. No usar valores sueltos. ── */
+
+    /* ── A11y · focus & disabled (canónico Bucket A · C2.A) ─────── */
+    --x-focus-ring-color:  var(--xahni-cyan);   /* dark: cyan solid (ratio 10.83-11.20) */
+    --x-disabled-opacity:  0.5;
+
+    /* ── Accent text mode-aware (Epic A.1 post-smoke · 2026-05-28) ──
+       Razón: --xahni-cyan (#00d4ff) usado como TEXT color falla AA en
+       light mode (1.47:1 sobre surface-1). Feedback profesores en
+       profesor/inicio (.metric-value, fix removido), Mi grupo
+       (.hub-periodo-section), Materias (.x-schedule-cell__time) y ~21
+       otros sitios cross-rol. Token mode-aware preserva identidad cyan
+       en dark, switch a --xahni-blue en light (ratio 5.24:1 AA normal).
+       Borders/backgrounds/focus-ring siguen usando --xahni-cyan directo
+       — identidad de marca intacta. */
+    --accent-cyan-text: var(--xahni-cyan);
+}
+
+/* Modo claro → más abajo en este archivo (bloque consolidado). */
+
+/* ── Gamer mode ─────────────────────────────────────────── */
+.gamer-placeholder { display: none; }
+
+body.gamer-off .gamer-view > *:not(.gamer-placeholder) { display: none !important; }
+
+body.gamer-off .gamer-view .gamer-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 80px 24px;
+    text-align: center;
+}
+
+.gamer-ph-icon { font-size: 52px; line-height: 1; }
+
+.gamer-ph-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.gamer-ph-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    max-width: 340px;
+    line-height: 1.65;
+}
+
+/* CONSERVADO 2026-05-20 (C7 Slice B): pattern canónico para vistas con doble
+   modo (gamer-on / gamer-off coexistiendo). Vistas legacy con .gamer-view +
+   .gamer-placeholder siguen funcionando — este pattern es opt-in, solo lo usan
+   las vistas ya rediseñadas con ambas versiones (primera: view-calificaciones
+   estudiante). Cero JS sabe del toggle: ambos hermanos siempre renderizados,
+   CSS resuelve visibility según body.gamer-off. */
+.gamer-off-view { display: none; }
+body.gamer-off .gamer-on-view  { display: none; }
+body.gamer-off .gamer-off-view { display: block; }
+
+.gamer-ph-desc strong { color: var(--text-secondary); }
+
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font-sans);
+    background: var(--surface-0);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--surface-1); }
+::-webkit-scrollbar-thumb { background: var(--xahni-blue-dim); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--xahni-blue); }
+
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: flex; }
+
+/* Texto con gradiente de marca */
+.gradient-text {
+    background: var(--brand-gradient-h);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── Modo claro ──────────────────────────────────────────── */
+body.light-mode {
+    --surface-0: #f0f4fb;
+    --surface-1: #e4eaf5;
+    --surface-2: #d8e0ef;
+    --surface-3: #c8d4e8;
+    --surface-4: #b8c8de;
+
+    --text-primary:   #0d1b2e;
+    --text-secondary: #2c4a72;
+    /* CONSERVADO Epic A.1.3 (2026-05-28): light --text-muted recalibrado de
+       #6a88aa → #4a6680. Razón: contraste 3.04:1 sobre --surface-1 (#e4eaf5)
+       falla AA normal. Nuevo valor: 4.96:1 sobre surface-1 (+0.46 margen) y
+       4.52:1 sobre surface-2 (#d8e0ef). text-secondary (~7.5:1) sin cambio. */
+    --text-muted:     #4a6680;
+
+    --border:        #c0cfe4;
+    --border-bright: #a0b8d4;
+
+    --xahni-cyan-dim:   #00d4ff22;
+    --xahni-blue-dim:   #1b4fe428;
+    --xahni-purple-dim: #8b2be222;
+    --xahni-teal-dim:   #00c6a720;
+    --xahni-amber-dim:  #f5a62322;
+    --xahni-red-dim:    #e8404018;
+    --xahni-green-dim:  #22c55e18;
+
+    --elev-1: 0 1px 4px rgba(13,27,46,0.08);  /* reservado */
+    --elev-2: 0 8px 20px rgba(27,79,228,0.14);
+    --state-ok-border: #22c55e40;
+    --state-warn-border: #f5a62340;
+    --state-danger-border: #e8404040;
+    --state-info-border: #00d4ff40;
+
+    --x-focus-ring-color:  var(--xahni-blue);   /* light: blue solid (ratio 5.29-5.80) */
+    --accent-cyan-text:    var(--xahni-blue);   /* light: switch a blue (ratio 5.24:1 AA normal) */
+}
+
+/* ── Sin animaciones ─────────────────────────────────────── */
+body.no-animations *,
+body.no-animations *::before,
+body.no-animations *::after {
+    transition: none !important;
+    animation:  none !important;
+}

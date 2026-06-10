@@ -1,0 +1,16 @@
+/* ══════════════════════════════════════════════════════════
+   ESTUDIANTE — Materias
+══════════════════════════════════════════════════════════ */
+
+.materias-resumen {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+
+.mat-resumen-item {
+    display: flex;
+    align-items: center;
+}

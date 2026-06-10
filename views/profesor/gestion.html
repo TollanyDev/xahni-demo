@@ -1,0 +1,41 @@
+          <!-- ── Encabezado con acciones ── -->
+          <div class="x-page-head">
+            <div>
+              <div class="x-page-head__title">Gestión <em>académica</em></div>
+              <div class="x-page-head__subtitle">Materias, calificaciones y reportes en un solo lugar</div>
+            </div>
+            <div class="x-page-head__actions">
+              <button class="x-btn x-btn--ghost" onclick="exportarCSV()">📊 CSV</button>
+              <button class="x-btn x-btn--ghost" onclick="exportarPDF()">📄 PDF</button>
+              <button class="x-btn x-btn--ghost" onclick="enviarReporte()">✉ Correo</button>
+              <button class="x-btn x-btn--primary" onclick="guardarCalificaciones()">💾 Guardar cambios</button>
+            </div>
+          </div>
+
+          <!-- ── Tabs simplificados.
+               2026-05-23: "Cerrar parcial" vivía aquí.
+               2026-05-24 (slice cerrar-parcial-integracion): elevado al header
+               del hub-materia (#prof-mat-cerrar-parcial-slot) para visibilidad
+               cross-tab. Slot local removido. -->
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+            <div class="x-tabs" id="gestion-filtro-tabs">
+              <button class="x-tabs__tab is-active" onclick="filtrarUnificadaTodas(this)">Todos</button>
+              <button class="x-tabs__tab" data-mat="riesgo" onclick="filtrarUnificadaRiesgo(this)">⚠ En riesgo</button>
+            </div>
+          </div>
+
+          <!-- ── Cards de materia ── -->
+          <div class="x-grid" id="prof-mat-cards" style="margin-bottom:16px"></div>
+
+          <!-- ── Buscador de alumno ── -->
+          <div style="display:flex;align-items:center;gap:10px;background:var(--surface-1);border:1px solid var(--border);border-radius:var(--r-md);padding:9px 14px;margin-bottom:16px">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;color:var(--text-muted)">
+              <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input type="text" id="prof-buscar-alumno" placeholder="Buscar alumno por nombre…"
+                   oninput="buscarAlumno(this.value)"
+                   style="flex:1;background:none;border:none;outline:none;color:var(--text-primary);font-family:var(--font-sans);font-size:13px">
+          </div>
+
+          <!-- ── Grid de mini-perfiles (rediseñado en Unit C) ── -->
+          <div id="mini-perfil-grid" class="x-grid" style="grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px"></div>

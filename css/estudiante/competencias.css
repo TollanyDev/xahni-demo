@@ -1,0 +1,38 @@
+/* css/estudiante/competencias.css — Vista de Competencias del estudiante */
+
+.torneos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.torneo-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: border-color 0.2s;
+}
+
+.torneo-card.activa { border-color: var(--xahni-green); }
+.torneo-card.proxima { border-color: var(--xahni-amber); }
+.torneo-card.finalizada { opacity: 0.7; }
+
+.ranking-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.75rem; }
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.82rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.03);
+}
+
+.ranking-lugar {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  width: 1.5rem;
+  text-align: center;
+}

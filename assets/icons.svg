@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  XAHNI · Icon sprite (Epic A.2 · 2026-05-28)
+
+  Convención de estilo:
+    - viewBox 24x24 (excepto: x-icon-versus 18x16, x-icon-crown 16x14)
+    - fill="none" stroke="currentColor" stroke-width="1.5"
+    - stroke-linecap="round" stroke-linejoin="round"
+    - El color se hereda via `color` CSS (use con currentColor)
+
+  Uso markup (IMPORTANTE: explicit close tag, NO self-closing):
+    <svg class="x-icon"><use href="#x-icon-tareas"></use></svg>
+
+  Razón explicit close: HTML5 parser quirk con <use href="..."/> dentro
+  de foreign content (SVG) cuando se inyecta vía innerHTML — el self-close
+  malforma la DOM tree downstream, anidando elementos en SVG namespace
+  donde div/article no renderean. Phase 4 fix Epic A.2.c 2026-05-28.
+
+  Tamaños via class:
+    .x-icon         — 14px default
+    .x-icon--sm     — 12px
+    .x-icon--md     — 16px (chip / button medio)
+    .x-icon--lg     — 22px (identity card hero)
+    .x-icon--xl     — 32px (empty state / hero stat)
+
+  Reversibilidad: para volver a emoji en una vista específica, reemplazar
+  el bloque <svg><use/></svg> por el emoji original. La fuente de verdad
+  emoji ↔ symbol está en `docs/merges/2026-05-28-merge-rework-pre-c10-epic-a-2-...md`.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+
+  <!-- ═══ TABS / NAV ═══ -->
+
+  <symbol id="x-icon-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 11l9-7 9 7v9a2 2 0 0 1-2 2h-4v-7h-6v7H5a2 2 0 0 1-2-2z"/>
+  </symbol>
+
+  <symbol id="x-icon-calificaciones" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="18" height="18" rx="2"/>
+    <path d="M8 17V11M12 17V7M16 17v-4"/>
+  </symbol>
+
+  <symbol id="x-icon-tareas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="4" y="3" width="16" height="18" rx="2"/>
+    <path d="M9 8h6M9 12h6M9 16h4"/>
+    <circle cx="6.5" cy="8" r="0.8" fill="currentColor"/>
+    <circle cx="6.5" cy="12" r="0.8" fill="currentColor"/>
+    <circle cx="6.5" cy="16" r="0.8" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="x-icon-examenes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 3h11l4 4v14H5z"/>
+    <path d="M16 3v4h4"/>
+    <path d="M9 13l2 2 4-4"/>
+  </symbol>
+
+  <symbol id="x-icon-recursos" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+  </symbol>
+
+  <symbol id="x-icon-juegos" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="7" width="20" height="12" rx="3"/>
+    <path d="M7 13H5M6 11v4"/>
+    <circle cx="16" cy="12" r="1"/>
+    <circle cx="18.5" cy="14.5" r="1"/>
+  </symbol>
+
+  <symbol id="x-icon-competencias" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 4c3-2 6-2 8 1"/><path d="M8 5l2 0l0 -2"/>
+    <path d="M16 12c-3 2-6 2-8-1"/><path d="M10 11l-2 0l0 2"/>
+  </symbol>
+
+  <symbol id="x-icon-grupo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="9" cy="10" r="3"/>
+    <path d="M3 20c0-3 2.5-5 6-5s6 2 6 5"/>
+    <circle cx="17" cy="8" r="2.5"/>
+    <path d="M14 14c2-1 4-0.5 5.5 1.2"/>
+  </symbol>
+
+  <symbol id="x-icon-perfil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="9" r="4"/>
+    <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/>
+  </symbol>
+
+  <symbol id="x-icon-materias" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 5a2 2 0 0 1 2-2h11v15H6a2 2 0 0 0-2 2z"/>
+    <path d="M4 19a2 2 0 0 1 2-2h11"/>
+    <path d="M9 8h5M9 12h4"/>
+  </symbol>
+
+  <symbol id="x-icon-carrera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9l9-5 9 5-9 5z"/>
+    <path d="M6 11v4c0 2 3 3 6 3s6-1 6-3v-4"/>
+    <path d="M21 9v5"/>
+  </symbol>
+
+  <symbol id="x-icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="5" width="18" height="16" rx="2"/>
+    <path d="M3 10h18M8 3v4M16 3v4"/>
+  </symbol>
+
+  <symbol id="x-icon-dashboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="8" height="8" rx="1"/>
+    <rect x="13" y="3" width="8" height="5" rx="1"/>
+    <rect x="13" y="10" width="8" height="11" rx="1"/>
+    <rect x="3" y="13" width="8" height="8" rx="1"/>
+  </symbol>
+
+  <symbol id="x-icon-instituciones" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 21h18"/>
+    <path d="M5 21V9l7-5 7 5v12"/>
+    <path d="M10 21v-5h4v5"/>
+    <path d="M8 12h2M8 16h2M14 12h2M14 16h2"/>
+  </symbol>
+
+  <symbol id="x-icon-modulos" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="8" height="8" rx="1.5"/>
+    <rect x="13" y="3" width="8" height="8" rx="1.5"/>
+    <rect x="3" y="13" width="8" height="8" rx="1.5"/>
+    <rect x="13" y="13" width="8" height="8" rx="1.5"/>
+  </symbol>
+
+  <symbol id="x-icon-reportes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 21L8 14l5 4 8-11"/>
+    <path d="M16 7h5v5"/>
+  </symbol>
+
+  <!-- ═══ ESTADOS ═══ -->
+
+  <symbol id="x-icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="5" y="11" width="14" height="10" rx="2"/>
+    <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+  </symbol>
+
+  <symbol id="x-icon-lock-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="5" y="11" width="14" height="10" rx="2"/>
+    <path d="M8 11V7a4 4 0 0 1 7-2.7"/>
+  </symbol>
+
+  <symbol id="x-icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 12l5 5L20 6"/>
+  </symbol>
+
+  <symbol id="x-icon-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/>
+    <path d="M8 12l3 3 5-6"/>
+  </symbol>
+
+  <symbol id="x-icon-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3L2 21h20z"/>
+    <path d="M12 10v5"/>
+    <circle cx="12" cy="18" r="0.6" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="x-icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 6l12 12M18 6L6 18"/>
+  </symbol>
+
+  <symbol id="x-icon-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 21c3.7 0 6-2.4 6-5.4 0-2.1-1.5-3.6-2.2-5.1-1 1.5-2.2 2.2-3 1.5-1.5-1.5-.7-4.5 1.5-7.5-4.5 2.2-8.2 6-8.2 10.5C6 18.6 8.2 21 12 21z"/>
+  </symbol>
+
+  <symbol id="x-icon-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2H4.5z"/>
+    <path d="M10 21a2 2 0 0 0 4 0"/>
+  </symbol>
+
+  <symbol id="x-icon-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/>
+    <circle cx="12" cy="12" r="5"/>
+    <circle cx="12" cy="12" r="1.4" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="x-icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/>
+    <circle cx="12" cy="12" r="3"/>
+  </symbol>
+
+  <!-- ═══ ACCIONES ═══ -->
+
+  <symbol id="x-icon-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 4l6 6-10 10H4v-6z"/>
+    <path d="M13 5l6 6"/>
+  </symbol>
+
+  <symbol id="x-icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 7h16"/>
+    <path d="M6 7v13a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7"/>
+    <path d="M9 7V4h6v3"/>
+    <path d="M10 11v7M14 11v7"/>
+  </symbol>
+
+  <symbol id="x-icon-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3h.1a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8v.1a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>
+  </symbol>
+
+  <symbol id="x-icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 5v14M5 12h14"/>
+  </symbol>
+
+  <symbol id="x-icon-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 12h14"/>
+  </symbol>
+
+  <symbol id="x-icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="7"/>
+    <path d="M16.5 16.5L21 21"/>
+  </symbol>
+
+  <!-- ═══ IDENTITY · GAMIFICATION ═══ -->
+
+  <symbol id="x-icon-crown" viewBox="0 0 16 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+    <path d="M2 11l1.5-6 3 3 1.5-5 1.5 5 3-3 1.5 6z"/>
+    <path d="M2 11h12"/>
+  </symbol>
+
+  <symbol id="x-icon-medal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="15" r="6"/>
+    <path d="M8 11L5 3h4l3 5 3-5h4l-3 8"/>
+    <circle cx="12" cy="15" r="2"/>
+  </symbol>
+
+  <symbol id="x-icon-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3l2.6 5.8 6.4.6-4.8 4.3 1.4 6.3L12 17l-5.6 3 1.4-6.3L3 9.4l6.4-.6z"/>
+  </symbol>
+
+  <symbol id="x-icon-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 3h12v4c0 3-2 5-6 5s-6-2-6-5z"/>
+    <path d="M9 13h6M8 21h8M11 16v5M13 16v5"/>
+    <path d="M6 4H3v3a3 3 0 0 0 3 3M18 4h3v3a3 3 0 0 1-3 3"/>
+  </symbol>
+
+  <symbol id="x-icon-sword" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 4h6v6L9 21l-5-5z"/>
+    <path d="M9 21l-5-5"/>
+    <path d="M15 11l4-4"/>
+  </symbol>
+
+  <symbol id="x-icon-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3l1.8 5.7L19 10l-5.2 1.3L12 17l-1.8-5.7L5 10l5.2-1.3z"/>
+  </symbol>
+
+  <!-- Iconos identidad ya cementados en stubs #10/#11 (juegos/competencias/examenes) -->
+
+  <symbol id="x-icon-triangle-play" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 3l9 5-9 5V3z"/>
+  </symbol>
+
+  <symbol id="x-icon-orbit-xp" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+    <ellipse cx="8" cy="8" rx="6" ry="2.5" transform="rotate(-20 8 8)"/>
+    <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="x-icon-document" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 2h7l3 3v9H3z"/><path d="M10 2v3h3"/><path d="M5.5 8h5M5.5 11h3"/>
+  </symbol>
+
+  <!-- Affordance chevron para dropdowns custom (Epic A.3) -->
+  <symbol id="x-icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 9l6 6 6-6"></path>
+  </symbol>
+
+</svg>

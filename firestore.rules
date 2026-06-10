@@ -1,0 +1,19 @@
+rules_version = '2';
+
+// XAHNI Firestore Security Rules
+// Sprint entrega 2026-06-08 · Plan B (Firebase prod readiness)
+// Decisión D-F1: permissive-authenticated.
+// Cualquier usuario con Auth válido puede leer/escribir cualquier colección.
+// Aceptable para entrega de prototipo demo. Tras presentación, endurecer si el
+// proyecto se mantiene en producción real.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Catch-all: cualquier autenticado puede leer/escribir.
+    match /{collection}/{document=**} {
+      allow read, write: if request.auth != null;
+    }
+
+  }
+}

@@ -1,0 +1,8 @@
+/* css/shared/creator-economy.css
+ * Slice Juegos beta · 2026-06-05.
+ * Variant del toast canonical para XP pasiva.
+ */
+
+.x-toast--xp-pasiva {
+  border-left-color: var(--xahni-amber);
+}
