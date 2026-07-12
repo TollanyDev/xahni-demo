@@ -1,0 +1,17 @@
+.hub-inicio-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: -4px;
+}
+
+.hub-inicio-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .hub-inicio-grid-2 { grid-template-columns: 1fr; }
+}

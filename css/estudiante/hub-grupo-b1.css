@@ -1,0 +1,694 @@
+/* ════════════════════════════════════════════════════════════
+ * css/estudiante/hub-grupo-b1.css — Estilos rediseño B.1 Mi grupo alumno
+ *
+ * Capa local con prefijo b1-mg-* sobre la canónica .x-*.
+ * Sólo aplica al render gamer-on del tab Mi grupo del estudiante.
+ *
+ * Theme suavizado [data-gamer="off"] queda fuera de este slice
+ * (Slice E del Spec B.1 cubrirá el cross-rol gamer-off).
+ *
+ * Spec: docs/superpowers/specs/2026-05-30-spec-b1-rediseno-mi-grupo-maestria.md §4.3
+ * Mockup: docs/superpowers/mockups/2026-05-30-mi-grupo-rediseno.html col 1
+ * ════════════════════════════════════════════════════════════ */
+
+/* ──────────────────────────────────────────────────────────
+ * §1 COMBO HERÁLDICO — wrapper + grid + crest SVG
+ * ────────────────────────────────────────────────────────── */
+
+.b1-mg-crest-wrap {
+  position: relative;
+  padding: 22px 20px 18px;
+  border-radius: var(--r-lg);
+  background:
+    radial-gradient(circle at 18% 25%, color-mix(in srgb, var(--xahni-cyan) 14%, transparent), transparent 55%),
+    radial-gradient(circle at 82% 80%, color-mix(in srgb, var(--xahni-purple) 12%, transparent), transparent 60%),
+    var(--surface-2);
+  border: 1px solid var(--border);
+  margin-bottom: 16px;
+  overflow: hidden;
+  box-shadow: var(--elev-1);
+}
+
+/* Orla diploma: corner brackets top-left / bottom-right */
+.b1-mg-crest-wrap::before,
+.b1-mg-crest-wrap::after {
+  content: "";
+  position: absolute;
+  width: 28px; height: 28px;
+  border: 1.5px solid var(--xahni-cyan);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.b1-mg-crest-wrap::before {
+  top: 8px; left: 8px;
+  border-right: none; border-bottom: none;
+}
+.b1-mg-crest-wrap::after {
+  bottom: 8px; right: 8px;
+  border-left: none; border-top: none;
+}
+
+.b1-mg-crest-grid {
+  display: grid;
+  grid-template-columns: 96px 1fr 56px;
+  gap: 16px;
+  align-items: center;
+}
+
+.b1-mg-crest {
+  width: 96px; height: 110px;
+  position: relative;
+  filter: drop-shadow(0 4px 10px color-mix(in srgb, var(--xahni-blue) 35%, transparent));
+}
+.b1-mg-crest svg { width: 100%; height: 100%; display: block; }
+
+.b1-mg-crest-text { min-width: 0; }
+
+.b1-mg-crest-text__career {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-size-xl);
+  line-height: 1.08;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  text-shadow: 0 1px 0 color-mix(in srgb, var(--xahni-cyan) 12%, transparent);
+}
+
+.b1-mg-crest-text__cohort {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: var(--text-size-lg);
+  color: var(--accent-cyan-text);
+  letter-spacing: 0.08em;
+  display: inline-flex; align-items: center; gap: 10px;
+  margin: 0 0 6px;
+}
+.b1-mg-crest-text__cohort::before,
+.b1-mg-crest-text__cohort::after {
+  content: "";
+  height: 1px;
+  flex: 0 0 18px;
+  background: linear-gradient(90deg, transparent, var(--xahni-cyan), transparent);
+}
+
+.b1-mg-crest-text__meta {
+  font-family: var(--font-body);
+  font-size: var(--text-size-md);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .b1-mg-crest-text__career { font-size: var(--text-size-lg); }
+  .b1-mg-crest-text__cohort { font-size: var(--text-size-md); }
+}
+
+.b1-mg-members-ribbon {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  padding: 6px 0;
+  margin-top: 32px;
+  border-left: 1px dashed color-mix(in srgb, var(--xahni-cyan) 35%, transparent);
+  border-right: 1px dashed color-mix(in srgb, var(--xahni-cyan) 35%, transparent);
+}
+
+.b1-mg-member-chip {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: var(--text-size-2xs);
+  letter-spacing: 0.05em;
+  background: var(--surface-3);
+  color: var(--text-primary);
+  border: 2px solid var(--border);
+  position: relative;
+}
+
+.b1-mg-member-chip--rare {
+  border-color: var(--xahni-cyan);
+  background:
+    radial-gradient(circle at 50% 50%,
+      color-mix(in srgb, var(--xahni-cyan) 22%, transparent),
+      var(--surface-3) 70%);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xahni-cyan) 40%, transparent),
+    0 0 12px color-mix(in srgb, var(--xahni-cyan) 30%, transparent);
+  color: var(--accent-cyan-text);
+}
+
+.b1-mg-cohort-banner {
+  margin-top: 18px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.b1-mg-cohort-banner__tail {
+  width: 18px;
+  background: var(--brand-gradient-h);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 50% 50%);
+}
+.b1-mg-cohort-banner__tail--right {
+  transform: scaleX(-1);
+}
+
+.b1-mg-cohort-banner__body {
+  flex: 1;
+  max-width: 340px;
+  padding: 8px 18px;
+  background: var(--brand-gradient-h);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-size-sm);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  box-shadow: var(--elev-1);
+}
+.b1-mg-cohort-banner__body svg {
+  width: 14px; height: 14px;
+  color: #fff;
+  opacity: 0.9;
+}
+
+.b1-mg-evo-badge {
+  position: absolute;
+  top: 10px; right: 10px;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--xahni-amber) 14%, var(--surface-1));
+  border: 1px solid color-mix(in srgb, var(--xahni-amber) 45%, transparent);
+  font-family: var(--font-mono);
+  font-size: var(--text-size-2xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--xahni-amber);
+  z-index: 2;
+}
+.b1-mg-evo-badge svg { width: 12px; height: 12px; }
+
+/* ──────────────────────────────────────────────────────────
+ * §2 BODY SECTIONS — trayectoria stats + comparativa + timeline
+ * ────────────────────────────────────────────────────────── */
+
+.b1-mg-body__section + .b1-mg-body__section { margin-top: 16px; }
+
+.b1-mg-body__card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.b1-mg-body__card-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: var(--text-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.b1-mg-body__stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+@media (max-width: 560px) {
+  .b1-mg-body__stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.b1-mg-body__stat-box {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.b1-mg-body__cohort-compare {
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.b1-mg-body__cohort-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.b1-mg-body__cohort-label {
+  font-size: var(--text-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+}
+.b1-mg-body__percentile-wrap { margin: 10px 0 8px; }
+.b1-mg-body__percentile-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.b1-mg-body__percentile-label {
+  font-size: var(--text-size-xs);
+  color: var(--text-secondary);
+}
+.b1-mg-body__percentile-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-size-xs);
+  font-weight: 700;
+  color: var(--xahni-amber);
+}
+.b1-mg-body__cohort-note {
+  font-size: var(--text-size-xs);
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+.b1-mg-body__timeline {
+  position: relative;
+  padding-left: 20px;
+}
+.b1-mg-body__timeline::before {
+  content: '';
+  position: absolute;
+  left: 4px; top: 6px; bottom: 6px;
+  width: 1px;
+  background: var(--border);
+}
+
+.b1-mg-body__tl-item {
+  position: relative;
+  padding: 8px 0;
+}
+.b1-mg-body__tl-item--colectivo::before,
+.b1-mg-body__tl-item--individual::before {
+  content: '';
+  position: absolute;
+  left: -19px; top: 13px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+}
+.b1-mg-body__tl-item--colectivo::before {
+  background: var(--xahni-cyan);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--xahni-cyan) 60%, transparent);
+}
+.b1-mg-body__tl-item--individual::before {
+  background: var(--text-muted);
+}
+
+.b1-mg-body__tl-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.b1-mg-body__tl-text {
+  font-size: var(--text-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.45;
+  flex: 1;
+  min-width: 0;
+}
+.b1-mg-body__tl-text strong { color: var(--text-primary); }
+.b1-mg-body__tl-trail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  flex-shrink: 0;
+}
+.b1-mg-body__tl-time {
+  font-family: var(--font-mono);
+  font-size: var(--text-size-2xs);
+  color: var(--text-muted);
+}
+
+/* ──────────────────────────────────────────────────────────
+ * §3 LOGROS SHOWCASE — badges grid + rarities + pennants
+ * ────────────────────────────────────────────────────────── */
+
+.b1-mg-body__badges-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+@media (max-width: 560px) {
+  .b1-mg-body__badges-grid { grid-template-columns: 1fr; }
+}
+
+.b1-mg-body__badge-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  transition: var(--transition);
+}
+.b1-mg-body__badge-card:hover {
+  border-color: var(--xahni-blue);
+  transform: translateY(-2px);
+  box-shadow: var(--elev-2);
+}
+.b1-mg-body__badge-emoji {
+  font-size: 28px;
+  line-height: 1;
+}
+.b1-mg-body__badge-name {
+  font-size: var(--text-size-xs);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+.b1-mg-body__badge-desc {
+  font-size: var(--text-size-2xs);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.b1-mg-body__rarity--comun { background: var(--surface-3); color: var(--text-muted); }
+.b1-mg-body__rarity--raro {
+  background: color-mix(in srgb, var(--xahni-blue) 15%, transparent);
+  color: var(--xahni-blue-light);
+  border: 1px solid color-mix(in srgb, var(--xahni-blue) 30%, transparent);
+}
+.b1-mg-body__rarity--epico {
+  background: color-mix(in srgb, var(--xahni-purple) 15%, transparent);
+  color: var(--xahni-purple-light);
+  border: 1px solid color-mix(in srgb, var(--xahni-purple) 30%, transparent);
+}
+.b1-mg-body__rarity--legendario {
+  background: color-mix(in srgb, var(--xahni-amber) 18%, transparent);
+  color: var(--xahni-amber);
+  border: 1px solid color-mix(in srgb, var(--xahni-amber) 35%, transparent);
+}
+
+.b1-mg-body__disclosure-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.b1-mg-body__pennants {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.b1-mg-body__pennant {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px 5px 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  clip-path: polygon(10px 0%, 100% 0%, 100% 100%, 10px 100%, 0% 50%);
+  font-size: var(--text-size-xs);
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+.b1-mg-body__pennant:hover {
+  background: var(--surface-3);
+  color: var(--text-primary);
+  border-color: var(--border-bright);
+}
+
+/* ──────────────────────────────────────────────────────────
+ * §4 MEMBERS GRID — cards compactas con banner + avatar + slots
+ * ────────────────────────────────────────────────────────── */
+
+.b1-mg-body__members-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+@media (max-width: 480px) {
+  .b1-mg-body__members-grid { grid-template-columns: 1fr; }
+}
+.b1-mg-body__members-grid .b1-mg-body__member-card:nth-child(5) {
+  grid-column: 1 / -1;
+}
+
+.b1-mg-body__member-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.b1-mg-body__member-card:hover {
+  border-color: var(--xahni-blue);
+  transform: translateY(-2px);
+  box-shadow: var(--elev-2);
+}
+.b1-mg-body__member-card:active { transform: translateY(0); }
+
+.b1-mg-body__member-banner {
+  height: 60px;
+  background: linear-gradient(135deg, var(--surface-3), var(--surface-4));
+  position: relative;
+}
+.b1-mg-body__member-card--rare .b1-mg-body__member-banner {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--xahni-cyan) 12%, var(--surface-3)),
+    color-mix(in srgb, var(--xahni-blue) 18%, var(--surface-4))
+  );
+}
+
+.b1-mg-body__member-avatar {
+  position: absolute;
+  bottom: -18px;
+  left: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--brand-gradient);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-size-sm);
+  font-weight: 700;
+  border: 2px solid var(--surface-2);
+}
+.b1-mg-body__member-card--rare .b1-mg-body__member-avatar {
+  box-shadow: 0 0 0 2px var(--xahni-cyan), 0 0 10px color-mix(in srgb, var(--xahni-cyan) 50%, transparent);
+}
+
+.b1-mg-body__member-body {
+  padding: 24px 12px 12px;
+}
+.b1-mg-body__member-name {
+  font-size: var(--text-size-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.b1-mg-body__member-self {
+  font-size: var(--text-size-2xs);
+  color: var(--accent-cyan-text);
+  font-weight: 500;
+}
+.b1-mg-body__member-title {
+  font-size: var(--text-size-2xs);
+  color: var(--text-muted);
+  margin: 2px 0 6px;
+  line-height: 1.3;
+}
+.b1-mg-body__member-slots {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.b1-mg-body__member-stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 4px;
+}
+.b1-mg-body__member-xp {
+  font-family: var(--font-mono);
+  font-size: var(--text-size-2xs);
+  color: var(--xahni-amber);
+  font-weight: 600;
+}
+.b1-mg-body__member-prom {
+  font-family: var(--font-mono);
+  font-size: var(--text-size-2xs);
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Slice E · Suavizado gamer-off Mi grupo alumno
+   ═══════════════════════════════════════════════════════════
+   Copia literal del mockup canónico `docs/superpowers/mockups/2026-05-30-mi-grupo-rediseno.html`
+   columna 2 alumno-OFF (líneas 853-976). Traducción única:
+   [data-gamer="off"] del mockup → body.gamer-off (toggle real via js/core/configuracion.js:45).
+   Cubre 2 zonas: §1 cuerpo (badges/rarezas/pennants/members/timeline/xp/percentile)
+   + §2 combo heráldico (crest + cohort banner + ribbon + members chips + evo badge + periodo segments). */
+
+/* ── §1 Cuerpo ── */
+
+body.gamer-off .b1-mg-body__badge-card {
+    border-color: var(--border-bright);
+}
+body.gamer-off .b1-mg-body__badge-card:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border-bright);
+}
+body.gamer-off .b1-mg-body__badge-emoji {
+    filter: saturate(0.6);
+}
+body.gamer-off .b1-mg-body__rarity--legendario,
+body.gamer-off .b1-mg-body__rarity--epico,
+body.gamer-off .b1-mg-body__rarity--raro {
+    background: var(--surface-3);
+    color: var(--text-muted);
+    border-color: var(--border);
+}
+body.gamer-off .b1-mg-body__pennant {
+    clip-path: none;
+    border-radius: var(--r-sm);
+}
+body.gamer-off .b1-mg-body__member-card--rare .b1-mg-body__member-avatar {
+    box-shadow: none;
+}
+body.gamer-off .b1-mg-body__member-card--rare .b1-mg-body__member-banner {
+    background: linear-gradient(135deg, var(--surface-3), var(--surface-4));
+}
+body.gamer-off .b1-mg-body__tl-item--colectivo::before {
+    box-shadow: none;
+    background: var(--text-muted);
+}
+body.gamer-off .b1-mg-body__member-xp {
+    color: var(--text-muted);
+}
+
+/* ── §2 Combo heráldico (selectores reales del JS · NO .b1-mg-combo*) ── */
+
+/* Wrapper: quitar radial gradients decorativos de fondo */
+body.gamer-off .b1-mg-crest-wrap {
+    background: var(--surface-2);
+}
+/* Orla de diploma: ocultar esquinas decorativas cyan */
+body.gamer-off .b1-mg-crest-wrap::before,
+body.gamer-off .b1-mg-crest-wrap::after {
+    display: none;
+}
+/* Crest SVG: desaturar ligeramente para tono académico sobrio */
+body.gamer-off .b1-mg-crest {
+    filter: grayscale(0.5) opacity(0.88);
+}
+/* Ribbon separador de miembros: dashes cyan → borde neutro */
+body.gamer-off .b1-mg-members-ribbon {
+    border-left-color: var(--border);
+    border-right-color: var(--border);
+}
+/* Member chips rare: quitar halo glow, border plano */
+body.gamer-off .b1-mg-member-chip--rare {
+    box-shadow: none;
+    background: var(--surface-3);
+    border-color: var(--border);
+    color: var(--text-primary);
+}
+/* Título carrera: quitar text-shadow engraved */
+body.gamer-off .b1-mg-crest-text__career {
+    text-shadow: none;
+}
+/* Cohort text: neutro en lugar de cyan */
+body.gamer-off .b1-mg-crest-text__cohort {
+    color: var(--text-secondary);
+}
+/* Cohort separadores: quitar gradient cyan */
+body.gamer-off .b1-mg-crest-text__cohort::before,
+body.gamer-off .b1-mg-crest-text__cohort::after {
+    background: var(--border);
+}
+/* Badge evolutivo: quitar tinte amber */
+body.gamer-off .b1-mg-evo-badge {
+    background: var(--surface-2);
+    border-color: var(--border);
+    color: var(--text-secondary);
+}
+/* Banderola cohorte: brand-gradient → surface-2 plano
+   !important necesario porque .b1-mg-cohort-banner__body y __tail
+   tienen background: var(--brand-gradient-h) como valor directo de propiedad
+   con la misma especificidad que esta regla de body+class */
+body.gamer-off .b1-mg-cohort-banner__body {
+    background: var(--surface-2) !important;
+    color: var(--text-primary);
+    box-shadow: none;
+}
+body.gamer-off .b1-mg-cohort-banner__tail {
+    background: var(--border) !important;
+}
+
+/* ── §3 Member cards (banner + avatar) — sin scope --rare ── */
+
+/* Banner: quitar gradient brand inline (JS emite style="background:${disp.bannerBg}") */
+body.gamer-off .b1-mg-body__member-banner {
+    background: var(--surface-2) !important;
+}
+/* Avatar: brand-gradient inline → surface-3 neutral */
+body.gamer-off .b1-mg-body__member-avatar {
+    background: var(--surface-3) !important;
+    color: var(--text-secondary);
+}
+
+/* ── §4 Trayectoria + Comparativa cohorte ── */
+
+/* XP stat: neutral en lugar de amber.
+   Aplica al inline style color:var(--xahni-amber) via herencia forzada;
+   usar color con especificidad alta para override del inline */
+body.gamer-off .b1-mg-body__stat-box .x-stat__num[style*="xahni-amber"] {
+    color: var(--text-primary) !important;
+}
+/* Percentile value: amber → text-secondary */
+body.gamer-off .b1-mg-body__percentile-value {
+    color: var(--text-secondary);
+}
+
+/* ── §5 Periodo segments ── */
+
+body.gamer-off .hub-periodo-seg[data-estado="activo"] {
+    box-shadow: inset 0 0 0 1px var(--border) !important;
+}
+body.gamer-off .hub-periodo-seg[data-estado="activo"] > div:first-child {
+    background: var(--surface-3) !important;
+    opacity: 0.6 !important;
+}

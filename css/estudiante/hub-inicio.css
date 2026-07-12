@@ -1,0 +1,318 @@
+.hub-panel--inicio {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    /* Slice menor Hero alignment (2026-06-01): eliminar padding horizontal 5%
+       que añadía ~72px lateral extra al panel Inicio vs otros tabs. El
+       padding canonical 24px lo provee #hub-content (alineado con Perfil,
+       Mi grupo, Materias, Calendario, Competencias). */
+    padding: 0 0 16px;
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+}
+
+.hub-inicio-hero {
+    position: relative;
+    width: 100%;
+}
+
+.hub-inicio-hero__on,
+.hub-inicio-hero__off { width: 100%; }
+
+body:not(.gamer-off) .hub-inicio-hero__off { display: none; }
+body.gamer-off .hub-inicio-hero__on { display: none; }
+
+.hub-inicio-hero__on .hub-inicio-banner {
+    height: 160px;
+    margin-bottom: 0;
+    border-radius: var(--r-xl) var(--r-xl) 0 0;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hub-inicio-hero__on .hub-inicio-banner:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+}
+
+.hub-inicio-hero__on .perfil-banner-emblem {
+    font-size: 108px;
+    right: 40px;
+}
+
+.hub-inicio-hero__on .hub-inicio-hero-card {
+    border-top: none;
+    border-radius: 0 0 var(--r-xl) var(--r-xl);
+    padding: 0 24px 18px;
+    display: flex;
+    align-items: flex-end;
+    gap: 18px;
+}
+
+.hub-inicio-hero__on .hub-inicio-avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
+    margin-top: -36px;
+    width: 80px;
+    height: 80px;
+    z-index: 2;
+}
+
+.hub-inicio-hero__on .hub-inicio-avatar-mini {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-size-xl);
+    font-weight: 700;
+    color: #fff;
+    background: var(--brand-gradient);
+    box-shadow: var(--elev-2);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.hub-inicio-hero__on .hub-inicio-avatar-mini:hover {
+    transform: scale(1.03);
+}
+
+.hub-inicio-hero__on .hub-inicio-marco-overlay {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.hub-inicio-hero__on .hub-inicio-level-badge {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: var(--text-size-2xs);
+    font-weight: 700;
+    padding: 2px 8px;
+    z-index: 4;
+    white-space: nowrap;
+}
+
+.hub-inicio-hero__on .hub-inicio-hero-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 12px;
+}
+
+.hub-inicio-hero__on .hub-inicio-hero-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.hub-inicio-hero__on .hub-inicio-title-tag {
+    cursor: pointer;
+    margin-top: 2px;
+    transition: opacity 0.2s ease;
+}
+
+.hub-inicio-hero__on .hub-inicio-title-tag:hover {
+    opacity: 0.85;
+}
+
+.hub-inicio-hero__on .hub-inicio-hero-meta {
+    font-size: var(--text-size-sm);
+    color: var(--text-secondary);
+}
+
+.hub-inicio-hero__on .hub-inicio-hero-cta {
+    align-self: flex-end;
+    margin-left: auto;
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font-size: var(--text-size-sm);
+}
+
+.hub-inicio-hero__off {
+    background: var(--surface-1);
+    border: 1px solid var(--surface-2);
+    border-radius: var(--r-xl);
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.hub-inicio-hero__off .hub-inicio-hero-greeting {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.hub-inicio-hero__off .hub-inicio-hero-meta {
+    font-size: var(--text-size-md);
+    color: var(--text-secondary);
+}
+
+.hub-inicio-dashhero {
+    width: 100%;
+}
+
+.hub-inicio-dashhero:empty {
+    display: none;
+}
+
+.hub-inicio-banda {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.hub-inicio-banda__title {
+    font-size: var(--text-size-md);
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hub-inicio-banda__counter {
+    font-size: var(--text-size-xs);
+    background: var(--surface-2);
+    color: var(--text-secondary);
+    border-radius: 999px;
+    padding: 1px 8px;
+}
+
+.hub-inicio-evento {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+}
+
+.hub-inicio-evento__icon {
+    font-size: var(--text-size-xl);
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.hub-inicio-evento__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.hub-inicio-evento__title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hub-inicio-evento__meta {
+    font-size: var(--text-size-sm);
+    color: var(--text-secondary);
+}
+
+.hub-inicio-evento__empty {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-secondary);
+    font-size: var(--text-size-md);
+    flex: 1;
+}
+
+.hub-inicio-tareas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+.hub-inicio-tarea-card {
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.hub-inicio-tarea-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.hub-inicio-tarea-card__materia {
+    font-size: var(--text-size-xs);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.hub-inicio-tarea-card__title {
+    font-size: var(--text-size-md);
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+
+.hub-inicio-tarea-card__meta {
+    font-size: var(--text-size-xs);
+    color: var(--text-secondary);
+}
+
+.hub-inicio-tarea-card__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.hub-inicio-tareas__empty {
+    text-align: center;
+    padding: 16px;
+    color: var(--text-secondary);
+    font-size: var(--text-size-md);
+}
+
+.hub-inicio-banda__cta {
+    align-self: flex-start;
+    margin-top: 4px;
+}
+
+.hub-inicio-btn-sm {
+    padding: 6px 12px;
+    font-size: var(--text-size-xs);
+}
+
+.hub-inicio-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+@media (max-width: 1024px) {
+    .hub-inicio-metrics { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 720px) {
+    .hub-panel--inicio { padding: 0 0 16px; }
+    .hub-inicio-metrics { grid-template-columns: 1fr; }
+    .hub-inicio-hero__on .hub-inicio-banner { height: 130px; }
+    .hub-inicio-hero__on .perfil-banner-emblem { font-size: 80px; right: 24px; }
+    .hub-inicio-hero__on .hub-inicio-avatar-wrap { width: 64px; height: 64px; margin-top: -28px; }
+    .hub-inicio-hero__on .hub-inicio-avatar-mini { width: 64px; height: 64px; font-size: 22px; }
+    .hub-inicio-tareas-grid { grid-template-columns: 1fr; }
+}

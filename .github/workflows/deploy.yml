@@ -1,0 +1,77 @@
+# .github/workflows/deploy.yml
+# Sprint entrega 2026-06-08 · Deploy XAHNI demo provisional a GitHub Pages
+#
+# Trigger: push a main del repo xahni-sprint-jun8 (público).
+# Resultado: app servida en https://<usuario>.github.io/xahni-sprint-jun8/
+#
+# El repo NO requiere build step — vanilla JS + HTML + CSS estático. La
+# action simplemente publica el contenido del repo (excluyendo .github y
+# scripts/ y docs/) a la branch gh-pages.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Permite trigger manual desde Actions tab.
+  workflow_dispatch:
+
+# Permisos requeridos por la action de Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Solo una concurrencia activa a la vez por branch.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare static site
+        run: |
+          mkdir -p _site
+          # Copia todos los assets necesarios para que la app corra.
+          # NO se copia scripts/ (Node seed scripts, no aplican en cliente).
+          # NO se copia .github/ (config CI).
+          # SE EXCLUYE docs/entrega-2026-06-08/slides es público útil.
+          rsync -av --exclude='.git' \
+                    --exclude='.github' \
+                    --exclude='scripts' \
+                    --exclude='node_modules' \
+                    --exclude='*.md' \
+                    --exclude='firebase-admin-key.json' \
+                    --exclude='_uid-map.json' \
+                    --exclude='.playwright-mcp' \
+                    --exclude='_site' \
+                    . _site/
+          # Re-incluye slides (público válido para presentación).
+          mkdir -p _site/slides
+          if [ -d docs/entrega-2026-06-08/slides ]; then
+            cp -r docs/entrega-2026-06-08/slides/* _site/slides/
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,201 @@
+/* ══════════════════════════════════════════════════════════
+   RECURSOS DEL PROFESOR
+══════════════════════════════════════════════════════════ */
+
+/* ── Barra de filtros ───────────────────────────────────── */
+.rec-filter-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.rec-type-pills {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.rec-type-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 13px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    font-size: var(--text-size-xs);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+.rec-type-btn:hover {
+    background: var(--surface-3);
+    color: var(--text-primary);
+    border-color: var(--border-bright);
+}
+.rec-type-btn.active {
+    background: var(--brand-gradient);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 2px 12px rgba(0, 212, 255, 0.18);
+}
+
+/* Slice pre-c10 9.5.B (gamer-off): aplana el filtro tipo activo en recursos profesor. */
+body.gamer-off .rec-type-btn.active {
+    background: var(--surface-3);
+    color: var(--text-primary);
+    border-color: var(--border-bright);
+    box-shadow: none;
+}
+
+.rec-mat-select { margin-left: auto; width: 190px; }
+
+/* ── Barra de estadísticas ──────────────────────────────── */
+.rec-stats-bar { margin-bottom: 14px; }
+.rec-stats-text { font-size: var(--text-size-xs); color: var(--text-muted); }
+
+/* ── Estado vacío ───────────────────────────────────────── */
+/* Migrado a .x-empty canónico (2026-05-18, C4.A.2). Las reglas
+   `.rec-empty/.rec-empty-icon/.rec-empty-label` se eliminaron por
+   ser bespoke local sin valor sobre el patrón canónico. */
+
+/* ── Sección por materia ────────────────────────────────── */
+.rec-mat-section {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--mat-color, var(--xahni-teal));
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    margin-bottom: 12px;
+    transition: var(--transition);
+}
+.rec-mat-section:hover { border-color: var(--border-bright); }
+.rec-mat-section:hover { border-left-color: var(--mat-color, var(--xahni-teal)); }
+
+.rec-mat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.rec-mat-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--mat-color, var(--xahni-teal));
+    flex-shrink: 0;
+}
+
+.rec-mat-nombre {
+    flex: 1;
+    font-size: var(--text-size-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.rec-mat-count {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+}
+
+/* ── Lista de recursos ──────────────────────────────────── */
+.rec-items-list { padding: 6px 8px; }
+
+.rec-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 10px;
+    border-radius: var(--r-md);
+    transition: var(--transition);
+}
+.rec-item:hover { background: var(--surface-2); }
+
+.rec-type-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--r-sm);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.rec-item-info { flex: 1; min-width: 0; }
+
+.rec-item-name {
+    font-size: var(--text-size-sm);
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rec-item-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 3px;
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+}
+
+/* ── Chip de tipo de archivo ────────────────────────────── */
+.rec-type-chip {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: var(--text-size-2xs);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: var(--surface-3);
+    color: var(--text-muted);
+}
+.rec-chip-pdf   { background: #e8404014; color: #e84040; }
+.rec-chip-video { background: var(--xahni-purple-dim); color: var(--xahni-purple-light); }
+.rec-chip-ppt   { background: var(--xahni-amber-dim); color: var(--xahni-amber); }
+.rec-chip-zip   { background: var(--surface-3); color: var(--text-secondary); }
+.rec-chip-docx  { background: var(--xahni-blue-dim); color: var(--xahni-blue-light); }
+
+/* ── Badge de descargas ─────────────────────────────────── */
+.rec-download-badge {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    flex-shrink: 0;
+    background: var(--surface-3);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    padding: 4px 8px;
+}
+.rec-dl-arrow { font-size: var(--text-size-2xs); color: var(--text-muted); }
+.rec-dl-num   { font-family: var(--font-mono); font-size: var(--text-size-xs); color: var(--text-secondary); }
+
+/* ── Botones de acción por fila ─────────────────────────── */
+.rec-item-actions { display: flex; gap: 4px; flex-shrink: 0; }
+.rec-btn-danger   { color: var(--xahni-red) !important; }
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .rec-mat-select { margin-left: 0; width: 100%; }
+    .rec-item       { flex-wrap: wrap; }
+    .rec-item-actions { margin-left: auto; }
+}
+
+/* Slice pre-c10 9.5.B (2026-05-27): bump P2 sobre lista recursos profesor. */
+body.gamer-off .rec-item,
+body.gamer-off .rec-card-mini {
+    padding-block: 6px;
+}

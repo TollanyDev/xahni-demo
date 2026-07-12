@@ -1,0 +1,112 @@
+          <!-- ── Encabezado con acciones ── -->
+          <div
+            class="page-header"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              flex-wrap: wrap;
+              gap: 12px;
+            "
+          >
+            <div>
+              <div class="page-title">Escala de <em>Evaluación</em></div>
+              <div class="page-subtitle">
+                Define los criterios de evaluación por parcial para cada materia
+              </div>
+              <!-- CONSERVADO 2026-05-23: warning chip escala incompleta (Phase 1 Task 5).
+                   Vive dentro del fragment que se inyecta vía panel.innerHTML para que
+                   no se pierda en el re-render. -->
+              <span id="escala-warning" class="x-chip x-chip--warn" style="display:none;font-size:10px;margin-top:8px"></span>
+            </div>
+            <div
+              style="
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                align-items: center;
+              "
+            >
+              <button
+                class="x-btn x-btn--ghost"
+                style="font-size: 12px"
+                onclick="exportarCSV()"
+              >
+                📊 CSV
+              </button>
+              <button
+                class="x-btn x-btn--ghost"
+                style="font-size: 12px"
+                onclick="exportarPDF()"
+              >
+                📄 PDF
+              </button>
+              <button
+                class="x-btn x-btn--ghost"
+                style="font-size: 12px"
+                onclick="enviarReporte()"
+              >
+                ✉ Correo
+              </button>
+            </div>
+          </div>
+
+          <!-- ── Tarjetas de materias ── -->
+          <div
+            class="grid-3"
+            id="escala-mat-cards"
+            style="margin-bottom: 20px"
+          ></div>
+
+          <!-- ── Contenido de escala (aparece al seleccionar materia) ── -->
+          <div id="escala-contenido" style="display: none">
+            <!-- Tabs P1, P2, P3 -->
+            <div class="escala-parcial-tabs" id="escala-parcial-tabs"></div>
+
+            <!-- Visualización de criterios -->
+            <div class="card" style="margin-bottom: 16px">
+              <div class="card-header" style="flex-wrap: wrap; gap: 10px">
+                <span class="card-title" id="escala-card-title"
+                  >Criterios de evaluación</span
+                >
+                <div
+                  style="display: flex; gap: 8px; align-items: center"
+                  id="escala-actions"
+                ></div>
+              </div>
+
+              <!-- Lista de criterios -->
+              <div id="escala-criterios-lista"></div>
+
+              <!-- Total -->
+              <div id="escala-total-bar"></div>
+
+              <!-- Barra visual proporcional (al fondo) -->
+              <div id="escala-barra-visual" style="margin-top: 16px"></div>
+            </div>
+          </div>
+
+          <!-- Mensaje cuando no hay materia seleccionada -->
+          <div
+            id="escala-placeholder"
+            style="
+              text-align: center;
+              padding: 48px 20px;
+              color: var(--text-muted);
+            "
+          >
+            <div style="font-size: 32px; margin-bottom: 10px">📋</div>
+            <div
+              style="
+                font-size: 15px;
+                font-weight: 500;
+                color: var(--text-secondary);
+                margin-bottom: 4px;
+              "
+            >
+              Selecciona una materia
+            </div>
+            <div style="font-size: 12px">
+              Haz clic en una tarjeta para configurar su escala de evaluación
+            </div>
+          </div>

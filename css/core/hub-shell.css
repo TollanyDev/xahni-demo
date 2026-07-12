@@ -1,0 +1,518 @@
+/* ══════════════════════════════════════════════════════════
+   HUB SHELL — Shell raíz post-eliminación sidebar+topbar
+   Slice pre-c10 #7 · 2026-05-26
+
+   Aplica a estudiante y profesor. Admin sigue en shell legacy.
+   Estructura:
+     #screen-hub
+       .hub-chrome      (top, 56px alto, logo + cluster top-right)
+       .hub-shell-tabs  (48px alto, 5 tabs canónicos)
+       .hub-content     (1fr, área del tab activo)
+══════════════════════════════════════════════════════════ */
+
+/* ── Layout raíz del screen ─────────────────────────────── */
+#screen-hub {
+    --hub-chrome-h: 56px;
+    --hub-tabs-h: 48px;
+    grid-template-rows: var(--hub-chrome-h) var(--hub-tabs-h) 1fr;
+    height: 100vh;
+}
+#screen-hub:not(.active) { display: none; }
+#screen-hub.active { display: grid; }
+
+/* ── CHROME TOP ─────────────────────────────────────────── */
+.hub-chrome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    background: var(--surface-1);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 10;
+}
+
+/* Brand (logo + texto, click → Inicio) */
+.hub-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px 8px;
+    border-radius: var(--r-sm);
+}
+.hub-brand:focus-visible {
+    outline: 2px solid var(--x-focus-ring-color);
+    outline-offset: 2px;
+}
+.hub-brand__logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+.hub-brand__name {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    background: var(--brand-gradient-h);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.01em;
+}
+body.gamer-off .hub-brand__name {
+    background: none;
+    -webkit-text-fill-color: var(--text-primary);
+    color: var(--text-primary);
+}
+
+/* Cluster top-right: bell + gamer switch + avatar */
+.hub-chrome__cluster {
+    position: relative; /* anchor para #notif-panel position:absolute */
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Bell */
+.hub-bell {
+    position: relative;
+    background: none;
+    border: none;
+    padding: 8px;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    color: var(--text-primary);
+    font-size: var(--text-size-lg);
+    line-height: 1;
+}
+.hub-bell:hover { background: var(--xahni-blue-dim); }
+.hub-bell:focus-visible { outline: 2px solid var(--x-focus-ring-color); outline-offset: 2px; }
+.hub-bell__badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: var(--state-danger);
+    color: #fff;
+    font-size: var(--text-size-2xs);
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 8px;
+    min-width: 16px;
+    text-align: center;
+    line-height: 1.4;
+}
+.hub-bell__badge:empty { display: none; }
+
+/* Gamer switch */
+.hub-gamer-switch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    padding: 4px 8px;
+    border-radius: var(--r-sm);
+}
+.hub-gamer-switch:hover { background: var(--xahni-blue-dim); }
+.hub-gamer-switch input { position: absolute; opacity: 0; pointer-events: none; }
+.hub-gamer-switch__track {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    background: var(--border-bright);
+    border-radius: 12px;
+    transition: var(--transition);
+}
+.hub-gamer-switch__knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: var(--surface-1);
+    border-radius: 50%;
+    box-shadow: var(--elev-1);
+    transition: var(--transition);
+}
+.hub-gamer-switch input:checked ~ .hub-gamer-switch__track {
+    background: var(--xahni-cyan);
+}
+.hub-gamer-switch input:checked ~ .hub-gamer-switch__track .hub-gamer-switch__knob {
+    transform: translateX(16px);
+}
+.hub-gamer-switch__label {
+    font-size: var(--text-size-xs);
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.hub-gamer-switch input:focus-visible ~ .hub-gamer-switch__track {
+    outline: 2px solid var(--x-focus-ring-color);
+    outline-offset: 2px;
+}
+
+/* Avatar trigger + dropdown */
+.hub-avatar-trigger {
+    background: none;
+    border: none;
+    padding: 2px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: inline-flex;
+}
+.hub-avatar-trigger:focus-visible { outline: 2px solid var(--x-focus-ring-color); outline-offset: 2px; }
+
+.hub-avatar-mini {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--brand-gradient);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--text-size-sm);
+}
+body.gamer-off .hub-avatar-mini {
+    background: var(--xahni-blue);
+}
+
+.hub-avatar-menu {
+    position: absolute;
+    top: calc(var(--hub-chrome-h) + 4px);
+    right: 24px;
+    width: 256px;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    box-shadow: var(--elev-2);
+    padding: 4px;
+    z-index: 1000;
+}
+.hub-avatar-menu[hidden] { display: none; }
+
+.hub-avatar-menu__header {
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+}
+.hub-avatar-menu__name {
+    font-size: var(--text-size-md);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.hub-avatar-menu__role {
+    font-size: var(--text-size-xs);
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.hub-avatar-menu__item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 12px;
+    background: none;
+    border: none;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    color: var(--text-primary);
+    font-size: var(--text-size-md);
+    transition: var(--transition);
+}
+.hub-avatar-menu__item:hover { background: var(--xahni-blue-dim); }
+.hub-avatar-menu__item:focus-visible { outline: 2px solid var(--x-focus-ring-color); outline-offset: -2px; }
+.hub-avatar-menu__item--danger { color: var(--state-danger); }
+
+.hub-avatar-menu__separator {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 4px 0;
+}
+
+/* ── TABS BAR ────────────────────────────────────────────── */
+.hub-shell-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 0 24px;
+    background: var(--surface-1);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+.hub-shell-tabs .hub-shell-tab {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: center;
+    padding: 0 16px;
+    height: var(--hub-tabs-h);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: var(--text-size-md);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+.hub-shell-tabs .hub-shell-tab:hover { color: var(--text-primary); }
+.hub-shell-tabs .hub-shell-tab.active {
+    color: var(--accent-cyan-text);
+    border-bottom-color: var(--xahni-cyan);
+}
+.hub-shell-tabs .hub-shell-tab:focus-visible {
+    outline: 2px solid var(--x-focus-ring-color);
+    outline-offset: -2px;
+}
+body.gamer-off .hub-shell-tabs .hub-shell-tab.active {
+    color: var(--text-primary);
+    border-bottom-color: var(--text-primary);
+}
+
+/* ── CONTENT AREA ────────────────────────────────────────── */
+.hub-content {
+    overflow-y: auto;
+    padding: 24px;
+    background: var(--surface-0);
+}
+
+/* Placeholder visible mientras 7.2-7.4 no han wireado los tabs. */
+.hub-content__placeholder {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 80px 20px;
+    font-size: var(--text-size-md);
+    font-style: italic;
+}
+
+/* Slice 7.4: tab-bar interno legacy de aprendizaje.html (alumno y profesor)
+   queda oculto cuando vive dentro del shell hub, porque los 4 tabs ya están
+   representados en .hub-shell-tabs del chrome del shell. La cabecera del
+   grupo (#hub-grupo-titulo / #prof-hub-grupo-titulo) se conserva. */
+#hub-content #hub-grupo-tabs-bar,
+#hub-content #prof-hub-grupo-tabs-bar {
+    display: none !important;
+}
+
+/* ── Dropdown custom para el título del profesor (multi-grupo) ──
+   Se inyecta dentro de #prof-hub-grupo-titulo cuando N≥2 grupos.
+   Cero estilos cuando N=1 (es texto plano). */
+.x-page-head__title-dropdown {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--xahni-cyan-dim);
+    /* Epic A.3: borde brand cyan + padding leve transforma el título en una
+       superficie tappable obvia. Sustituye el "título plano" pre-A.3 donde
+       los profesores no percibían el dropdown. */
+    border: 1.5px solid var(--xahni-cyan);
+    padding: 4px 14px;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    border-radius: var(--r-md);
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.x-page-head__title-dropdown:hover {
+    background: color-mix(in srgb, var(--xahni-cyan) 14%, transparent);
+    transform: translateY(-1px);
+}
+
+.x-page-head__title-dropdown:focus-visible {
+    outline: 2px solid var(--x-focus-ring-color);
+    outline-offset: 4px;
+}
+
+.x-page-head__title-dropdown-caret {
+    color: var(--accent-cyan-text);
+    transition: transform 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Epic A.3: chevron SVG (stroke-2) reemplaza Unicode ▾ para affordance más
+   visible. Tamaño 18px alinea con la altura óptica del título del page-head. */
+.x-page-head__title-dropdown-caret .x-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.x-page-head__title-dropdown[aria-expanded="true"] .x-page-head__title-dropdown-caret {
+    transform: rotate(180deg);
+}
+
+/* Epic A.3: microcopy "hint" inline en el subtitle del page-head.
+   Color brand cyan-text (mode-aware post-A.1, WCAG AA cross-mode) más
+   font-weight semibold lo destaca explícitamente como "instrucción
+   accionable" vs el carrera·cuatrimestre informativo adyacente. */
+.x-page-head__hint {
+    color: var(--accent-cyan-text);
+    font-weight: 600;
+}
+
+.x-page-head__title-dropdown-menu {
+    position: absolute;
+    z-index: 50;
+    margin-top: 8px;
+    min-width: 180px;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    box-shadow: var(--elev-2);
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.x-page-head__title-dropdown-menu[hidden] { display: none; }
+
+.x-page-head__title-dropdown-item {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    text-align: left;
+    font-size: var(--text-size-md);
+    color: var(--text-primary);
+    cursor: pointer;
+    border-radius: var(--r-sm);
+    transition: background 0.15s ease;
+}
+
+.x-page-head__title-dropdown-item:hover {
+    background: var(--surface-2);
+}
+
+.x-page-head__title-dropdown-item.is-active {
+    background: var(--xahni-cyan-dim);
+    color: var(--accent-cyan-text);
+    font-weight: 600;
+}
+
+/* ── Responsive (mobile básico, 7.1 ya empieza con buen baseline) ─ */
+@media (max-width: 720px) {
+    .hub-chrome { padding: 0 12px; }
+    .hub-shell-tabs { padding: 0 12px; }
+    .hub-content { padding: 16px; }
+    .hub-brand__name { display: none; }
+    .hub-gamer-switch__label { display: none; }
+}
+
+/* ── R1 · 2026-06-07 · Tabs mobile + "Más" bottom-sheet ────────────
+   <560px: ocultar Mi grupo / Competencias / Perfil (data-mobile-hide)
+   y mostrar tab "Más" (data-mobile-only) que abre <dialog> sheet.
+   ≥561px: invertir — mostrar todos, ocultar Más.
+═══════════════════════════════════════════════════════════════════ */
+
+/* Default desktop: ocultar el trigger "Más" */
+.hub-shell-tab[data-mobile-only] { display: none; }
+
+@media (max-width: 560px) {
+    .hub-shell-tab[data-mobile-hide] { display: none; }
+    .hub-shell-tab[data-mobile-only] { display: inline-flex; }
+
+    .hub-shell-tabs {
+        padding: 0 12px;
+        gap: 4px;
+    }
+    .hub-shell-tabs .hub-shell-tab {
+        flex: 1 1 0;
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0 10px;
+        font-size: var(--text-size-sm);
+    }
+}
+
+/* Bottom-sheet "Más" (HTML <dialog>) — animaciones transform-only,
+   spring-ish ease-out 240ms, respeta prefers-reduced-motion. */
+.hub-more-sheet {
+    position: fixed;
+    inset: auto 0 0 0;
+    margin: 0;
+    width: 100%;
+    max-width: none;
+    border: none;
+    border-top-left-radius: var(--r-lg);
+    border-top-right-radius: var(--r-lg);
+    background: var(--surface-1);
+    color: var(--text-primary);
+    padding: 12px 16px calc(20px + env(safe-area-inset-bottom));
+    box-shadow: 0 -8px 32px rgb(0 0 0 / 0.18);
+    z-index: 1100;
+    /* Estado cerrado base */
+    transform: translateY(100%);
+    transition: transform 240ms cubic-bezier(.32, .72, 0, 1);
+}
+.hub-more-sheet[open] { transform: translateY(0); }
+.hub-more-sheet::backdrop {
+    background: rgb(0 0 0 / 0.5);
+    backdrop-filter: blur(2px);
+}
+
+.hub-more-sheet__handle {
+    width: 36px;
+    height: 4px;
+    background: var(--border-bright);
+    border-radius: 2px;
+    margin: 0 auto 12px;
+}
+.hub-more-sheet__title {
+    font-size: var(--text-size-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin: 0 0 8px;
+    padding: 0 8px;
+}
+.hub-more-sheet__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 48px;
+    padding: 0 12px;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: var(--text-size-md);
+    font-weight: 500;
+    text-align: left;
+    border-radius: var(--r-md);
+    cursor: pointer;
+    transition: background 150ms ease-out;
+}
+.hub-more-sheet__item:hover,
+.hub-more-sheet__item:focus-visible {
+    background: var(--xahni-cyan-dim);
+    outline: none;
+}
+.hub-more-sheet__item:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--x-focus-ring-color);
+}
+.hub-more-sheet__item .x-icon {
+    color: var(--accent-cyan-text);
+    flex-shrink: 0;
+}
+.hub-more-sheet__close {
+    width: 100%;
+    margin-top: 12px;
+    min-height: 44px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hub-more-sheet { transition: none; }
+}
+

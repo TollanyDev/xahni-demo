@@ -1,0 +1,146 @@
+          <div class="x-page-head">
+            <div>
+              <div class="x-page-head__title"><em>Configuración</em></div>
+              <div class="x-page-head__subtitle">Personaliza tu experiencia en XAHNI</div>
+            </div>
+          </div>
+
+          <!-- Apariencia -->
+          <div class="config-section">
+            <div class="config-section-header">Apariencia</div>
+
+            <div class="config-row">
+              <div>
+                <div class="config-row-label">Modo oscuro</div>
+                <div class="config-row-desc">Diseñado para sesiones largas de estudio</div>
+              </div>
+              <button
+                id="toggle-dark-mode"
+                class="toggle on"
+                onclick="toggleConfig('darkMode', this)"
+              ></button>
+            </div>
+
+            <div class="config-row">
+              <div>
+                <div class="config-row-label">Gamer mode</div>
+                <div class="config-row-desc">Estética dinámica con colores y efectos intensos</div>
+              </div>
+              <button
+                id="toggle-gamer-mode"
+                class="toggle on"
+                onclick="toggleConfig('gamerMode', this)"
+              ></button>
+            </div>
+
+            <div class="config-row">
+              <div>
+                <div class="config-row-label">Animaciones</div>
+                <div class="config-row-desc">Transiciones y efectos de la interfaz</div>
+              </div>
+              <button
+                id="toggle-animaciones"
+                class="toggle on"
+                onclick="toggleConfig('animaciones', this)"
+              ></button>
+            </div>
+
+            <div class="config-row">
+              <div>
+                <div class="config-row-label">Idioma</div>
+                <div class="config-row-desc">Español (México)</div>
+              </div>
+              <select class="form-select" style="width:180px">
+                <option>Español (México)</option>
+                <option>English</option>
+                <option>Français</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Notificaciones -->
+          <div class="config-section">
+            <div class="config-section-header">Notificaciones</div>
+
+            <div class="config-row">
+              <div>
+                <div class="config-row-label">Notificaciones en la app</div>
+                <div class="config-row-desc">Alertas de calificaciones, torneos y logros</div>
+              </div>
+              <button
+                id="toggle-notif-app"
+                class="toggle on"
+                onclick="toggleConfig('notifApp', this)"
+              ></button>
+            </div>
+
+            <div class="config-row">
+              <div>
+                <div class="config-row-label">Correo electrónico</div>
+                <div class="config-row-desc">Resumen semanal de progreso</div>
+              </div>
+              <button
+                id="toggle-notif-email"
+                class="toggle"
+                onclick="toggleConfig('notifEmail', this)"
+              ></button>
+            </div>
+
+            <div class="config-row">
+              <div>
+                <div class="config-row-label">Recordatorios de racha</div>
+                <div class="config-row-desc">Aviso diario para mantener tu racha activa</div>
+              </div>
+              <button
+                id="toggle-notif-racha"
+                class="toggle on"
+                onclick="toggleConfig('notifRacha', this)"
+              ></button>
+            </div>
+          </div>
+
+          <!-- Privacidad -->
+          <div class="config-section">
+            <div class="config-section-header">Privacidad</div>
+
+            <div class="config-row">
+              <div>
+                <div class="config-row-label">Perfil público</div>
+                <div class="config-row-desc">Visible para otros estudiantes en el ranking</div>
+              </div>
+              <button
+                id="toggle-perfil-publico"
+                class="toggle on"
+                onclick="toggleConfig('perfilPublico', this)"
+              ></button>
+            </div>
+
+            <div class="config-row">
+              <div>
+                <div class="config-row-label">Compartir progreso</div>
+                <div class="config-row-desc">Mostrar tus materias y avance en el perfil</div>
+              </div>
+              <button
+                id="toggle-compartir-progreso"
+                class="toggle on"
+                onclick="toggleConfig('compartirProgreso', this)"
+              ></button>
+            </div>
+
+            <div class="config-row">
+              <div>
+                <div class="config-row-label">Permitir mensajes</div>
+                <div class="config-row-desc">Recibir mensajes directos de compañeros</div>
+              </div>
+              <button
+                id="toggle-permitir-mensajes"
+                class="toggle"
+                onclick="toggleConfig('permitirMensajes', this)"
+              ></button>
+            </div>
+          </div>
+
+          <div class="x-actions" style="margin-top:20px">
+            <button class="x-btn x-btn--primary" onclick="guardarConfig()">Guardar cambios</button>
+            <button class="x-btn x-btn--ghost"   onclick="restablecerConfig()">Restablecer</button>
+          </div>

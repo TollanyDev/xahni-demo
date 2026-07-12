@@ -1,0 +1,72 @@
+/* ══════════════════════════════════════════════════════════
+   ADMIN — Panel de Administración
+══════════════════════════════════════════════════════════ */
+
+/* Métricas del panel admin */
+#admin-panel-metrics {
+    transition: all 0.3s ease;
+}
+
+/* Animación de actualización de métricas */
+#admin-panel-metrics .metric-card {
+    animation: fadeInMetric 0.4s ease;
+}
+
+@keyframes fadeInMetric {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Efecto de pulso en valores actualizados */
+#admin-panel-metrics .metric-value {
+    transition: all 0.3s ease;
+}
+
+#admin-panel-metrics.updating .metric-value {
+    animation: pulseValue 0.5s ease;
+}
+
+@keyframes pulseValue {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+        color: var(--accent-cyan-text);
+    }
+}
+
+/* Alerta de admin */
+.admin-alert {
+    animation: slideInAlert 0.4s ease;
+}
+
+@keyframes slideInAlert {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    #admin-panel-metrics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    #admin-panel-metrics {
+        grid-template-columns: 1fr;
+    }
+}

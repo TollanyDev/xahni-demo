@@ -1,0 +1,194 @@
+/* css/profesor/crear-quiz.css
+   Sprint 2026-06-08 · SELECTIVOS A wizard prof crear quiz (.cq-*) */
+
+.cq-modal {
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 92vh;
+}
+
+.cq-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid var(--border-color);
+}
+.cq-title-area {
+    flex: 1;
+    min-width: 0;
+}
+.cq-materia {
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+.cq-titulo {
+    margin: 0;
+    font-size: var(--text-size-md);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+.cq-close {
+    flex-shrink: 0;
+    /* Fix UX 2026-06-06: estilos visibles coherentes con .cw-close / .vfj-close. */
+    background: var(--surface-2);
+    border: 1px solid var(--border-bright);
+    color: var(--text-primary);
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    line-height: 1;
+    padding: 0;
+}
+.cq-close:hover {
+    background: var(--state-danger-dim);
+    border-color: var(--state-danger);
+    color: var(--state-danger);
+}
+
+.cq-body {
+    padding: 22px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.cq-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.cq-field__label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+.cq-input {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-soft, rgba(255, 255, 255, 0.03));
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: var(--text-size-sm);
+    font-family: inherit;
+    transition: border-color 160ms ease;
+}
+.cq-input:focus {
+    outline: none;
+    border-color: var(--accent-cyan, #00d4ff);
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.12);
+}
+
+.cq-preguntas-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.cq-pregunta {
+    padding: 16px;
+    background: var(--bg-soft, rgba(255, 255, 255, 0.02));
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.cq-pregunta__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.cq-pregunta__num {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-cyan-text, #00d4ff);
+    font-weight: 700;
+}
+
+.cq-opciones-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.cq-opcion-row {
+    display: grid;
+    grid-template-columns: 22px 30px 1fr;
+    gap: 10px;
+    align-items: center;
+    padding: 4px 0;
+}
+.cq-opcion-row input[type="radio"] {
+    accent-color: var(--accent-cyan, #00d4ff);
+    cursor: pointer;
+}
+.cq-opcion-row__letra {
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-secondary);
+}
+.cq-opcion-row--correcta .cq-opcion-row__letra {
+    color: var(--accent-cyan-text, #00d4ff);
+}
+.cq-opcion-row__input {
+    width: 100%;
+}
+
+.cq-add-pregunta {
+    align-self: flex-start;
+    border-style: dashed;
+    /* Fix UX 2026-06-06: spacing vertical respecto al footer */
+    margin-top: 8px;
+    margin-bottom: 12px;
+}
+.cq-add-pregunta-info {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.cq-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 14px 22px;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-soft, rgba(255, 255, 255, 0.02));
+}
+
+/* Botón eliminar quiz en card profesor */
+.jq-card__delete {
+    color: var(--text-muted);
+    transition: color 160ms ease, background 160ms ease;
+}
+.jq-card__delete:hover {
+    color: var(--state-danger, #e53935);
+    background: rgba(229, 57, 53, 0.08);
+}
+
+/* Gamer-off */
+body.gamer-off .cq-input:focus {
+    border-color: var(--text-primary);
+    box-shadow: none;
+}
+body.gamer-off .cq-pregunta__num,
+body.gamer-off .cq-opcion-row--correcta .cq-opcion-row__letra {
+    color: var(--text-primary);
+}
+body.gamer-off .cq-opcion-row input[type="radio"] {
+    accent-color: var(--text-primary);
+}

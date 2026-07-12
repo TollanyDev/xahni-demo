@@ -1,0 +1,291 @@
+/* css/core/competencias.css
+   Slice Competencias beta C2 · 2026-06-06 · spec §5
+   Reusa .juegos-stub-stat para hero stats. Tweaks .comp-* mínimos. */
+
+/* ── Filter chips ──────────────────────────────────────────── */
+.comp-filter-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.comp-filter-chips .x-chip {
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+.comp-filter-chips .x-chip--active {
+  background: var(--xahni-cyan-dim);
+  border-color: var(--xahni-cyan);
+  color: var(--accent-cyan-text);
+}
+
+/* ── Grid ──────────────────────────────────────────────────── */
+.comp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+/* ── Card variants ─────────────────────────────────────────── */
+.comp-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  cursor: pointer;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+.comp-card:hover {
+  border-color: var(--border-bright);
+  transform: translateY(-2px);
+}
+.comp-card.activa { border-left: 4px solid var(--state-ok); }
+.comp-card.proxima { border-left: 4px solid var(--state-warn); }
+.comp-card.finalizada { opacity: 0.8; border-left: 4px solid var(--text-muted); }
+.comp-card.ganador { border-left: 4px solid var(--xahni-amber); background: var(--xahni-amber-dim); }
+
+.comp-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.comp-card__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+.comp-card__meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.comp-card__metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 4px;
+}
+.comp-card__cta {
+  font-size: 11px;
+  color: var(--accent-cyan-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* Mini ranking en card profesor */
+.comp-mini-ranking {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border-radius: var(--r-sm);
+  font-size: 11px;
+}
+.comp-mini-ranking__row {
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  gap: 8px;
+  align-items: center;
+  padding: 4px 0;
+}
+.comp-mini-ranking__row + .comp-mini-ranking__row {
+  border-top: 1px solid var(--border);
+}
+.comp-mini-ranking__lugar {
+  font-weight: 700;
+  color: var(--accent-cyan-text);
+}
+.comp-mini-ranking__pts {
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+}
+
+/* ── Ranking destacado bloque ──────────────────────────────── */
+.comp-ranking-block {
+  margin: 22px 0;
+}
+.comp-ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.comp-ranking-row {
+  display: grid;
+  grid-template-columns: 26px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--surface-1);
+  border-radius: var(--r-sm);
+}
+.comp-ranking-row--mio { background: var(--xahni-cyan-dim); }
+
+/* ── Historial compacto ────────────────────────────────────── */
+.comp-historial {
+  margin-top: 22px;
+}
+.comp-historial-row {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+.comp-historial-row__fecha {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+.comp-historial-row__nombre {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+.comp-historial-row__resultado {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-cyan-text);
+}
+
+/* ── Gamer-off overrides ───────────────────────────────────── */
+body.gamer-off .comp-card.ganador { background: var(--surface-2); border-left-color: var(--text-primary); }
+body.gamer-off .comp-filter-chips .x-chip--active { background: var(--surface-2); border-color: var(--text-primary); color: var(--text-primary); }
+body.gamer-off .comp-ranking-row--mio { background: var(--surface-2); }
+
+/* ── Modal participar competencia ──────────────────────────── */
+.ptc-modal { padding: 0; display: flex; flex-direction: column; max-height: 92vh; }
+.ptc-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.ptc-title-area { flex: 1; min-width: 0; }
+.ptc-eyebrow { font-size: var(--text-size-xs); color: var(--text-muted); margin-bottom: 4px; }
+.ptc-titulo { margin: 0; font-size: var(--text-size-md); font-weight: 600; color: var(--text-primary); }
+.ptc-close {
+  flex-shrink: 0;
+  width: 36px; height: 36px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-bright);
+}
+.ptc-close:hover { background: var(--state-danger-dim); border-color: var(--state-danger); color: var(--state-danger); }
+.ptc-body {
+  padding: 22px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ptc-attempts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border-radius: var(--r-sm);
+  font-size: 13px;
+}
+.ptc-attempt-row { display: grid; grid-template-columns: 80px 1fr auto; gap: 10px; }
+.ptc-attempt-row--best { color: var(--state-ok); font-weight: 600; }
+.ptc-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 22px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── Modal detalle competencia ─────────────────────────────── */
+.dtc-modal { padding: 0; display: flex; flex-direction: column; max-height: 92vh; }
+.dtc-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 18px 22px 14px; border-bottom: 1px solid var(--border); }
+.dtc-title-area { flex: 1; min-width: 0; }
+.dtc-eyebrow { font-size: var(--text-size-xs); color: var(--text-muted); margin-bottom: 4px; }
+.dtc-titulo { margin: 0; font-size: var(--text-size-md); font-weight: 600; color: var(--text-primary); }
+.dtc-close { flex-shrink: 0; width: 36px; height: 36px; background: var(--surface-2); border: 1px solid var(--border-bright); }
+.dtc-close:hover { background: var(--state-danger-dim); border-color: var(--state-danger); color: var(--state-danger); }
+.dtc-body { padding: 22px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 18px; }
+.dtc-section-titulo { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-bottom: 10px; }
+.dtc-ranking-row {
+  display: grid;
+  grid-template-columns: 28px 1fr auto auto;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--surface-2);
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  align-items: center;
+}
+/* Spacing vertical entre rows del ranking — fix UX 2026-06-06 */
+.dtc-ranking-row + .dtc-ranking-row {
+  margin-top: 8px;
+}
+.dtc-grupo-collapsible {
+  background: var(--surface-2);
+  border-radius: var(--r-sm);
+  margin-bottom: 8px;
+}
+.dtc-grupo-collapsible__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+.dtc-grupo-collapsible__body {
+  padding: 0 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+}
+.dtc-grupo-collapsible__body.collapsed { display: none; }
+.dtc-alumno-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--border);
+}
+.dtc-footer { display: flex; align-items: center; justify-content: flex-end; gap: 10px; padding: 14px 22px; border-top: 1px solid var(--border); }
+
+/* ── Modal crear torneo ────────────────────────────────────── */
+.ctn-modal { padding: 0; display: flex; flex-direction: column; max-height: 92vh; }
+.ctn-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 18px 22px 14px; border-bottom: 1px solid var(--border); }
+.ctn-title-area { flex: 1; min-width: 0; }
+.ctn-eyebrow { font-size: var(--text-size-xs); color: var(--text-muted); margin-bottom: 4px; }
+.ctn-titulo { margin: 0; font-size: var(--text-size-md); font-weight: 600; color: var(--text-primary); }
+.ctn-close { flex-shrink: 0; width: 36px; height: 36px; background: var(--surface-2); border: 1px solid var(--border-bright); }
+.ctn-close:hover { background: var(--state-danger-dim); border-color: var(--state-danger); color: var(--state-danger); }
+.ctn-body { padding: 22px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+.ctn-field { display: flex; flex-direction: column; gap: 6px; }
+.ctn-field__label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 600; }
+.ctn-input { width: 100%; padding: 10px 12px; background: var(--surface-1); border: 1.5px solid var(--border); border-radius: 8px; color: var(--text-primary); font-family: inherit; font-size: var(--text-size-sm); }
+.ctn-input:focus { outline: none; border-color: var(--xahni-cyan); }
+.ctn-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); }
+.ctn-tab { padding: 10px 16px; cursor: pointer; font-size: 13px; color: var(--text-muted); border-bottom: 2px solid transparent; }
+.ctn-tab--active { color: var(--text-primary); border-bottom-color: var(--xahni-cyan); font-weight: 600; }
+.ctn-juego-row { display: grid; grid-template-columns: 22px 1fr auto; gap: 10px; align-items: center; padding: 10px 12px; background: var(--surface-2); border-radius: var(--r-sm); cursor: pointer; }
+.ctn-juego-row.ctn-juego-row--selected { background: var(--xahni-cyan-dim); border: 1px solid var(--xahni-cyan); }
+.ctn-grupos-checkboxes { display: flex; flex-wrap: wrap; gap: 8px; }
+.ctn-grupos-checkboxes label { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; background: var(--surface-2); border-radius: var(--r-sm); cursor: pointer; font-size: 13px; }
+.ctn-grupos-checkboxes input[type="checkbox"]:checked + span { color: var(--accent-cyan-text); font-weight: 600; }
+.ctn-fechas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ctn-footer { display: flex; align-items: center; justify-content: flex-end; gap: 10px; padding: 14px 22px; border-top: 1px solid var(--border); }

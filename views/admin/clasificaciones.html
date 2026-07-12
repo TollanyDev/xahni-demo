@@ -1,0 +1,47 @@
+<div class="page-header">
+  <div class="page-title">Gestión de <em>Clasificaciones</em></div>
+  <div class="page-subtitle" id="gestion-clasificaciones-sub">
+    Define tronco común y especialidades por carrera
+  </div>
+</div>
+
+<!-- Resumen de métricas -->
+<div class="grid-4" style="margin-bottom: 20px" id="clasificaciones-resumen"></div>
+
+<!-- Filtros y búsqueda -->
+<div style="display:flex;gap:12px;margin-bottom:20px;align-items:center;flex-wrap:wrap">
+  <div class="topbar-search" style="width: 240px">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </svg>
+    <input id="buscar-clasificacion-input" type="text" placeholder="Buscar clasificación..."
+           oninput="filtrarClasificacionesBusqueda(this.value)" />
+  </div>
+  <select id="filtro-tipo-clasificacion" class="form-select" style="width: 200px"
+          onchange="filtrarClasificacionesTipo(this.value)">
+    <option value="todos">Todos los tipos</option>
+    <option value="troncoComun">Tronco común</option>
+    <option value="especialidad">Especialidad</option>
+  </select>
+  <button class="x-btn x-btn--primary" style="padding: 9px 16px; font-size: 13px; margin-left: auto"
+          onclick="_abrirModalNuevaClasificacion()">
+    + Nueva clasificación
+  </button>
+</div>
+
+<!-- Tabla de clasificaciones -->
+<div class="card">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Clasificación</th>
+        <th>Tipo</th>
+        <th>Carreras</th>
+        <th>Materias</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="clasificaciones-tbody"></tbody>
+  </table>
+</div>

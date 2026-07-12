@@ -1,0 +1,269 @@
+/* css/shared/vf-jugar.css
+ * Slice Juegos beta B1 · 2026-06-05 · spec §6.1
+ * Fix UX 2026-06-06: header pattern canonical (cq-header style),
+ * cards V/F con contraste mejorado, footer space-between con nav contextual,
+ * spacing vertical generoso en header.
+ */
+
+.vfj-modal {
+  max-width: 720px;
+  padding: 0;  /* el padding canonical del .x-modal lo manejamos por sección */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ═════════════════════════════════════════════════
+   Header (pattern canonical estilo .cq-header)
+   ═════════════════════════════════════════════════ */
+.vfj-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.vfj-title-area {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;  /* spacing vertical interno generoso */
+}
+
+.vfj-eyebrow {
+  font-size: var(--text-size-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+
+.vfj-titulo {
+  margin: 0;
+  font-size: var(--text-size-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.vfj-timer {
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--accent-cyan-text);
+  background: var(--xahni-cyan-dim);
+  padding: 6px 14px;
+  border-radius: var(--r-sm);
+  font-size: var(--text-size-md);
+  letter-spacing: 0.4px;
+}
+
+.vfj-close {
+  flex-shrink: 0;
+  background: var(--surface-2);
+  border: 1px solid var(--border-bright);
+  color: var(--text-primary);  /* X visible sobre dark bg */
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
+}
+.vfj-close:hover {
+  background: var(--state-danger-dim);
+  border-color: var(--state-danger);
+  color: var(--state-danger);
+}
+
+/* ═════════════════════════════════════════════════
+   Progress
+   ═════════════════════════════════════════════════ */
+.vfj-progress {
+  text-align: center;
+  font-size: var(--text-size-sm);
+  color: var(--text-muted);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ═════════════════════════════════════════════════
+   Body
+   ═════════════════════════════════════════════════ */
+.vfj-body {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.vfj-afirmacion {
+  text-align: center;
+  padding: 28px 24px 20px;
+}
+.vfj-afirmacion__label {
+  font-size: var(--text-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.vfj-afirmacion__texto {
+  font-size: var(--text-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+/* ═════════════════════════════════════════════════
+   Botones binarios V/F (cards principales)
+   bg surface-2 alto-contraste contra modal surface-1
+   icons brand color, labels text-primary
+   ═════════════════════════════════════════════════ */
+.vfj-binario {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 0 24px 24px;
+}
+
+.vfj-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 16px;
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  border: 2px solid var(--border-bright);
+  cursor: pointer;
+  transition: all 150ms ease;
+  color: var(--text-primary);
+}
+
+.vfj-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--elev-2);
+}
+
+/* Variants tipo: verdadero tint cyan / falso tint danger */
+.vfj-btn--verdadero:hover {
+  border-color: var(--xahni-cyan);
+  background: var(--xahni-cyan-dim);
+}
+.vfj-btn--falso:hover {
+  border-color: var(--state-danger);
+  background: var(--state-danger-dim);
+}
+
+.vfj-btn--verdadero.vfj-btn--seleccionada {
+  border-color: var(--xahni-cyan);
+  background: var(--xahni-cyan-dim);
+  box-shadow: 0 0 0 1px var(--xahni-cyan) inset;
+}
+.vfj-btn--falso.vfj-btn--seleccionada {
+  border-color: var(--state-danger);
+  background: var(--state-danger-dim);
+  box-shadow: 0 0 0 1px var(--state-danger) inset;
+}
+
+.vfj-btn__icon {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+}
+.vfj-btn--verdadero .vfj-btn__icon {
+  color: var(--accent-cyan-text);
+}
+.vfj-btn--falso .vfj-btn__icon {
+  color: var(--state-danger);
+}
+
+.vfj-btn__label {
+  font-size: var(--text-size-md);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ═════════════════════════════════════════════════
+   Footer: Anterior izquierda · Siguiente/Terminar derecha
+   ═════════════════════════════════════════════════ */
+.vfj-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 24px 22px;
+  border-top: 1px solid var(--border);
+}
+
+.vfj-nav-prev {
+  margin-right: auto;  /* anclado a la izquierda */
+}
+
+.vfj-nav-next {
+  margin-left: auto;   /* anclado a la derecha */
+}
+
+/* ═════════════════════════════════════════════════
+   Pantalla resultados
+   ═════════════════════════════════════════════════ */
+.vfj-result {
+  text-align: center;
+  padding: 32px 24px;
+}
+.vfj-result__trofeo {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+.vfj-result__titulo {
+  margin: 4px 0 20px;
+}
+.vfj-result__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 16px 0 24px;
+}
+.vfj-result__stats > div {
+  display: flex;
+  flex-direction: column;
+}
+.vfj-result__valor {
+  font-size: var(--text-size-xl);
+  font-weight: 700;
+  color: var(--accent-cyan-text);
+}
+.vfj-result__stats span:last-child {
+  font-size: var(--text-size-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* ═════════════════════════════════════════════════
+   Gamer-off: tints mute, sin lift, sin glow
+   ═════════════════════════════════════════════════ */
+[data-gamer="off"] .vfj-timer {
+  background: var(--surface-2);
+  color: var(--text-secondary);
+}
+[data-gamer="off"] .vfj-btn:hover {
+  transform: none;
+  box-shadow: none;
+  background: var(--surface-2);
+  border-color: var(--border-bright);
+}
+[data-gamer="off"] .vfj-btn--verdadero .vfj-btn__icon,
+[data-gamer="off"] .vfj-btn--falso .vfj-btn__icon {
+  color: var(--text-primary);
+  opacity: 0.7;
+}
+[data-gamer="off"] .vfj-btn--seleccionada {
+  border-color: var(--text-secondary);
+  background: var(--surface-2);
+  box-shadow: 0 0 0 1px var(--text-secondary) inset;
+}
+[data-gamer="off"] .vfj-result__valor {
+  color: var(--text-primary);
+}

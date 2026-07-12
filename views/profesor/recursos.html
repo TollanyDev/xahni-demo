@@ -1,0 +1,78 @@
+          <div
+            class="page-header"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              flex-wrap: wrap;
+              gap: 12px;
+            "
+          >
+            <div>
+              <div class="page-title">Recursos <em>Didácticos</em></div>
+              <div class="page-subtitle">
+                Organiza materiales por materia · consulta cuántas veces los
+                descargan tus alumnos
+              </div>
+            </div>
+            <div
+              style="
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                align-items: center;
+              "
+            >
+              <div class="topbar-search" style="width: 200px">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input
+                  type="text"
+                  placeholder="Buscar recurso..."
+                  oninput="buscarRecurso(this.value)"
+                />
+              </div>
+              <button
+                class="x-btn x-btn--primary"
+                style="padding: 9px 16px; font-size: 13px"
+                onclick="abrirSubirRecurso()"
+              >
+                ↑ Subir recurso
+              </button>
+            </div>
+          </div>
+
+          <!-- Alerta de periodo (profesor) -->
+          <div id="prof-recursos-periodo-alerta" style="display: none"></div>
+
+          <!-- Info del periodo (profesor) -->
+          <div id="prof-recursos-periodo-info" class="rec-periodo-info"></div>
+
+          <!-- Filtros -->
+          <div class="rec-filter-bar">
+            <div class="rec-type-pills">
+              <button class="rec-type-btn active" onclick="filtrarRecTipo('todos', this)">📂 Todos</button>
+              <button class="rec-type-btn" onclick="filtrarRecTipo('PDF', this)">📄 PDF</button>
+              <button class="rec-type-btn" onclick="filtrarRecTipo('VIDEO', this)">🎬 Video</button>
+              <button class="rec-type-btn" onclick="filtrarRecTipo('PPT', this)">📊 PPT</button>
+              <button class="rec-type-btn" onclick="filtrarRecTipo('ZIP', this)">🗜️ ZIP</button>
+              <button class="rec-type-btn" onclick="filtrarRecTipo('DOCX', this)">📝 DOCX</button>
+            </div>
+            <select class="form-select rec-mat-select" onchange="filtrarRecMat(this.value)">
+              <option value="todas">Todas las materias</option>
+              <option value="pw">Programación Web</option>
+              <option value="bd">Bases de Datos</option>
+              <option value="mat">Matemáticas Avanzadas</option>
+            </select>
+          </div>
+          <div id="prof-rec-stats" class="rec-stats-bar"></div>
+          <div id="recursos-grid"></div>

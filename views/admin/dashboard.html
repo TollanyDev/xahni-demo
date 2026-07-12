@@ -1,0 +1,46 @@
+          <div class="x-page-head">
+            <div>
+              <div class="x-page-head__title">Panel de <em>administración</em></div>
+              <div class="x-page-head__subtitle">Gestión global de XAHNI</div>
+            </div>
+          </div>
+          <div class="admin-alert" style="margin-bottom:16px">
+            ⚠️ Acceso restringido — Solo administradores. Este panel no es
+            visible para estudiantes ni profesores.
+          </div>
+          <div class="x-grid" style="margin-bottom:20px">
+            <div class="metric-card blue">
+              <div class="metric-icon blue">👥</div>
+              <div class="metric-value" id="admin-panel-usuarios">0</div>
+              <div class="metric-label">Usuarios totales</div>
+            </div>
+            <div class="metric-card teal">
+              <div class="metric-icon teal">🎓</div>
+              <div class="metric-value" id="admin-panel-estudiantes">0</div>
+              <div class="metric-label">Estudiantes</div>
+            </div>
+            <div class="metric-card amber">
+              <div class="metric-icon amber">👨‍🏫</div>
+              <div class="metric-value" id="admin-panel-profesores">0</div>
+              <div class="metric-label">Profesores</div>
+            </div>
+            <div class="metric-card purple">
+              <div class="metric-icon purple">🏫</div>
+              <div class="metric-value" id="admin-panel-instituciones">0</div>
+              <div class="metric-label">Instituciones</div>
+            </div>
+          </div>
+          <div class="x-grid--2">
+            <div class="x-card">
+              <header style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+                <span style="font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--text-primary)">Actividad reciente del sistema</span>
+              </header>
+              <div id="admin-activity"></div>
+            </div>
+            <div class="x-card">
+              <header style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+                <span style="font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--text-primary)">Estado del sistema</span>
+              </header>
+              <div style="display:flex;flex-direction:column;gap:14px" id="admin-stats"></div>
+            </div>
+          </div>

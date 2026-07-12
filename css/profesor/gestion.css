@@ -1,0 +1,436 @@
+/* css/profesor/gestion.css — Gestión académica: riesgo, mini perfil, búsqueda */
+
+/* ══════════════════════════════════════════════════════════
+   PANEL DE ALUMNOS EN RIESGO (P2)
+══════════════════════════════════════════════════════════ */
+.prof-panel-riesgo {
+    background: #e8404009;
+    border: 1px solid var(--xahni-red);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    margin-bottom: 20px;
+    animation: fadeUp 0.3s ease;
+}
+.prof-riesgo-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px; background: #e8404012;
+    border-bottom: 1px solid #e8404030;
+    flex-wrap: wrap; gap: 10px;
+}
+.prof-riesgo-titulo { font-size: var(--text-size-sm); font-weight: 600; color: var(--xahni-red); }
+.prof-riesgo-sub    { font-size: var(--text-size-xs); color: var(--xahni-red); opacity: 0.75; margin-top: 2px; }
+.prof-riesgo-lista  { padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
+.prof-riesgo-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px; border-radius: var(--r-md);
+}
+.prof-riesgo-item.nivel-alto  { background: #e8404012; border: 1px solid #e8404030; }
+.prof-riesgo-item.nivel-medio { background: #f5a62312; border: 1px solid #f5a62330; }
+
+/* Colorear filas de la tabla según riesgo */
+.fila-riesgo-alto  td { background: #e8404006 !important; }
+.fila-riesgo-medio td { background: #f5a62306 !important; }
+
+/* ══════════════════════════════════════════════════════════
+   SEARCH BAR (Gestión Académica)
+══════════════════════════════════════════════════════════ */
+.prof-search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    transition: var(--transition);
+}
+.prof-search-bar:focus-within {
+    border-color: var(--xahni-blue);
+    box-shadow: 0 0 0 2px var(--xahni-blue-dim);
+}
+.prof-search-bar input:focus-visible {
+    outline: 2px solid var(--x-focus-ring-color);
+    outline-offset: 2px;
+}
+.prof-search-bar input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--font-sans);
+    font-size: var(--text-size-sm);
+    color: var(--text-primary);
+}
+.prof-search-bar input::placeholder { color: var(--text-muted); }
+
+/* ══════════════════════════════════════════════════════════
+   MODAL DETALLE DEL ALUMNO (P5)
+══════════════════════════════════════════════════════════ */
+.det-stats-row { display: flex; gap: 10px; margin-bottom: 16px; }
+.det-stat {
+    flex: 1; background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: var(--r-md); padding: 12px; text-align: center;
+}
+.det-stat-val { font-family: var(--font-mono); font-size: var(--text-size-lg); font-weight: 700; color: var(--text-primary); }
+.det-stat-lbl { font-size: var(--text-size-2xs); color: var(--text-muted); margin-top: 3px; }
+
+.det-cal-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 10px; margin-bottom: 16px;
+}
+.det-cal-card {
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: var(--r-md); padding: 12px; text-align: center;
+}
+.det-cal-val { font-family: var(--font-mono); font-size: 20px; font-weight: 700; color: var(--text-primary); }
+.det-cal-lbl { font-size: var(--text-size-2xs); color: var(--text-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: .04em; }
+
+.det-alerta {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 12px 14px; border-radius: var(--r-md);
+    margin-bottom: 16px; font-size: var(--text-size-xs); line-height: 1.5; border: 1px solid;
+}
+.det-alerta.nivel-alto  { background: var(--xahni-red-dim);   border-color: var(--xahni-red);   color: var(--xahni-red);   }
+.det-alerta.nivel-medio { background: var(--xahni-amber-dim); border-color: var(--xahni-amber); color: var(--xahni-amber); }
+
+/* ══════════════════════════════════════════════════════════
+   MINI-PERFIL CARDS (vista Gestión Académica v2)
+══════════════════════════════════════════════════════════ */
+.mini-perfil-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.mp-card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+.mp-card:hover { border-color: var(--border-bright); box-shadow: 0 4px 24px rgba(0,0,0,0.15); }
+.mp-card.mp-riesgo-alto  { border-color: #e8404040; }
+.mp-card.mp-riesgo-medio { border-color: #f5a62340; }
+
+.mp-banner {
+    height: 70px;
+    position: relative;
+    overflow: hidden;
+}
+.mp-banner-grid {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 18px 18px;
+}
+.mp-riesgo-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: var(--text-size-2xs);
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 99px;
+    letter-spacing: .02em;
+}
+.mp-riesgo-badge.alto  { background: var(--xahni-red);   color: #fff; }
+.mp-riesgo-badge.medio { background: var(--xahni-amber); color: #1a1a1a; }
+
+.mp-body {
+    padding: 0 16px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.mp-header {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    margin-top: -22px;
+    margin-bottom: 10px;
+}
+.mp-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: var(--text-size-lg);
+    font-weight: 700;
+    flex-shrink: 0;
+    border: 3px solid var(--surface-1);
+}
+.mp-nombre {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+.mp-carrera {
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.mp-materia {
+    font-size: var(--text-size-md);
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: -.01em;
+}
+
+/* Barra de asistencia */
+.mp-asist-wrap { margin-bottom: 12px; }
+.mp-asist-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+    margin-bottom: 5px;
+}
+.mp-asist-bar {
+    height: 6px;
+    background: var(--surface-3);
+    border-radius: 99px;
+    overflow: hidden;
+}
+.mp-asist-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.4s ease;
+}
+
+/* Stats rápidos */
+.mp-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
+}
+.mp-stat {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 8px 6px;
+    text-align: center;
+}
+.mp-stat-val {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+}
+.mp-stat-lbl {
+    font-size: var(--text-size-2xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    margin-top: 3px;
+}
+
+.mp-section-label {
+    font-size: var(--text-size-2xs);
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin-bottom: 8px;
+}
+
+/* Calificaciones por parcial */
+.mp-cal-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-bottom: 14px;
+}
+.mp-cal-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 8px 4px;
+    text-align: center;
+}
+.mp-cal-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+    outline: none;
+    padding: 0;
+}
+.mp-cal-input:focus-visible {
+    color: var(--accent-cyan-text);
+    outline: 2px solid var(--x-focus-ring-color);
+    outline-offset: 2px;
+}
+.mp-cal-input::placeholder { color: var(--text-muted); font-weight: 400; }
+.mp-cal-input::-webkit-inner-spin-button { opacity: 0; }
+.mp-cal-lbl {
+    font-size: var(--text-size-2xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    margin-top: 4px;
+}
+.mp-cal-final {
+    background: var(--surface-3);
+    border-color: var(--border-bright);
+}
+.mp-cal-final-val {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-lg);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* Historial de tareas (con scroll) */
+.mp-tareas-scroll {
+    max-height: 155px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 14px;
+    padding-right: 4px;
+}
+.mp-tareas-scroll::-webkit-scrollbar { width: 3px; }
+.mp-tareas-scroll::-webkit-scrollbar-track { background: transparent; }
+.mp-tareas-scroll::-webkit-scrollbar-thumb { background: var(--surface-4); border-radius: 99px; }
+
+.mp-tarea {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: var(--r-sm);
+    transition: var(--transition);
+}
+.mp-tarea:hover { background: var(--surface-2); }
+.mp-tarea-status {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.mp-tarea-status.entregada { background: var(--xahni-green-dim); color: var(--xahni-green); }
+.mp-tarea-status.pendiente { background: var(--xahni-amber-dim); color: var(--xahni-amber); }
+.mp-tarea-info { flex: 1; min-width: 0; }
+.mp-tarea-titulo {
+    font-size: var(--text-size-xs);
+    font-weight: 500;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mp-tarea-fecha {
+    font-size: var(--text-size-2xs);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    margin-top: 1px;
+}
+.mp-tarea-badge {
+    font-size: var(--text-size-2xs);
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 99px;
+    flex-shrink: 0;
+    letter-spacing: .02em;
+}
+.mp-tarea-badge.entregada { background: var(--xahni-green-dim); color: var(--xahni-green); }
+.mp-tarea-badge.pendiente { background: var(--xahni-amber-dim); color: var(--xahni-amber); }
+
+/* Botón enviar alerta */
+.mp-alerta-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: var(--r-md);
+    background: var(--xahni-red-dim);
+    border: 1px solid #e8404030;
+    color: var(--xahni-red);
+    font-family: var(--font-sans);
+    font-size: var(--text-size-xs);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: auto;
+}
+.mp-alerta-btn:hover {
+    background: var(--xahni-red);
+    color: #fff;
+    border-color: var(--xahni-red);
+}
+
+/* ══════════════════════════════════════════════════════════
+   MODAL: ENVIAR ALERTA
+══════════════════════════════════════════════════════════ */
+.alerta-tipo-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    cursor: pointer;
+    transition: var(--transition);
+}
+.alerta-tipo-option:hover { background: var(--surface-3); border-color: var(--border-bright); }
+.alerta-tipo-option.active { border-color: var(--xahni-blue); background: var(--xahni-blue-dim); }
+.alerta-tipo-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--r-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 1200px) {
+    .mini-perfil-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .mini-perfil-grid { grid-template-columns: 1fr; }
+    .det-cal-grid     { grid-template-columns: repeat(2, 1fr); }
+    .det-stats-row    { flex-wrap: wrap; }
+    .prof-riesgo-header { flex-direction: column; align-items: flex-start; }
+    /* 2026-05-24 cleanup: regla `#view-gestion-academica .grid-3` removida —
+       view standalone trasplantada a hub-materia en C9. */
+    .mp-cal-grid      { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   Slice pre-c10 9.5.B (2026-05-27): gamer-off pass · bump P2
+   - Tabla alumnos del grupo: row-height + cell padding ↓ ~15%.
+   - Items≥5 típicos (un grupo suele tener 15-30 alumnos).
+   - Cards de la cabecera (KPIs) NO reciben bump.
+══════════════════════════════════════════════════════════ */
+body.gamer-off #gestion-tabla-alumnos td,
+body.gamer-off #gestion-tabla-alumnos th,
+body.gamer-off .gestion-alumno-row {
+    padding-block: 6px;
+}

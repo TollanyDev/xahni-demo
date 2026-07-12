@@ -1,0 +1,313 @@
+/* css/profesor/escala.css — Escala de evaluación: criterios, barras, animaciones */
+
+/* ══════════════════════════════════════════════════════════
+   ESCALA DE EVALUACIÓN
+══════════════════════════════════════════════════════════ */
+.escala-parcial-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+.escala-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 12px 16px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    transition: var(--transition);
+}
+.escala-tab:hover { background: var(--surface-3); border-color: var(--border-bright); }
+.escala-tab.active {
+    background: var(--xahni-blue-dim);
+    border-color: var(--xahni-blue);
+    color: var(--xahni-blue-light);
+}
+.escala-tab.alert {
+    border-color: var(--xahni-red);
+    animation: tabPulse 2s ease-in-out infinite;
+}
+.escala-tab.locked {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+@keyframes tabPulse {
+    0%, 100% { box-shadow: 0 0 0 0 transparent; }
+    50%      { box-shadow: 0 0 0 3px var(--xahni-red-dim); }
+}
+.escala-tab-sub {
+    font-size: var(--text-size-2xs);
+    font-weight: 500;
+    color: var(--text-muted);
+}
+.escala-tab-alert {
+    font-size: var(--text-size-xs);
+    line-height: 1;
+}
+
+/* Barra visual — overflow effect */
+.escala-bar-empty {
+    text-align: center;
+    padding: 32px 16px;
+    background: var(--surface-2);
+    border: 1px dashed var(--border);
+    border-radius: var(--r-md);
+}
+.escala-bar-overflow-wrap {
+    display: flex;
+    align-items: stretch;
+    min-height: 64px;
+    position: relative;
+}
+.escala-bar-base {
+    flex: 0 0 83.33%;  /* 100/120 = 83.33% represents the 100% base */
+    display: flex;
+    border-radius: var(--r-md) 0 0 var(--r-md);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-right: none;
+    gap: 2px;
+    background: var(--surface-3);
+}
+.escala-bar-100-mark {
+    width: 2px;
+    background: var(--text-muted);
+    position: relative;
+    flex-shrink: 0;
+    z-index: 2;
+}
+.escala-bar-100-mark span {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: var(--text-size-2xs);
+    font-weight: 700;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+/* (eliminado) .escala-overflow-zone, .escala-overflow-seg y @keyframes
+   overflowPulse — quedaron sin uso tras integrar los extras como segmentos
+   normales (con pill EXTRA / fill dorado en modo personal) en _escalaBarHTML. */
+.escala-bar-segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-width: 28px;
+    border-left: 3px solid;
+    padding: 4px 6px;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+}
+.escala-bar-segment:hover { filter: brightness(1.2); }
+.escala-bar-seg-label {
+    font-size: var(--text-size-2xs);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+.escala-bar-seg-pct {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-sm);
+    font-weight: 700;
+}
+.escala-bar-extra-badge {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    font-size: 7px;
+    font-weight: 700;
+    padding: 1px 4px;
+    border-radius: 99px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+/* Lista de criterios */
+.escala-criterio-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+}
+.escala-criterio-row:last-child { border-bottom: none; }
+.escala-criterio-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.escala-criterio-info { flex: 1; min-width: 0; }
+.escala-criterio-nombre {
+    font-size: var(--text-size-md);
+    font-weight: 500;
+    color: var(--text-primary);
+}
+.escala-extra-chip {
+    font-size: var(--text-size-2xs);
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 99px;
+    background: var(--xahni-amber-dim);
+    color: var(--xahni-amber);
+    margin-left: 6px;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+}
+.escala-criterio-pct {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 700;
+    min-width: 55px;
+    text-align: right;
+}
+.escala-editar-btn {
+    padding: 5px 12px;
+    border-radius: var(--r-sm);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    font-family: var(--font-sans);
+    font-size: var(--text-size-xs);
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+.escala-editar-btn:hover:not(:disabled) { background: var(--surface-3); border-color: var(--border-bright); color: var(--text-primary); }
+
+/* Guardar dirty state */
+.escala-guardar-dirty {
+    background: var(--xahni-amber) !important;
+    border-color: var(--xahni-amber) !important;
+    color: #1a1a1a !important;
+    animation: guardarPulse 1.5s ease-in-out infinite;
+}
+@keyframes guardarPulse {
+    0%, 100% { box-shadow: none; }
+    50%      { box-shadow: 0 0 0 4px var(--xahni-amber-dim); }
+}
+
+/* Total */
+.escala-total-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0 4px;
+    border-top: 2px solid var(--border-bright);
+    margin-top: 8px;
+}
+.escala-total-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-xs);
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: .06em;
+}
+.escala-total-breakdown {
+    flex: 1;
+    display: flex;
+    gap: 10px;
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+}
+.escala-total-value {
+    font-family: var(--font-mono);
+    font-size: 20px;
+    font-weight: 700;
+}
+.escala-total-status {
+    font-size: var(--text-size-xs);
+    font-weight: 600;
+    min-width: 80px;
+    text-align: right;
+}
+
+/* Porcentaje selector en modal */
+.criterio-pct-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin-bottom: 4px;
+}
+.criterio-pct-btn {
+    padding: 8px 4px;
+    border-radius: var(--r-sm);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: var(--text-size-xs);
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+.criterio-pct-btn:hover:not(.disabled) { background: var(--surface-3); border-color: var(--border-bright); }
+.criterio-pct-btn.selected {
+    background: var(--xahni-blue-dim);
+    border-color: var(--xahni-blue);
+    color: var(--xahni-blue-light);
+}
+.criterio-pct-btn.disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CONSERVADO 2026-05-23 (escala-rubros bundle Phase 3):
+   Matriz captura inline en tab Gestión del profesor.
+   Solo tokens existentes de variables.css.
+══════════════════════════════════════════════════════════ */
+.x-eval-matrix {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 12px;
+}
+.x-eval-matrix table input[type="number"] {
+    outline: none;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+.x-eval-matrix table input[type="number"]::-webkit-inner-spin-button,
+.x-eval-matrix table input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+.x-eval-matrix table input[type="number"]:focus-visible {
+    outline: 2px solid var(--x-focus-ring-color);
+    outline-offset: 1px;
+}
+.x-eval-matrix table input[type="number"]:disabled {
+    opacity: var(--x-disabled-opacity);
+    cursor: not-allowed;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   Slice pre-c10 9.5.B (2026-05-27): gamer-off pass
+   - A1/P1: desactiva animaciones pulse (tabPulse + guardarPulse).
+   - P2: bump densidad ~15% sobre la lista de rubros (items≥5 típicos).
+   - Tabs escala ya son sobrios sin gradient brand (--xahni-blue-dim).
+══════════════════════════════════════════════════════════ */
+body.gamer-off .escala-tab.alert { animation: none; }
+body.gamer-off .escala-guardar-dirty { animation: none; }
+body.gamer-off #escala-rubros-list .escala-rubro-row,
+body.gamer-off .escala-rubro-row {
+    padding-block: 6px;
+}

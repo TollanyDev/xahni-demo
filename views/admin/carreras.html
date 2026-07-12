@@ -1,0 +1,47 @@
+<div class="page-header">
+  <div class="page-title">Gestión de <em>Carreras</em></div>
+  <div class="page-subtitle" id="gestion-carreras-sub">
+    Administra carreras académicas por institución
+  </div>
+</div>
+
+<!-- Resumen de métricas -->
+<div class="grid-4" style="margin-bottom: 20px" id="carreras-resumen"></div>
+
+<!-- Filtros y búsqueda -->
+<div style="display:flex;gap:12px;margin-bottom:20px;align-items:center;flex-wrap:wrap">
+  <div class="topbar-search" style="width: 240px">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </svg>
+    <input id="buscar-carrera-input" type="text" placeholder="Buscar carrera..."
+           oninput="filtrarCarrerasBusqueda(this.value)" />
+  </div>
+  <!-- institución poblada dinámicamente desde DEMO_INSTITUCIONES por poblarFiltrosCarreras() -->
+  <select id="filtro-institucion-carrera" class="form-select" style="width: 260px"
+          onchange="filtrarCarrerasInstitucion(this.value)">
+    <option value="todas">Todas las instituciones</option>
+  </select>
+  <button class="x-btn x-btn--primary" style="padding: 9px 16px; font-size: 13px; margin-left: auto"
+          onclick="_poblarSelectInstitucionesCarrera('nueva-carrera-institucion');openModal('modal-nueva-carrera')">
+    + Nueva carrera
+  </button>
+</div>
+
+<!-- Tabla de carreras -->
+<div class="card">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Carrera</th>
+        <th>Clave</th>
+        <th>Institución</th>
+        <th>Duración</th>
+        <th>Grupos</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="carreras-tbody"></tbody>
+  </table>
+</div>

@@ -1,0 +1,31 @@
+/* css/estudiante/dashboard.css — Dashboard del estudiante */
+
+.dash-est-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.metric-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+/* .metric-value: override eliminado 2026-05-28 (post-Epic A.1).
+   Feedback profesores: cyan (#00d4ff) sobre light surface daba contrast
+   ratio 1.47:1 — FAIL incluso para large text. Restaurado canónico de
+   css/core/components.css (--text-primary, --text-size-xl). La identidad
+   de color del metric se preserva via .metric-icon.{blue|teal|amber|purple}
+   adyacente, no via el número en sí. */
+
+.metric-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}

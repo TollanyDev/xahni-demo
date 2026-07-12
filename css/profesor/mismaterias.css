@@ -1,0 +1,187 @@
+/* css/profesor/mismaterias.css — Mis Materias: tarjetas, parciales, horario */
+
+/* ══════════════════════════════════════════════════════════
+   TARJETAS DE MATERIAS (vista Mis Materias)
+══════════════════════════════════════════════════════════ */
+.prof-mat-card {
+    background: var(--surface-1); border: 1px solid var(--border);
+    border-radius: var(--r-lg); overflow: hidden;
+    cursor: pointer; transition: var(--transition); display: flex;
+}
+.prof-mat-card:hover { border-color: var(--border-bright); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+.prof-mat-strip  { width: 4px; flex-shrink: 0; }
+.prof-mat-body   { padding: 16px; flex: 1; }
+.prof-mat-nombre { font-size: var(--text-size-sm); font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+.prof-mat-clave  { font-size: var(--text-size-xs); color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 12px; }
+.prof-mat-stats  { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* Tabs de filtro de materias */
+.prof-mat-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.prof-mat-tab {
+    padding: 6px 12px; border-radius: var(--r-sm);
+    background: var(--surface-2); border: 1px solid var(--border);
+    color: var(--text-muted); font-size: var(--text-size-xs); font-weight: 500;
+    cursor: pointer; transition: var(--transition);
+}
+.prof-mat-tab:hover { background: var(--surface-3); color: var(--text-primary); }
+.prof-mat-tab.active { background: var(--brand-gradient); color: white; border-color: transparent; }
+
+/* Slice pre-c10 9.5.B (gamer-off): aplana el tab activo del listado mis materias profesor. */
+body.gamer-off .prof-mat-tab.active {
+    background: var(--surface-3);
+    color: var(--text-primary);
+    border-color: var(--border-bright);
+}
+
+/* ══════════════════════════════════════════════════════════
+   MATERIA CARDS — Parciales Timeline
+══════════════════════════════════════════════════════════ */
+.prof-mat-card.mc-active {
+    border-color: var(--xahni-blue);
+    box-shadow: 0 0 0 2px var(--xahni-blue-dim);
+}
+
+.mc-parciales {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+.mc-parcial-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.mc-parcial-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-xs);
+    font-weight: 700;
+    color: var(--text-muted);
+    width: 20px;
+    flex-shrink: 0;
+}
+.mc-seg-bar {
+    flex: 1;
+    display: flex;
+    gap: 3px;
+}
+.mc-seg {
+    flex: 1;
+    height: 7px;
+    border-radius: 2px;
+    transition: background 0.3s;
+}
+.mc-seg-done {
+    background: var(--xahni-green);
+    opacity: 0.85;
+}
+.mc-seg-current {
+    background: var(--xahni-cyan);
+    animation: segBlink 1.2s ease-in-out infinite;
+}
+.mc-seg-off {
+    background: var(--surface-3);
+    opacity: 0.5;
+}
+@keyframes segBlink {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.35; }
+}
+.mc-parcial-status {
+    font-size: var(--text-size-2xs);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    width: 78px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+/* Botón en riesgo por materia */
+.mc-riesgo-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px;
+    border-radius: var(--r-sm);
+    background: var(--xahni-red-dim);
+    border: 1px solid #e8404025;
+    color: var(--xahni-red);
+    font-family: var(--font-sans);
+    font-size: var(--text-size-xs);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.mc-riesgo-btn:hover {
+    background: var(--xahni-red);
+    color: #fff;
+    border-color: var(--xahni-red);
+}
+.mc-ok-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px;
+    font-size: var(--text-size-xs);
+    font-weight: 500;
+    color: var(--xahni-green);
+    opacity: 0.7;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MINI-MATERIAS CARDS — Horario + Parcial
+══════════════════════════════════════════════════════════ */
+.mm-section-label {
+    font-size: var(--text-size-2xs);
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin-bottom: 6px;
+}
+
+.mm-horario-grid {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+.mm-horario-item {
+    flex: 1;
+    min-width: 70px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 8px 6px;
+    text-align: center;
+    transition: var(--transition);
+    border-top: 2px solid var(--xahni-teal);
+}
+.mm-horario-dia {
+    font-size: var(--text-size-2xs);
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    margin-bottom: 4px;
+}
+.mm-horario-hora {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-xs);
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 2px;
+}
+.mm-horario-salon {
+    font-size: var(--text-size-2xs);
+    color: var(--text-muted);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .prof-mat-stats { gap: 10px; }
+}

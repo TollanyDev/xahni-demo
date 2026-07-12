@@ -1,0 +1,417 @@
+/* ════════════════════════════════════════════════════════════
+ * css/shared/notificaciones.css — Panel de Notificaciones rediseño
+ *
+ * Componentes `.xn-*` que componen sobre canónicos `.x-*` donde
+ * aplica (.x-chip, .x-icon, etc.). El wrapper `.xn-panel` soporta
+ * `data-rol="alumno|profesor"` + `data-gamer="on|off"` para
+ * bifurcación de tema/rol via overrides scoped.
+ *
+ * El `.notif-*` legacy de `css/shared/dashboard.css` líneas 299-571
+ * queda como dead-CSS por ahora — deuda explícita documentada en el
+ * log del slice (no se elimina para no romper consumers ocultos).
+ *
+ * Mockup: docs/superpowers/mockups/2026-06-02-notificaciones-panel.html
+ * Memory: project_notificaciones_feature.md (deuda post-Supabase)
+ * ════════════════════════════════════════════════════════════ */
+
+/* ──────────────────────────────────────────────────────────
+ * §1 PANEL · wrapper + franja brand top + variantes por rol
+ * ────────────────────────────────────────────────────────── */
+
+.xn-panel {
+  position: absolute;
+  top: 56px;
+  right: 16px;
+  width: 360px;
+  max-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--elev-2);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 200;
+  --xn-top-accent: var(--brand-gradient-h);
+  --xn-panel-accent: var(--xahni-cyan);
+}
+.xn-panel.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.xn-panel::before {
+  content: "";
+  display: block;
+  height: 2px;
+  background: var(--xn-top-accent);
+  flex-shrink: 0;
+}
+
+[data-gamer="off"] .xn-panel {
+  --xn-top-accent: var(--border);
+  box-shadow: var(--elev-1);
+}
+[data-gamer="off"] .xn-panel::before {
+  height: 1px;
+  background: var(--border);
+}
+
+[data-rol="profesor"] .xn-panel {
+  --xn-panel-accent: var(--xahni-amber);
+}
+
+.xn-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--surface-2);
+}
+
+.xn-bell-wrap {
+  position: relative;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--xahni-cyan-dim);
+  color: var(--accent-cyan-text);
+  flex-shrink: 0;
+}
+[data-gamer="on"][data-rol="alumno"] .xn-bell-wrap {
+  animation: xnBellGlow 2.4s ease-in-out infinite;
+}
+@keyframes xnBellGlow {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--xahni-cyan) 40%, transparent); }
+  50%      { box-shadow: 0 0 0 6px color-mix(in srgb, var(--xahni-cyan) 0%, transparent); }
+}
+[data-rol="profesor"] .xn-bell-wrap {
+  background: var(--xahni-amber-dim);
+  color: var(--xahni-amber);
+}
+[data-gamer="on"][data-rol="profesor"] .xn-bell-wrap {
+  animation: xnBellGlowAmber 3s ease-in-out infinite;
+}
+@keyframes xnBellGlowAmber {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--xahni-amber) 40%, transparent); }
+  50%      { box-shadow: 0 0 0 5px color-mix(in srgb, var(--xahni-amber) 0%, transparent); }
+}
+[data-gamer="off"] .xn-bell-wrap {
+  background: var(--surface-3);
+  color: var(--text-secondary);
+  animation: none;
+}
+.xn-bell-wrap .x-icon { width: 15px; height: 15px; }
+
+.xn-header__title {
+  font-family: var(--font-mono);
+  font-size: var(--text-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  flex: 1;
+  background: var(--brand-gradient-h);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+[data-rol="profesor"] .xn-header__title {
+  background: linear-gradient(90deg, var(--xahni-amber) 0%, var(--xahni-red) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+[data-gamer="off"] .xn-header__title {
+  background: none;
+  -webkit-text-fill-color: var(--text-primary);
+  color: var(--text-primary);
+}
+
+.xn-header__actions {
+  display: flex; align-items: center; gap: 6px;
+}
+.xn-unread-badge {
+  font-size: var(--text-size-2xs);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  padding: 2px 7px;
+}
+.xn-mark-all {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--text-size-2xs);
+  color: var(--accent-cyan-text);
+  font-family: var(--font-sans);
+  padding: 3px 6px;
+  border-radius: var(--r-xs);
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.xn-mark-all:hover { background: var(--xahni-cyan-dim); }
+[data-gamer="off"] .xn-mark-all { color: var(--text-secondary); }
+[data-gamer="off"] .xn-mark-all:hover { background: var(--surface-3); }
+
+/* ──────────────────────────────────────────────────────────
+ * §2 URGENTE STRIP · solo profesor (vía CSS scope o JS hide en alumno)
+ * ────────────────────────────────────────────────────────── */
+
+.xn-urgente-strip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--state-danger-dim);
+  border-bottom: 1px solid var(--state-danger-border);
+  border-left: 3px solid var(--state-danger);
+  flex-shrink: 0;
+}
+[data-gamer="on"] .xn-urgente-strip {
+  box-shadow: inset 3px 0 8px color-mix(in srgb, var(--xahni-red) 15%, transparent);
+}
+[data-gamer="off"] .xn-urgente-strip { box-shadow: none; }
+[data-rol="alumno"] .xn-urgente-strip { display: none; }
+
+.xn-urgente-strip__icon {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--state-danger-dim);
+  border: 1px solid var(--state-danger-border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--state-danger);
+  flex-shrink: 0;
+}
+.xn-urgente-strip__icon .x-icon { width: 14px; height: 14px; }
+.xn-urgente-strip__body { flex: 1; min-width: 0; }
+.xn-urgente-strip__title {
+  font-size: var(--text-size-xs);
+  font-weight: 700;
+  color: var(--state-danger);
+  letter-spacing: 0.04em;
+}
+.xn-urgente-strip__desc {
+  font-size: var(--text-size-2xs);
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.xn-lista {
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.xn-sep-dia {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px 6px;
+  position: sticky;
+  top: 0;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  z-index: 1;
+}
+.xn-sep-dia__label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+.xn-sep-dia__line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--xahni-cyan-dim), transparent);
+}
+[data-gamer="off"] .xn-sep-dia__line {
+  background: var(--border);
+}
+
+.xn-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  cursor: default;
+  transition: var(--transition);
+}
+.xn-item:hover { background: var(--surface-2); }
+
+[data-rol="profesor"] .xn-item {
+  padding: 8px 14px;
+}
+
+.xn-item__icon {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+[data-rol="profesor"] .xn-item__icon {
+  width: 28px; height: 28px;
+  font-size: 13px;
+}
+
+.xn-item__body { flex: 1; min-width: 0; }
+.xn-item__titulo {
+  font-size: var(--text-size-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+.xn-item__desc {
+  font-size: var(--text-size-2xs);
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+.xn-item__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+.xn-item__tiempo {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.xn-item__type-chip {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: var(--r-xs);
+}
+.xn-item__cerrar {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 2px 4px;
+  border-radius: var(--r-xs);
+  opacity: 0;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.xn-item:hover .xn-item__cerrar { opacity: 1; }
+.xn-item__cerrar:hover { background: var(--surface-3); color: var(--xahni-red); }
+
+/* ──────────────────────────────────────────────────────────
+ * §3 TYPE CHIPS · color por tipo de notificación
+ * ────────────────────────────────────────────────────────── */
+
+.xn-chip-tarea   { background: color-mix(in srgb, var(--xahni-teal)   18%, transparent); color: var(--xahni-teal);   }
+.xn-chip-alerta  { background: color-mix(in srgb, var(--xahni-amber)  18%, transparent); color: var(--xahni-amber);  }
+.xn-chip-peligro { background: color-mix(in srgb, var(--xahni-red)    18%, transparent); color: var(--xahni-red);    }
+.xn-chip-xp      { background: color-mix(in srgb, var(--xahni-amber)  18%, transparent); color: var(--xahni-amber);  }
+.xn-chip-nivel   { background: color-mix(in srgb, var(--xahni-purple) 18%, transparent); color: var(--xahni-purple); }
+.xn-chip-racha   { background: color-mix(in srgb, var(--xahni-red)    18%, transparent); color: var(--xahni-red);    }
+.xn-chip-info    { background: var(--surface-3); color: var(--text-secondary); }
+
+.xn-item--gamif {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--xahni-amber) 10%, transparent), transparent 60%);
+}
+[data-gamer="off"] .xn-item--gamif { background: var(--surface-1); }
+
+.xn-xp-hero {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 2px;
+}
+.xn-xp-hero__num {
+  font-family: var(--font-mono);
+  font-size: var(--text-size-xl);
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--xahni-amber), var(--xahni-red));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+[data-gamer="off"] .xn-xp-hero__num {
+  background: none;
+  -webkit-text-fill-color: var(--text-primary);
+}
+.xn-xp-hero__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-size-2xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.xn-mult-chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: var(--r-xs);
+  background: var(--xahni-amber-dim);
+  color: var(--xahni-amber);
+}
+
+.xn-footer {
+  display: flex;
+  gap: 4px;
+  padding: 6px 8px;
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+  flex-shrink: 0;
+}
+.xn-tab {
+  flex: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 7px 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-radius: var(--r-xs);
+  transition: var(--transition);
+  position: relative;
+}
+.xn-tab:hover { color: var(--text-primary); background: var(--surface-3); }
+.xn-tab.is-active { color: var(--accent-cyan-text); }
+[data-rol="profesor"] .xn-tab.is-active { color: var(--xahni-amber); }
+[data-gamer="on"][data-rol="alumno"] .xn-tab.is-active::after {
+  content: "";
+  position: absolute;
+  left: 10%; right: 10%; bottom: 2px;
+  height: 2px;
+  background: var(--brand-gradient-h);
+  border-radius: 999px;
+}
+[data-gamer="on"][data-rol="profesor"] .xn-tab.is-active::after {
+  content: "";
+  position: absolute;
+  left: 10%; right: 10%; bottom: 2px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--xahni-amber), var(--xahni-red));
+  border-radius: 999px;
+}
+
+.xn-empty {
+  text-align: center;
+  padding: 32px 20px;
+  color: var(--text-muted);
+}

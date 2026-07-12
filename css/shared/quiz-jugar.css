@@ -1,0 +1,457 @@
+/* css/shared/quiz-jugar.css
+   Sprint entrega 2026-06-08 · modal jugar quiz/examen (.jq-*)
+   Compone sobre .modal-overlay + .modal .x-modal--lg canónico.
+   Sprint Examenes 2026-06-04: extiende a 3 tipos (.jq-abierta, .jq-match). */
+
+/* ─────── Pregunta tipo abierta (Examenes) ─────── */
+.jq-abierta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.jq-abierta__input {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg-soft, rgba(255, 255, 255, 0.03));
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: var(--text-size-sm);
+    font-family: inherit;
+    line-height: 1.55;
+    resize: vertical;
+    min-height: 120px;
+    transition: border-color 160ms ease;
+}
+.jq-abierta__input:focus {
+    outline: none;
+    border-color: var(--accent-cyan, #00d4ff);
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.12);
+}
+.jq-abierta__hint {
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+    line-height: 1.4;
+    font-style: italic;
+}
+
+/* ─────── Pregunta tipo match (Examenes) ─────── */
+.jq-match {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.jq-match-row {
+    display: grid;
+    grid-template-columns: 1fr 22px 1fr;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 12px;
+    background: var(--bg-soft, rgba(255, 255, 255, 0.03));
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+}
+.jq-match-row__a {
+    font-size: var(--text-size-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+.jq-match-row__arrow {
+    text-align: center;
+    color: var(--text-muted);
+    font-weight: 700;
+}
+.jq-match-row__select {
+    width: 100%;
+    padding: 9px 12px;
+    background: var(--bg, #0a0e1a);
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: var(--text-size-sm);
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 160ms ease;
+}
+.jq-match-row__select:focus {
+    outline: none;
+    border-color: var(--accent-cyan, #00d4ff);
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.12);
+}
+
+body.gamer-off .jq-abierta__input:focus,
+body.gamer-off .jq-match-row__select:focus {
+    border-color: var(--text-primary);
+    box-shadow: none;
+}
+
+@media (max-width: 720px) {
+    .jq-match-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+    .jq-match-row__arrow {
+        display: none;
+    }
+}
+
+.jq-modal {
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 92vh;
+}
+
+/* ─────── Header ─────── */
+.jq-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid var(--border-color);
+}
+.jq-title-area {
+    flex: 1;
+    min-width: 0;
+}
+.jq-materia {
+    font-size: var(--text-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+.jq-titulo {
+    margin: 0;
+    font-size: var(--text-size-md);
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.jq-timer {
+    font-family: var(--font-mono, monospace);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--bg-soft, rgba(255, 255, 255, 0.04));
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 6px 12px;
+    min-width: 64px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.jq-close {
+    flex-shrink: 0;
+}
+
+/* ─────── Progress ─────── */
+.jq-progress {
+    padding: 12px 22px 14px;
+    border-bottom: 1px solid var(--border-color);
+}
+.jq-progress__track {
+    height: 6px;
+    background: var(--bg-soft, rgba(255, 255, 255, 0.06));
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+.jq-progress__bar {
+    height: 100%;
+    background: var(--brand-gradient-h, linear-gradient(90deg, #00d4ff, #1b4fe4, #8b2be2));
+    border-radius: 999px;
+    transition: width 240ms ease-out;
+}
+.jq-progress__text {
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* ─────── Body ─────── */
+.jq-body {
+    padding: 22px;
+    overflow-y: auto;
+    flex: 1;
+}
+.jq-pregunta {
+    margin-bottom: 22px;
+}
+.jq-pregunta__num {
+    font-size: var(--text-size-xs);
+    color: var(--accent-cyan-text, #00d4ff);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+.jq-pregunta__texto {
+    font-size: var(--text-size-md);
+    color: var(--text-primary);
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+/* ─────── Opciones ─────── */
+.jq-opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.jq-opcion {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--bg-soft, rgba(255, 255, 255, 0.03));
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text-primary);
+    font-size: var(--text-size-sm);
+    line-height: 1.45;
+    transition: all 160ms ease;
+}
+.jq-opcion:hover {
+    border-color: var(--accent-cyan, #00d4ff);
+    background: rgba(0, 212, 255, 0.06);
+}
+.jq-opcion--selected {
+    border-color: var(--accent-cyan, #00d4ff);
+    background: rgba(0, 212, 255, 0.12);
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
+}
+.jq-opcion__letra {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-soft, rgba(255, 255, 255, 0.06));
+    border: 1px solid var(--border-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+.jq-opcion--selected .jq-opcion__letra {
+    background: var(--accent-cyan, #00d4ff);
+    border-color: var(--accent-cyan, #00d4ff);
+    color: #001520;
+}
+.jq-opcion__texto {
+    flex: 1;
+}
+
+/* ─────── Footer ─────── */
+.jq-footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-soft, rgba(255, 255, 255, 0.02));
+}
+/* Fix UX 2026-06-06: el attribute hidden HTML5 no oculta display:flex.
+   Necesario explicit override para pantalla resultados. */
+.jq-footer[hidden],
+.jq-progress[hidden],
+.jq-body[hidden] {
+    display: none;
+}
+.jq-footer__spacer {
+    flex: 1;
+}
+
+/* ─────── Result screen ─────── */
+.jq-result {
+    padding: 32px 28px;
+    text-align: center;
+}
+.jq-result__emoji {
+    font-size: 64px;
+    line-height: 1;
+    margin-bottom: 14px;
+}
+.jq-result__title {
+    margin: 0 0 6px;
+    font-size: var(--text-size-lg);
+    color: var(--text-primary);
+}
+.jq-result__subtitle {
+    color: var(--text-secondary);
+    font-size: var(--text-size-sm);
+    margin-bottom: 24px;
+}
+.jq-result__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+}
+.jq-result__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 10px;
+    background: var(--bg-soft, rgba(255, 255, 255, 0.04));
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+.jq-result__stat--xp {
+    border-color: var(--accent-cyan, #00d4ff);
+    background: rgba(0, 212, 255, 0.08);
+}
+.jq-result__stat-value {
+    font-size: var(--text-size-lg);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.jq-result__stat--xp .jq-result__stat-value {
+    color: var(--accent-cyan-text, #00d4ff);
+}
+.jq-result__stat-label {
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.jq-result__levelup {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: linear-gradient(90deg, rgba(0, 212, 255, 0.15), rgba(139, 43, 226, 0.15));
+    border: 1px solid var(--accent-cyan, #00d4ff);
+    border-radius: 999px;
+    color: var(--text-primary);
+    font-size: var(--text-size-sm);
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+.jq-result__levelup[hidden] { display: none; }
+.jq-result__levelup-icon {
+    font-size: 18px;
+}
+.jq-result__actions {
+    display: flex;
+    justify-content: center;
+}
+
+/* ─────── Gamer-off neutralización ─────── */
+body.gamer-off .jq-progress__bar {
+    background: var(--text-secondary, #999);
+}
+body.gamer-off .jq-opcion--selected {
+    border-color: var(--text-primary);
+    background: var(--bg-soft);
+    box-shadow: none;
+}
+body.gamer-off .jq-opcion--selected .jq-opcion__letra {
+    background: var(--text-primary);
+    color: var(--bg);
+}
+body.gamer-off .jq-result__stat--xp {
+    border-color: var(--border-color);
+    background: var(--bg-soft);
+}
+body.gamer-off .jq-result__stat--xp .jq-result__stat-value {
+    color: var(--text-primary);
+}
+body.gamer-off .jq-result__levelup {
+    background: var(--bg-soft);
+    border-color: var(--border-color);
+}
+
+/* ─────── Hub-materia tab Juegos: cards ─────── */
+.jq-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+}
+.jq-card {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+.jq-card--clickable {
+    cursor: pointer;
+}
+.jq-card--clickable:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-cyan, #00d4ff);
+    box-shadow: 0 6px 22px rgba(0, 212, 255, 0.14);
+}
+.jq-card__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+.jq-card__title-area {
+    flex: 1;
+    min-width: 0;
+}
+.jq-card__title {
+    font-size: var(--text-size-md);
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+    margin-bottom: 6px;
+}
+.jq-card__meta {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.jq-card__metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--bg-soft, rgba(255, 255, 255, 0.03));
+    border-radius: 8px;
+}
+.jq-card__metric-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+.jq-card__metric-value {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--font-mono, monospace);
+}
+.jq-card__metric-value--xp {
+    color: var(--xahni-amber, #ffb830);
+}
+.jq-card__cta {
+    text-align: right;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-cyan-text, #00d4ff);
+}
+
+body.gamer-off .jq-card--clickable:hover {
+    border-color: var(--text-primary);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18);
+}
+body.gamer-off .jq-card__metric-value--xp {
+    color: var(--text-primary);
+}
+body.gamer-off .jq-card__cta {
+    color: var(--text-primary);
+}

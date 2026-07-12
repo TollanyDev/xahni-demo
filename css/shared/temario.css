@@ -1,0 +1,308 @@
+/* css/shared/temario.css
+ * Sweep 2026-06-09 (Temario+IA): estilos cross-rol del Tab Temario.
+ * Usa tokens canonicos de css/core/variables.css (.x-* family BEM-ish).
+ */
+
+.x-temario {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 4px 0;
+}
+
+.x-temario-unidad {
+    background: var(--surface-1);
+    border: 1px solid var(--border-1);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    transition: box-shadow .15s ease;
+}
+.x-temario-unidad:hover { box-shadow: var(--shadow-1); }
+
+.x-temario-unidad__head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.x-temario-unidad__numero {
+    font-size: var(--text-size-sm);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.x-temario-unidad__titulo {
+    font-size: var(--text-size-lg);
+    font-weight: 600;
+    color: var(--text-strong);
+}
+
+.x-temario-unidad__body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 12px;
+    border-left: 2px solid var(--border-1);
+}
+
+.x-temario-subtema {
+    padding: 10px 12px;
+    background: var(--surface-2);
+    border-radius: var(--radius-sm);
+}
+
+.x-temario-subtema__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.x-temario-subtema__titulo {
+    font-weight: 500;
+    color: var(--text-strong);
+}
+
+.x-temario-subtema__desc {
+    margin-top: 6px;
+    font-size: var(--text-size-sm);
+    color: var(--text-muted);
+    line-height: 1.45;
+}
+
+/* Chips de estado */
+.x-temario-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: var(--text-size-xs);
+    font-weight: 600;
+    border: 1px solid transparent;
+    white-space: nowrap;
+}
+.x-temario-chip--pendiente {
+    background: var(--surface-3, rgba(255,255,255,0.04));
+    color: var(--text-muted);
+    border-color: var(--border-1);
+}
+.x-temario-chip--en-curso {
+    background: rgba(0, 212, 255, 0.12);
+    color: var(--xahni-cyan);
+    border-color: rgba(0, 212, 255, 0.4);
+}
+.x-temario-chip--visto {
+    background: rgba(56, 217, 169, 0.12);
+    color: var(--xahni-teal, #38d9a9);
+    border-color: rgba(56, 217, 169, 0.4);
+}
+
+/* Profesor chip clickeable */
+.x-temario-chip.is-clickable {
+    cursor: pointer;
+    user-select: none;
+    transition: filter .15s ease;
+}
+.x-temario-chip.is-clickable:hover { filter: brightness(1.15); }
+
+/* Profesor: header del tab Temario */
+.x-temario-header {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-1);
+    flex-wrap: wrap;
+}
+
+/* Profesor: header de unidad con acciones (override de Sec base) */
+.x-temario-unidad__head {
+    grid-template-columns: auto 1fr auto auto;
+}
+.x-temario-unidad__actions {
+    display: inline-flex;
+    gap: 4px;
+}
+
+/* Contenteditable hints */
+[contenteditable="true"] {
+    outline: none;
+    border-radius: 4px;
+    padding: 2px 4px;
+    transition: background .15s ease;
+}
+[contenteditable="true"]:hover { background: var(--surface-3, rgba(255,255,255,0.04)); }
+[contenteditable="true"]:focus { background: var(--surface-3, rgba(255,255,255,0.08)); }
+[contenteditable="true"]:empty::before {
+    content: attr(data-placeholder);
+    color: var(--text-muted);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Acciones por item (botón Generar juego, etc.) */
+.x-temario-actions {
+    margin-top: 8px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+/* ─────────────────────────────────────────────────────────────── */
+/* IA MODAL (sugerir temario + generar juego)                      */
+/* ─────────────────────────────────────────────────────────────── */
+
+.x-temario-ia-estilos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 16px 0;
+}
+.x-temario-ia-estilo-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 12px 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-1);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all .15s ease;
+    font-family: inherit;
+    color: inherit;
+}
+.x-temario-ia-estilo-chip:hover {
+    border-color: var(--xahni-cyan);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.15);
+}
+.x-temario-ia-estilo-chip strong { font-size: var(--text-size-base); margin-bottom: 4px; color: var(--text-strong); }
+.x-temario-ia-estilo-chip span   { font-size: var(--text-size-xs); color: var(--text-muted); }
+
+.x-temario-ia-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 32px 16px;
+    color: var(--text-muted);
+}
+.x-spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--border-1);
+    border-top-color: var(--xahni-cyan);
+    border-radius: 50%;
+    animation: x-spin 0.9s linear infinite;
+}
+@keyframes x-spin { to { transform: rotate(360deg); } }
+
+.x-temario-ia-preview {
+    padding: 4px;
+}
+.x-temario-ia-preview__head {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+.x-temario-ia-unidad {
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    background: var(--surface-2);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--xahni-cyan);
+}
+.x-temario-ia-unidad__titulo {
+    font-weight: 600;
+    color: var(--text-strong);
+    margin-bottom: 6px;
+}
+.x-temario-ia-unidad ul {
+    margin: 0;
+    padding-left: 20px;
+    font-size: var(--text-size-sm);
+    color: var(--text-muted);
+}
+.x-temario-ia-unidad ul li { margin-bottom: 4px; }
+.x-temario-ia-unidad ul li.x-correct {
+    color: var(--xahni-teal, #38d9a9);
+    font-weight: 500;
+}
+
+/* x-help spans para hints menores en modales */
+.x-help {
+    font-size: var(--text-size-sm);
+    color: var(--text-strong);
+    margin: 4px 0 12px;
+}
+.x-help--muted {
+    color: var(--text-muted);
+    font-size: var(--text-size-xs);
+}
+
+/* Chips usados solo dentro de los modales IA — scoped para evitar
+ * colisión con .x-chip globales del proyecto (sweep 2026-06-09 fix).
+ */
+.modal-overlay .x-chip--brand {
+    background: rgba(139, 43, 226, 0.12);
+    color: var(--xahni-purple, #8b2be2);
+    border-color: rgba(139, 43, 226, 0.4);
+}
+.modal-overlay .x-chip--success {
+    background: rgba(56, 217, 169, 0.12);
+    color: var(--xahni-teal, #38d9a9);
+    border-color: rgba(56, 217, 169, 0.4);
+}
+
+/* x-modal--md size override para los modales IA */
+.modal.x-modal--md {
+    max-width: 640px;
+    width: calc(100% - 32px);
+}
+
+/* ─────────────────────────────────────────────────────────────── */
+/* CHIP "Generado por Gemini" — vistoso, gradient brand            */
+/* ─────────────────────────────────────────────────────────────── */
+.x-chip-ia {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    background: linear-gradient(135deg, var(--xahni-cyan, #00d4ff), var(--xahni-purple, #8b2be2));
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow:
+        0 2px 8px rgba(139, 43, 226, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    user-select: none;
+}
+.x-chip-ia::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: x-chip-ia-shimmer 4.5s linear infinite;
+    pointer-events: none;
+}
+@keyframes x-chip-ia-shimmer {
+    0%   { left: -100%; }
+    50%  { left: 100%; }
+    100% { left: 100%; }
+}

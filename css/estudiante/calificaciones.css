@@ -1,0 +1,231 @@
+/* ══════════════════════════════════════════════════════════
+   ESTUDIANTE — Calificaciones (C7 rework)
+   Twin visual de css/profesor/escala.css (tabs comparten estilo
+   vía selector dual .escala-tab,.cal-tab). Componentes locales:
+   .cal-tab-row, .cal-resumen, .cal-criterio-*.
+
+   NOTA: las clases .cal-filtros-group/.cal-filtro-btn que vivían aquí
+   se mantienen en css/estudiante/hub-aprendizaje.css (las usa el subtab
+   "Mis Archivos" del hub-materia, ver views/estudiante/aprendizaje.html);
+   migrarlas a .x-tabs es deuda separada. No reintroducirlas aquí.
+══════════════════════════════════════════════════════════ */
+
+/* ── Filas de tabs (materias + parciales) ─────────────────── */
+.cal-tab-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.cal-tab-row--sub {
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+/* .cal-tab hereda íntegramente el visual de .escala-tab (definida en
+   css/profesor/escala.css, cargada después). Mantenemos `flex: 1` heredado
+   para que cada fila ocupe el ancho completo distribuyendo los tabs
+   equitativamente — mismo comportamiento que la vista "Escala de
+   evaluación" del profesor. La fila --sub solo afina padding/font para
+   los parciales (tabs cortos P1/P2/P3 con sub-label numérico). */
+.cal-tab-row--sub .cal-tab {
+    padding: 8px 14px;
+}
+.cal-tab-row--sub .cal-tab > span:first-child {
+    font-size: var(--text-size-sm);
+}
+
+/* ── Scroll mode para 4+ materias ─────────────────────────── */
+/* Wrapper relativo; las flechas son botones absolutos. JS activa el modifier
+   --active cuando _calMaterias.length > 3. Sin --active: layout normal twin
+   profesor (≤3 materias estiradas a full width). */
+.cal-tab-scroll {
+    position: relative;
+    margin-bottom: 12px;
+}
+.cal-tab-scroll > .cal-tab-row {
+    margin-bottom: 0;
+}
+.cal-tab-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-2);
+    border: 1px solid var(--border-bright);
+    border-radius: 99px;
+    color: var(--text-secondary);
+    font-size: var(--text-size-lg);
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+.cal-tab-arrow:hover {
+    background: var(--surface-3);
+    color: var(--text-primary);
+    border-color: var(--xahni-blue);
+}
+.cal-tab-arrow[hidden] { display: none; }
+.cal-tab-arrow--prev { left: -6px; }
+.cal-tab-arrow--next { right: -6px; }
+
+/* Activado por JS cuando count > 3 */
+.cal-tab-scroll--active .cal-tab-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 2px 32px;
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0,
+        #000 24px,
+        #000 calc(100% - 24px),
+        transparent 100%
+    );
+            mask-image: linear-gradient(
+        to right,
+        transparent 0,
+        #000 24px,
+        #000 calc(100% - 24px),
+        transparent 100%
+    );
+}
+.cal-tab-scroll--active .cal-tab-row::-webkit-scrollbar { display: none; }
+.cal-tab-scroll--active .cal-tab-row > .cal-tab {
+    flex: 0 0 auto;
+    min-width: 140px;
+}
+
+/* ── Card resumen del parcial ─────────────────────────────── */
+.cal-resumen {
+    padding: 18px 20px;
+}
+.cal-resumen-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+.cal-resumen-title {
+    font-family: var(--font-display);
+    font-size: var(--text-size-lg);
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+.cal-resumen-grupo {
+    font-family: var(--font-sans);
+    font-size: var(--text-size-xs);
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-left: 6px;
+}
+.cal-resumen-override {
+    font-size: var(--text-size-xs);
+    color: var(--state-warn);
+    margin-top: 4px;
+}
+.cal-resumen-num {
+    font-family: var(--font-mono);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    flex-shrink: 0;
+}
+.cal-resumen-num-max {
+    font-size: var(--text-size-md);
+    color: var(--text-muted);
+    font-weight: 500;
+}
+.cal-resumen-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+/* ── Card de criterios ────────────────────────────────────── */
+.cal-criterios-card {
+    padding: 18px 20px;
+}
+.cal-criterios-head {
+    font-size: var(--text-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+}
+.cal-criterios-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* ── Fila de criterio ─────────────────────────────────────── */
+.cal-criterio-row {
+    display: grid;
+    grid-template-columns: 10px 1fr auto;
+    gap: 12px;
+    align-items: center;
+}
+.cal-criterio-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    align-self: center;
+}
+.cal-criterio-info {
+    min-width: 0;
+}
+.cal-criterio-nombre {
+    font-size: var(--text-size-sm);
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.cal-criterio-ovr {
+    color: var(--state-warn);
+    font-size: var(--text-size-xs);
+    cursor: help;
+}
+.cal-criterio-bar {
+    height: 6px;
+}
+.cal-criterio-num {
+    text-align: right;
+    flex-shrink: 0;
+    min-width: 64px;
+}
+.cal-criterio-puntos {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+}
+.cal-criterio-puntos-max {
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+    font-weight: 500;
+}
+.cal-criterio-pct {
+    font-family: var(--font-mono);
+    font-size: var(--text-size-2xs);
+    color: var(--text-muted);
+    margin-top: 3px;
+}

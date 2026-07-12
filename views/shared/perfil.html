@@ -1,0 +1,248 @@
+          <div class="gamer-placeholder">
+            <div class="gamer-ph-icon">🎮</div>
+            <div class="gamer-ph-title">Modo estándar · En desarrollo</div>
+            <div class="gamer-ph-desc">Esta vista será rediseñada para una experiencia más sobria. Activa el <strong>Gamer mode</strong> para ver el contenido actual.</div>
+          </div>
+          <!-- BANNER CINEMÁTICO -->
+          <div class="perfil-banner perfil-fade-in">
+            <div class="perfil-banner-bg"></div>
+            <div class="perfil-banner-grid"></div>
+            <div class="perfil-banner-particles" id="perfil-particles"></div>
+            <div class="perfil-banner-shine"></div>
+            <div class="perfil-banner-emblem" id="perfil-banner-emblem" data-role-hide="admin">🏆</div>
+          </div>
+
+          <!-- HERO: AVATAR + INFO + STATS RÁPIDAS -->
+          <div class="x-card perfil-hero-v2 perfil-fade-in">
+            <!-- Avatar (marco overlay + foto) -->
+            <div class="perfil-avatar-wrap">
+              <!-- Marco decorativo (se inyecta por JS via _renderAvatarFromState → getAvatarDisplay) -->
+              <div
+                class="avatar-marco-overlay"
+                id="avatar-marco-overlay"
+              ></div>
+              <div
+                class="perfil-avatar-v2"
+                id="perfil-avatar"
+                onclick="openModal('modal-avatar-selector')"
+                style="cursor: pointer"
+                title="Cambiar avatar"
+              >
+                JP
+              </div>
+              <div class="x-chip x-chip--info perfil-level-badge" id="perfil-level-badge" data-role-hide="admin">
+                NIV. 15
+              </div>
+            </div>
+
+            <!-- Info -->
+            <div class="perfil-info-v2">
+              <div class="perfil-name-v2" id="perfil-name">Juan Pérez</div>
+              <div
+                class="perfil-title-tag perfil-title-clickable"
+                id="perfil-title-tag"
+                data-role-hide="admin"
+                onclick="openModal('modal-titulo-selector')"
+                title="Cambiar título"
+              >
+                ⚔️ Campeón de Torneos
+                <span class="perfil-title-edit-hint">✎</span>
+              </div>
+              <div class="perfil-role-v2" id="perfil-role">
+                Estudiante · Ingeniería en Sistemas Computacionales
+              </div>
+              <div class="perfil-xp-bar-wrap" data-role-hide="admin">
+                <span class="perfil-xp-label" id="perfil-xp-label"
+                  >1,250 / 1,500 XP</span
+                >
+                <div class="x-progress" style="flex:1;max-width:200px;height:4px">
+                  <div
+                    class="x-progress__fill"
+                    id="perfil-xp-fill"
+                    style="width: 83%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Stats (oculto para admin: gamificación pura) -->
+            <div class="x-grid" data-role-hide="admin">
+              <div class="x-stat">
+                <div class="x-stat__num" id="perfil-pts">1,250</div>
+                <div class="x-stat__label">Puntos XP</div>
+              </div>
+              <div class="x-stat">
+                <div class="x-stat__num" id="perfil-niv">15</div>
+                <div class="x-stat__label">Nivel</div>
+              </div>
+              <div class="x-stat">
+                <div class="x-stat__num" id="perfil-med">8</div>
+                <div class="x-stat__label">Logros</div>
+              </div>
+              <div class="x-stat">
+                <div class="x-stat__num" id="perfil-torn">3</div>
+                <div class="x-stat__label" id="perfil-torn-label">Torneos</div>
+              </div>
+              <div class="x-stat">
+                <div class="x-stat__num" id="perfil-rank">#5</div>
+                <div class="x-stat__label" id="perfil-rank-label">Ranking</div>
+              </div>
+              <div class="x-stat perfil-qs-rango" id="perfil-qs-rango">
+                <div class="x-stat__num" id="perfil-qs-rango-emoji">🥇</div>
+                <div class="x-stat__label" id="perfil-qs-rango-label">
+                  Oro
+                </div>
+              </div>
+            </div>
+
+            <!-- Botones (avatar/banner/vista-pública: gamificación, oculto para admin) -->
+            <!-- Botón Editar removido 2026-06-06: solo admin edita nombre/email
+                 de los usuarios desde su vista; estudiantes/profesores no -->
+            <div class="perfil-action-btns" data-role-hide="admin">
+              <button
+                class="x-btn x-btn--ghost"
+                style="font-size: 12px"
+                onclick="openModal('modal-avatar-selector')"
+              >
+                🧑 Avatar
+              </button>
+              <button
+                class="x-btn x-btn--ghost"
+                style="font-size: 12px"
+                onclick="openModal('modal-banner-selector')"
+              >
+                🖼️ Banner
+              </button>
+              <button
+                class="x-btn x-btn--ghost"
+                style="font-size: 12px"
+                onclick="openModalPerfilPublico()"
+              >
+                👁️ Vista pública
+              </button>
+              <button
+                class="x-btn x-btn--ghost"
+                style="font-size: 12px"
+                onclick="showToast('Configuración de privacidad', 'info')"
+              >
+                🔒
+              </button>
+            </div>
+          </div>
+
+          <!-- TROFEOS Y COMPETENCIAS GANADAS (oculto para administradores y profesores) -->
+          <div class="trofeos-section perfil-fade-in" id="trofeos-section" data-role-hide="admin">
+            <div class="perfil-section-header">
+              <div class="perfil-section-title">🏆 Competencias Ganadas</div>
+              <div class="perfil-section-badge" id="trofeos-count">
+                3 Torneos
+              </div>
+            </div>
+            <div class="trofeos-grid" id="trofeos-grid"></div>
+          </div>
+
+          <!-- SISTEMA DE RANGOS (oculto para admin) -->
+          <div class="perfil-fade-in" id="rango-section" data-role-hide="admin"></div>
+
+          <!-- GRID PRINCIPAL: COMPETENCIAS INDIVIDUALES + DESTAQUE GRUPO (oculto entero para admin) -->
+          <div class="perfil-main-grid" data-role-hide="admin">
+            <!-- WIDGET "Maestrías destacadas" (Slice H1 B.1 · solo alumno; primer hijo del grid para heredar gap) -->
+            <div class="perfil-fade-in" id="perfil-maestrias-widget" style="grid-column: 1 / -1"></div>
+
+            <!-- Comparativa vs Promedio del Grupo -->
+            <div class="x-card perfil-fade-in" style="grid-column: 1 / -1">
+              <div class="card-header">
+                <span class="card-title"
+                  >📊 Comparativa vs Promedio del Grupo</span
+                >
+                <span style="font-size: 11px; color: var(--text-muted)"
+                  >ISC — 3er Semestre A</span
+                >
+              </div>
+              <div id="comparativa-grupo-wrap"></div>
+            </div>
+
+            <!-- Áreas de destaque individual (oculto para administradores) -->
+            <div class="x-card perfil-fade-in" id="areas-destaque-section" style="grid-column: 1 / -1">
+              <div class="card-header">
+                <span class="card-title">⚡ Mis Áreas de Destaque</span>
+                <span style="font-size: 11px; color: var(--text-muted)"
+                  >Rendimiento por materia</span
+                >
+              </div>
+              <div
+                class="competencias-destaque-grid"
+                id="competencias-destaque-grid"
+              ></div>
+            </div>
+
+            <!-- Destaque del grupo -->
+            <div class="grupo-destaque-card perfil-fade-in">
+              <div class="grupo-header">
+                <div class="grupo-name-badge">
+                  <div class="grupo-icon">👥</div>
+                  <div>
+                    <div class="grupo-label">Mi Grupo</div>
+                    <div class="grupo-nombre" id="grupo-nombre">
+                      ISC — 3er Semestre A
+                    </div>
+                  </div>
+                </div>
+                <div class="grupo-ranking-chip">
+                  <div class="grupo-rank-num" id="grupo-rank">#2</div>
+                  <div class="grupo-rank-label">en el<br />campus</div>
+                </div>
+              </div>
+              <div class="grupo-materias-list" id="grupo-materias-list"></div>
+            </div>
+
+            <!-- Actividad reciente -->
+            <div class="x-card perfil-fade-in">
+              <div class="card-header">
+                <span class="card-title">📡 Actividad Reciente</span>
+              </div>
+              <div class="x-timeline" id="perfil-actividad"></div>
+            </div>
+          </div>
+
+          <!-- STACK DE MUROS (Logros + Insignias + Reconocimientos) oculto para admin
+               Wrapper con flex column + gap para separación vertical consistente -->
+          <div class="perfil-walls-stack" data-role-hide="admin">
+
+          <!-- MURO DE LOGROS / MEDALLAS -->
+          <div class="x-card perfil-fade-in">
+            <div class="card-header">
+              <span class="card-title">🎖️ Muro de Logros</span>
+              <span
+                id="logros-counter"
+                style="font-size: 11px; color: var(--text-muted)"
+              ></span>
+            </div>
+            <div class="x-grid" id="medallas-grid"></div>
+          </div>
+
+          <!-- INSIGNIAS DE COLABORACIÓN -->
+          <div class="x-card perfil-fade-in">
+            <div class="card-header">
+              <span class="card-title">🤝 Insignias de Colaboración</span>
+              <span
+                id="insignias-counter"
+                style="font-size: 11px; color: var(--text-muted)"
+              ></span>
+            </div>
+            <div id="insignias-colaboracion-grid"></div>
+          </div>
+
+          <!-- MURO DE RECONOCIMIENTOS -->
+          <div class="x-card perfil-fade-in">
+            <div class="card-header">
+              <span class="card-title">💬 Muro de Reconocimientos</span>
+              <button class="x-btn x-btn--ghost" style="font-size:12px" onclick="openModal('modal-dar-kudo')">
+                + Dar reconocimiento
+              </button>
+            </div>
+            <div id="muro-reconocimientos-list"></div>
+          </div>
+
+          </div>
+          <!-- /perfil-walls-stack -->

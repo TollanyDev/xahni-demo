@@ -1,0 +1,162 @@
+/* ══════════════════════════════════════════════════════════
+   ADMIN — Gestión de Instituciones
+══════════════════════════════════════════════════════════ */
+
+/* Resumen de métricas específico para instituciones */
+#instituciones-resumen {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    transition: all 0.3s ease;
+}
+
+/* Animación de actualización de métricas */
+#instituciones-resumen .metric-card {
+    animation: fadeInMetric 0.4s ease;
+}
+
+@keyframes fadeInMetric {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Efecto de pulso en valores actualizados */
+#instituciones-resumen .metric-value {
+    transition: all 0.3s ease;
+}
+
+#instituciones-resumen.updating .metric-value {
+    animation: pulseValue 0.5s ease;
+}
+
+@keyframes pulseValue {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+        color: var(--accent-cyan-text);
+    }
+}
+
+@media (max-width: 1200px) {
+    #instituciones-resumen {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    #instituciones-resumen {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tabla de instituciones - alineamiento */
+#view-gestion-instituciones .data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#view-gestion-instituciones .data-table th,
+#view-gestion-instituciones .data-table td {
+    padding: 12px 14px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+#view-gestion-instituciones .data-table td.name > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#view-gestion-instituciones .data-table td.name > div > div:first-child {
+    flex-shrink: 0;
+}
+
+/* Animación suave al cargar filas */
+#instituciones-tbody tr {
+    animation: fadeInRow 0.3s ease;
+}
+
+@keyframes fadeInRow {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover mejorado en filas de instituciones */
+#instituciones-tbody tr:hover {
+    background: var(--surface-2);
+    transition: all 0.2s ease;
+}
+
+/* Badges de tipo de institución con iconos */
+#view-gestion-instituciones .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Filtros responsivos */
+#view-gestion-instituciones .topbar-search,
+#view-gestion-instituciones .form-select {
+    transition: all 0.2s ease;
+}
+
+#view-gestion-instituciones .topbar-search:focus-within {
+    box-shadow: 0 0 0 3px var(--xahni-blue-dim);
+}
+
+/* Modales de instituciones - ajustes específicos */
+#modal-nueva-institucion .modal,
+#modal-editar-institucion .modal {
+    max-width: 480px;
+}
+
+/* Indicador visual de estado en la tabla */
+#instituciones-tbody tr[id*="institucion-row"] {
+    position: relative;
+}
+
+#instituciones-tbody tr:hover {
+    background: var(--surface-2);
+    transition: all 0.2s ease;
+}
+
+/* Estilos para métricas de recursos en tabla */
+#view-gestion-instituciones .data-table td > div[style*="font-family:var(--font-mono)"] {
+    display: flex;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: var(--text-size-xs);
+    color: var(--text-muted);
+}
+
+/* Responsive: ocultar columnas en móvil */
+@media (max-width: 768px) {
+    #view-gestion-instituciones .data-table th:nth-child(5),
+    #view-gestion-instituciones .data-table td:nth-child(5) {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    #view-gestion-instituciones .data-table th:nth-child(3),
+    #view-gestion-instituciones .data-table td:nth-child(3),
+    #view-gestion-instituciones .data-table th:nth-child(4),
+    #view-gestion-instituciones .data-table td:nth-child(4) {
+        display: none;
+    }
+}

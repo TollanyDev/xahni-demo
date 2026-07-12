@@ -1,0 +1,115 @@
+          <div class="x-page-head">
+            <div>
+              <div class="x-page-head__title">
+                Bienvenido, <em id="welcome-name">Juan</em> 👋
+              </div>
+              <div class="x-page-head__subtitle" id="welcome-sub">
+                Martes 17 de marzo · Sprint 1 activo
+              </div>
+            </div>
+          </div>
+
+          <!-- Card destacado (compartido: estudiante y profesor) -->
+          <div id="dash-hero" style="margin-bottom:20px"></div>
+
+          <!-- Professor dashboard content (shown for profesor role) -->
+          <div id="dash-prof-content" style="display:none"></div>
+
+          <!-- Student dashboard content (hidden for non-student roles) -->
+          <div id="dash-est-content">
+          <!-- KPIs del estudiante (rellenado por initEstudianteDashboard → _buildEstKPIs) -->
+          <div id="est-kpis" style="margin-bottom:20px"></div>
+
+          <div class="x-actions" id="dash-accesos" style="margin-bottom:20px">
+            <button class="x-btn x-btn--primary" onclick="showView('tareas-alumno')">
+              <span>📝</span> Entregar tarea
+            </button>
+            <!-- C8b-E1: 'calificaciones-alumno' eliminado. Calificaciones vive en hub-materia (requiere materia seleccionada). Redirige al hub; el alumno elige materia. -->
+            <button class="x-btn x-btn--danger" onclick="showView('aprendizaje')">
+              ⚠️ Materias en riesgo
+              <span class="x-btn__badge" id="dash-acc-riesgo-badge">0</span>
+            </button>
+            <button class="x-btn x-btn--ghost" onclick="showView('aprendizaje')">
+              <span>📚</span> Mis materias
+            </button>
+          </div>
+
+          <div class="grid-2" style="margin-bottom: 20px">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Progreso por materia</span>
+                <button class="card-action" onclick="showView('aprendizaje')">
+                  Ver todas →
+                </button>
+              </div>
+              <div id="progress-bars"></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Tareas próximas a vencer</span>
+                <button class="card-action" onclick="showView('aprendizaje')">
+                  Ver todas →
+                </button>
+              </div>
+              <div id="dash-tareas-preview"></div>
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-bottom: 20px">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Actividad XP semanal</span>
+              </div>
+              <div
+                class="chart-bar-wrap"
+                style="height: 120px"
+                id="chart-bars"
+              ></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Actividad reciente</span>
+              </div>
+              <div id="activity-list"></div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div
+                class="card-header"
+                style="align-items: center; gap: 12px; flex-wrap: wrap"
+              >
+                <span class="card-title" id="dash-ranking-titulo"
+                  >Ranking del grupo</span
+                >
+                <div class="ranking-toggle-wrap" style="margin-left: 0">
+                  <button
+                    class="ranking-toggle-btn active"
+                    id="dash-btn-grupo"
+                    onclick="switchDashRanking('grupo')"
+                  >
+                    👥 Grupo
+                  </button>
+                  <button
+                    class="ranking-toggle-btn"
+                    id="dash-btn-carrera"
+                    onclick="switchDashRanking('carrera')"
+                  >
+                    🎓 Carrera
+                  </button>
+                </div>
+                <!-- C8b-E1: 'competencias' eliminado. Vive como tab del hub-grupo. Redirige al hub-aprendizaje y auto-switch al tab competencias. -->
+                <button
+                  class="card-action"
+                  style="margin-left: auto"
+                  onclick="showView('aprendizaje'); setTimeout(() => { if (typeof hubGrupoSwitchTab === 'function') hubGrupoSwitchTab('competencias'); }, 100);"
+                >
+                  Ver completo →
+                </button>
+              </div>
+              <div id="ranking-preview"></div>
+            </div>
+          </div>
+
+          </div><!-- /dash-est-content -->

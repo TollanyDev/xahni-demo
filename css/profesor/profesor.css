@@ -1,0 +1,88 @@
+/* ══════════════════════════════════════════════════════════
+   PROFESOR — Estilos Sprint 2
+   Toca solo elementos nuevos del rol docente.
+   No modifica ninguna clase existente del proyecto.
+══════════════════════════════════════════════════════════ */
+
+/* ── Botón de acción compacto ───────────────────────────── */
+.prof-accion-btn {
+    width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    cursor: pointer; font-size: var(--text-size-sm);
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+.prof-accion-btn:hover { background: var(--surface-3); border-color: var(--border-bright); }
+
+.prof-btn-sm {
+    padding: 5px 10px; border-radius: var(--r-sm);
+    font-family: var(--font-sans); font-size: var(--text-size-xs); font-weight: 500;
+    cursor: pointer; transition: var(--transition); white-space: nowrap;
+}
+.prof-btn-sm.blue  { background: var(--xahni-blue-dim); border: 1px solid var(--xahni-blue); color: var(--xahni-blue-light); }
+.prof-btn-sm.blue:hover  { background: var(--xahni-blue); color: white; }
+.prof-btn-sm.ghost { background: none; border: 1px solid var(--border-bright); color: var(--text-muted); }
+.prof-btn-sm.ghost:hover { background: var(--surface-2); color: var(--text-primary); }
+
+/* ── Stats dentro de tarjetas de materia ───────────────── */
+.prof-stat-val { display:block; font-family:var(--font-mono); font-size:15px; font-weight:700; color:var(--text-primary); line-height:1; }
+.prof-stat-lbl { font-size: var(--text-size-2xs); color:var(--text-muted); text-transform:uppercase; letter-spacing:.04em; margin-top:2px; display:block; }
+
+/* ══════════════════════════════════════════════════════════
+   INPUT DE CALIFICACIÓN INLINE (P1)
+══════════════════════════════════════════════════════════ */
+.cal-input {
+    width: 68px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    padding: 6px 8px;
+    font-family: var(--font-mono);
+    font-size: var(--text-size-sm);
+    color: var(--text-primary);
+    text-align: center;
+    outline: none;
+    transition: var(--transition);
+}
+.cal-input:focus-visible { background: var(--surface-3); outline: 2px solid var(--x-focus-ring-color); outline-offset: 2px; }
+.cal-input::placeholder { color: var(--text-muted); }
+.cal-input::-webkit-inner-spin-button { opacity: 0; }
+
+/* ── Modal ancho extra (compartido) ─────────────────────── */
+.modal-lg { width: 540px; max-width: 94vw; }
+
+/* ── Responsive compartido ──────────────────────────────── */
+@media (max-width: 768px) {
+    .modal-lg  { width: 96vw; }
+    .rec-item  { flex-wrap: wrap; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   Slice pre-c10 #10 — stubs juegos/competencias profesor (D1)
+   Identidad: creator-economy (juegos) + versus invertido (comps).
+   Componentes scoped a .comps-stub-* y .juegos-stub-*.
+   Plan: docs/superpowers/plans/2026-05-27-rework-pre-c10-10-stubs-juegos-competencias.md
+══════════════════════════════════════════════════════════ */
+
+/* Bloque .comps-stub-* migrado a css/core/components.css (Epic A.4.b 2026-05-28)
+   Origen: slice #10 profesor 2026-05-27. Movido a components.css por
+   tener consumidor adicional en estudiante (POV alumno: solicitudes
+   recibidas + duelos activos con labels CREA/JUEGA explícitos). */
+
+/* Bloque .juegos-stub-* migrado a css/core/components.css (Epic A.4.a 2026-05-28)
+   Origen: slice #10 profesor 2026-05-27. Movido a components.css por
+   tener consumidor adicional en estudiante (espejo POV alumno con cuota
+   1/tema visto + matiz creator-secundario). */
+
+/* ══════════════════════════════════════════════════════════
+   Slice pre-c10 #11 — stub examenes profesor (D4)
+   Identidad: 3 tipos pregunta (multiple choice + abierta + match).
+   Plan: docs/superpowers/plans/2026-05-27-rework-pre-c10-11-stub-examenes.md
+══════════════════════════════════════════════════════════ */
+
+/* Bloque .examenes-stub-* migrado a css/core/components.css (Epic A.4.c 2026-05-28)
+   Origen: slice #11 profesor 2026-05-27. Movido por consumidor adicional
+   en estudiante (POV alumno: lista Disponibles/En curso/Pasados). */

@@ -1,0 +1,149 @@
+/* ══════════════════════════════════════════════════════════
+   REVIEW RESPUESTAS CORRECTAS · Slice A · 2026-06-08
+   Family .x-review-* canónica para mostrar review de respuestas
+   post-attempt (examen + juegos). Consume tokens semánticos
+   state-* (verde/rojo/ámbar) — NO la cascada cyan/dark-panel
+   del pivote gamer-rich (memoria project_pivote_gamer_rich_progreso.md).
+   Spec: docs/superpowers/specs/2026-06-08-review-respuestas-correctas-design.md
+══════════════════════════════════════════════════════════ */
+
+.x-review { display: flex; flex-direction: column; gap: 20px; padding: 4px; }
+
+.x-review__num {
+    font-size: var(--text-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.x-review__text {
+    color: var(--text-primary);
+    font-size: var(--text-size-lg);
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.x-review__chip {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 99px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-left: 6px;
+}
+.x-review__chip--ok       { background: var(--state-ok-dim); color: var(--state-ok); border: 1px solid var(--state-ok-border); }
+.x-review__chip--bad      { background: var(--state-danger-dim); color: var(--state-danger); border: 1px solid var(--state-danger-border); }
+.x-review__chip--pending  { background: var(--state-warn-dim); color: var(--state-warn); border: 1px solid var(--state-warn-border); }
+
+.x-review__opt {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px;
+    border-radius: var(--r-sm);
+    font-size: var(--text-size-md);
+    line-height: 1.4;
+    border: 1px solid transparent;
+}
+.x-review__opt--correct       { background: var(--state-ok-dim); color: var(--state-ok); border-color: var(--state-ok-border); }
+.x-review__opt--your-correct  { background: var(--state-ok-dim); color: var(--state-ok); border-color: var(--state-ok); }
+.x-review__opt--your-wrong    { background: var(--state-danger-dim); color: var(--state-danger); border-color: var(--state-danger-border); text-decoration: line-through; }
+.x-review__opt--neutral       { color: var(--text-muted); }
+
+.x-review__your-text {
+    background: var(--surface-2);
+    border-left: 2px solid var(--text-muted);
+    padding: 10px 14px;
+    border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: var(--text-size-md);
+}
+.x-review__pending-msg { font-size: var(--text-size-xs); color: var(--state-warn); margin-top: 8px; }
+
+.x-review__pairs { display: flex; flex-direction: column; gap: 8px; }
+.x-review__pair-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: var(--r-sm);
+    border: 1px solid transparent;
+}
+.x-review__pair-row.is-ok  { background: var(--state-ok-dim); border-color: var(--state-ok-border); }
+.x-review__pair-row.is-bad { background: var(--state-danger-dim); border-color: var(--state-danger-border); }
+.x-review__pair-correct { font-size: var(--text-size-xs); color: var(--state-ok); }
+.x-review__pair-left { color: var(--text-primary); font-weight: 600; }
+.x-review__pair-right { color: var(--text-primary); }
+.x-review__pair-arrow { color: var(--text-muted); font-weight: 700; }
+
+.x-review__nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+.x-review__counter { color: var(--text-secondary); font-size: var(--text-size-sm); font-weight: 600; }
+.x-review__actions { text-align: center; padding-top: 8px; }
+
+/* ══════════════════════════════════════════════════════════
+   SUB-SLICE B · 2026-06-08 · Flashcards + Verdadero-Falso
+   Extensión de la family .x-review-* para los 2 tipos
+   adicionales que solo viven en juegos.
+══════════════════════════════════════════════════════════ */
+
+/* Flashcards */
+.x-review__label {
+    display: block;
+    font-size: var(--text-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.x-review__correct-text {
+    background: var(--state-ok-dim);
+    border-left: 2px solid var(--state-ok);
+    padding: 10px 14px;
+    border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    color: var(--state-ok);
+    font-weight: 600;
+    font-size: var(--text-size-md);
+}
+.x-review__fc-your, .x-review__fc-correct { display: flex; flex-direction: column; gap: 4px; }
+
+/* Verdadero-Falso */
+.x-review__vf {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0;
+}
+.x-review__vf-badge {
+    padding: 16px;
+    text-align: center;
+    font-weight: 700;
+    font-size: var(--text-size-md);
+    letter-spacing: 0.06em;
+    border-radius: var(--r-md);
+    border: 2px solid var(--border);
+    color: var(--text-muted);
+}
+.x-review__vf-badge.is-correct {
+    background: var(--state-ok-dim);
+    border-color: var(--state-ok);
+    color: var(--state-ok);
+}
+.x-review__vf-badge.is-your:not(.is-correct) {
+    background: var(--state-danger-dim);
+    border-color: var(--state-danger);
+    color: var(--state-danger);
+    text-decoration: line-through;
+}
+.x-review__vf-hint {
+    font-size: var(--text-size-sm);
+    color: var(--text-secondary);
+    margin-top: 6px;
+}

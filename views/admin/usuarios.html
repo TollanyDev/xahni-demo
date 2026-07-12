@@ -1,0 +1,40 @@
+          <div class="x-page-head">
+            <div>
+              <div class="x-page-head__title">Gestión de <em>usuarios</em></div>
+              <div class="x-page-head__subtitle">Administra cuentas y permisos</div>
+            </div>
+            <div class="x-page-head__actions">
+              <div style="display:flex;align-items:center;gap:10px;background:var(--surface-1);border:1px solid var(--border);border-radius:var(--r-md);padding:7px 12px">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;color:var(--text-muted)">
+                  <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input type="text" placeholder="Buscar usuario…"
+                       style="background:none;border:none;outline:none;color:var(--text-primary);font-family:var(--font-sans);font-size:13px;width:160px">
+              </div>
+              <select id="usuarios-filtro-rol"
+                      style="background:var(--surface-1);border:1px solid var(--border);border-radius:var(--r-md);padding:8px 12px;font-family:var(--font-sans);font-size:13px;color:var(--text-primary);cursor:pointer;outline:none;min-width:140px">
+                <option>Todos los roles</option>
+                <option>Estudiante</option>
+                <option>Profesor</option>
+                <option>Admin</option>
+              </select>
+              <button class="x-btn x-btn--primary" onclick="openModal('modal-nuevo-usuario')">
+                <span>＋</span> Nuevo usuario
+              </button>
+            </div>
+          </div>
+          <div class="card">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Usuario</th>
+                  <th>Correo</th>
+                  <th>Rol</th>
+                  <th>Nivel</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="usuarios-tbody"></tbody>
+            </table>
+          </div>

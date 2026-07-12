@@ -1,0 +1,397 @@
+/* ════════════════════════════════════════════════════════════
+   hub-grupo · tab "Mi grupo" (C8b Slice B.2)
+   Bespoke local; promover a patterns.css solo cuando emerja
+   segundo consumidor (probable C9 profesor).
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Header pill (gamer-on) ── */
+.hub-head__mode-pill {
+  font-size: var(--text-size-2xs);
+  padding: 5px 12px;
+  border-radius: 99px;
+  background: linear-gradient(135deg, var(--xahni-blue), var(--xahni-purple));
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: 0 0 12px rgba(139, 43, 226, 0.3);
+}
+
+/* ── Section title dentro de cards ── */
+.hub-grupo-section-title {
+  font-size: var(--text-size-xs);
+  font-weight: 700;
+  margin: 14px 0 8px;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── Periodo full-width (gamer-on) ── */
+.hub-grupo-periodo-full {
+  padding: 14px 18px;
+  margin-bottom: 14px;
+}
+.hub-grupo-periodo-full__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.hub-grupo-periodo-full__title {
+  font-size: var(--text-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+.hub-grupo-periodo-full__date {
+  font-size: var(--text-size-sm);
+  color: var(--text-primary);
+  margin-top: 2px;
+}
+.hub-grupo-periodo-full__badge {
+  font-size: var(--text-size-xs);
+  padding: 4px 10px;
+  border-radius: 99px;
+  background: rgba(88, 166, 255, 0.15);
+  color: var(--accent-cyan-text);
+  font-weight: 600;
+  border: 1px solid rgba(88, 166, 255, 0.3);
+}
+
+/* ── Barra de período (.hub-periodo-seg) — labels light mode ──
+   El widget rendea inline `color:#fff` + text-shadow oscuro sobre el
+   brand-gradient fill del segmento activo. En light mode el fill se
+   blanquea (gradient + surface-2 light = pastel) y el texto blanco
+   pierde legibilidad. Override aquí: en light + estado activo, los
+   labels (P{num} + "N sem · M% · S{k}") pasan a negro sin shadow.
+   Cerrado/futuro sin cambio: cerrado mantiene blanco sobre fill solid
+   (legible suficiente), futuro ya usa --text-muted desde el inline.
+   Importante: inline styles ganan especificidad sin !important. */
+body.light-mode .hub-periodo-seg[data-estado="activo"] span {
+  color: #000 !important;
+  text-shadow: none !important;
+}
+
+/* ── Perfil banner big (gamer-on) ── */
+.hub-grupo-perfil-banner-big {
+  height: 140px;
+  border-radius: var(--r-md);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, var(--xahni-blue), var(--xahni-purple));
+}
+.hub-grupo-perfil-banner-big::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.hub-grupo-perfil-banner-big__inner {
+  position: absolute;
+  inset: 0;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.hub-grupo-perfil-banner-big__emb { font-size: 60px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
+.hub-grupo-perfil-banner-big__name { font-family: var(--font-display); font-size: 24px; font-weight: 800; color: #fff; }
+.hub-grupo-perfil-banner-big__sub  { font-size: var(--text-size-xs); color: rgba(255,255,255,0.75); margin-top: 2px; }
+.hub-grupo-perfil-banner-big__stars { font-size: var(--text-size-lg); color: var(--xahni-amber); margin-top: 6px; text-shadow: 0 0 8px rgba(245,166,35,0.5); }
+.hub-grupo-perfil-banner-big__xp { margin-left: auto; text-align: right; }
+.hub-grupo-perfil-banner-big__xp-lbl { font-size: var(--text-size-2xs); color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.05em; }
+.hub-grupo-perfil-banner-big__xp-num { font-family: var(--font-mono); color: #fff; font-weight: 800; font-size: var(--text-size-xl); line-height: 1.1; }
+.hub-grupo-perfil-banner-big__xp-max { font-size: var(--text-size-xs); color: rgba(255,255,255,0.5); font-family: var(--font-mono); }
+
+/* ── XP progress (gamer-on) ── */
+.hub-grupo-xp-progress {
+  padding: 14px 16px;
+  background: var(--surface-1);
+  border-radius: var(--r-sm);
+  margin-bottom: 14px;
+}
+.hub-grupo-xp-progress__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: var(--text-size-xs);
+}
+.hub-grupo-xp-progress__num { font-family: var(--font-mono); color: var(--xahni-amber); font-weight: 700; }
+.hub-grupo-xp-progress__bar { height: 10px; background: var(--surface-3); border-radius: 99px; overflow: hidden; }
+.hub-grupo-xp-progress__bar > div { height: 100%; background: linear-gradient(90deg, var(--xahni-amber), #ff9500); border-radius: 99px; box-shadow: 0 0 12px rgba(245,166,35,0.4); }
+
+/* ── Badges big (gamer-on) ── */
+.hub-grupo-badges-big { display: flex; gap: 10px; flex-wrap: wrap; }
+.hub-grupo-badges-big__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  font-size: var(--text-size-xs);
+  font-weight: 600;
+}
+.hub-grupo-badges-big__item--amber { border-color: rgba(245,166,35,0.33); color: var(--xahni-amber); }
+.hub-grupo-badges-big__item--blue  { border-color: rgba(88,166,255,0.33);  color: var(--accent-cyan-text); }
+.hub-grupo-badges-big__item--green { border-color: rgba(86,211,100,0.33);  color: var(--xahni-green); }
+.hub-grupo-badges-big__icon { font-size: 20px; }
+
+/* ── Stats row ── */
+.hub-grupo-stats-row { display: flex; gap: 8px; margin-bottom: 14px; }
+.hub-grupo-stats-row .x-stat {
+  flex: 1;
+  padding: 12px 14px;
+  /* --surface-0 (más oscuro que --surface-1 del card padre) para que las
+     stat-cards se vean claramente "incrustadas" dentro de "Capa académica". */
+  background: var(--surface-0);
+  border-radius: var(--r-md);
+  align-items: center;
+  text-align: center;
+}
+.hub-grupo-stats-row .x-stat__num { font-size: 24px; font-weight: 800; line-height: 1.1; }
+.hub-grupo-stats-row .x-stat__label { font-size: var(--text-size-2xs); text-transform: uppercase; letter-spacing: 0.05em; }
+/* Modifier local: stat principal con color de marca (Promedio).
+   No es estado (no es ok/warn/danger), por eso no se canoniza global. */
+.hub-grupo-stat--blue .x-stat__num { color: var(--accent-cyan-text); }
+
+/* ── Miembro row ── */
+.hub-grupo-miembro {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  margin-bottom: 6px;
+  position: relative;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+body:not(.gamer-off) .hub-grupo-miembro { cursor: pointer; }
+body:not(.gamer-off) .hub-grupo-miembro:hover {
+  border-color: var(--xahni-cyan);
+  box-shadow: 0 0 0 1px var(--xahni-cyan), 0 4px 16px rgba(88,166,255,0.15);
+}
+.hub-grupo-miembro__info { flex: 1; min-width: 0; }
+.hub-grupo-miembro__name { font-size: var(--text-size-sm); font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hub-grupo-miembro__prom { font-family: var(--font-mono); font-weight: 700; color: var(--xahni-green); font-size: var(--text-size-sm); }
+.hub-grupo-miembro__prom--warn { color: var(--xahni-amber); }
+
+/* ── Avatar simple (gamer-off) ── */
+.hub-grupo-avatar-simple {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--xahni-cyan), var(--xahni-purple));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-size-xs);
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+/* ── Marco gamer (avatar + ring) ── */
+.hub-grupo-marco {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 2px;
+  flex-shrink: 0;
+}
+.hub-grupo-marco--epic   { background: conic-gradient(from 0deg, var(--xahni-amber), #ff9500, var(--xahni-amber)); }
+.hub-grupo-marco--rare   { background: conic-gradient(from 0deg, var(--xahni-cyan), var(--xahni-purple), var(--xahni-cyan)); }
+.hub-grupo-marco--common { background: linear-gradient(135deg, var(--surface-3), var(--border)); }
+.hub-grupo-marco__inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--xahni-cyan), var(--xahni-purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-size-sm);
+  font-weight: 700;
+  color: #fff;
+  border: 2px solid var(--surface-1);
+}
+
+/* ── Título debajo del nombre ── */
+.hub-grupo-titulo {
+  font-size: var(--text-size-2xs);
+  color: var(--xahni-amber);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 1px;
+}
+
+/* ── Slots (3 placeholders) ── */
+.hub-grupo-slots { display: flex; gap: 3px; flex-shrink: 0; }
+.hub-grupo-slot {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--surface-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-size-xs);
+}
+.hub-grupo-slot--empty { opacity: 0.3; color: var(--text-muted); }
+
+/* ── Flyout (gamer-on hover popup) ── */
+.hub-grupo-flyout {
+  position: absolute;
+  top: 0;
+  right: calc(100% + 10px);
+  width: 260px;
+  background: linear-gradient(180deg, var(--surface-2), var(--surface-1));
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 0;
+  box-shadow: var(--elev-2);
+  z-index: 10;
+  opacity: 0;
+  transform: translateX(8px);
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.hub-grupo-miembro[data-flyout="open"] .hub-grupo-flyout {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+.hub-grupo-flyout::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 100%;
+  border: 6px solid transparent;
+  border-left-color: var(--border);
+}
+.hub-grupo-flyout__banner {
+  height: 60px;
+  background: linear-gradient(135deg, var(--xahni-blue), var(--xahni-purple));
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+  position: relative;
+  overflow: hidden;
+}
+.hub-grupo-flyout__banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+.hub-grupo-flyout__head {
+  display: flex;
+  gap: 12px;
+  padding: 12px 14px;
+  align-items: flex-start;
+  margin-top: -30px;
+  position: relative;
+}
+.hub-grupo-flyout__avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--r-sm);
+  background: linear-gradient(135deg, var(--xahni-cyan), var(--xahni-purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  border: 2px solid var(--surface-2);
+  box-shadow: 0 0 0 1px var(--xahni-amber);
+  flex-shrink: 0;
+}
+.hub-grupo-flyout__meta { padding-top: 32px; }
+.hub-grupo-flyout__name { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+.hub-grupo-flyout__status {
+  font-size: var(--text-size-xs);
+  color: var(--accent-cyan-text);
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.hub-grupo-flyout__status::before { content: "●"; color: var(--xahni-green); }
+.hub-grupo-flyout__body { padding: 0 14px 14px; }
+.hub-grupo-flyout__row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+  font-size: var(--text-size-xs);
+  color: var(--text-muted);
+}
+.hub-grupo-flyout__row .icon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--r-xs);
+  background: rgba(245,166,35,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-size-md);
+  color: var(--xahni-amber);
+}
+.hub-grupo-flyout__row strong { display: block; color: var(--text-primary); font-size: var(--text-size-xs); font-weight: 600; }
+
+/* ── Multi-item (actividades colaborativas) ── */
+.hub-grupo-multi-item {
+  padding: 10px 12px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  margin-bottom: 6px;
+  font-size: var(--text-size-xs);
+}
+.hub-grupo-multi-item__head {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  color: var(--text-primary);
+  font-weight: 500;
+  line-height: 1.3;
+}
+.hub-grupo-multi-item__mats {
+  font-size: var(--text-size-2xs);
+  color: var(--text-muted);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.hub-grupo-more-link {
+  font-size: var(--text-size-2xs);
+  color: var(--accent-cyan-text);
+  text-align: center;
+  padding: 6px;
+  cursor: pointer;
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .hub-grupo-flyout { display: none; } /* touch no tiene hover */
+}
+
+/* ── Toggle gamermode (visibilidad de pill/sub) ── */
+body.gamer-off  .hub-head__mode-pill { display: none; }
+body:not(.gamer-off) .hub-head__sub  { display: none; }
